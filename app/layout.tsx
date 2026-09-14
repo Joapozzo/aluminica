@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aluminica-cordoba.fairy-moss-0464.chatgpt.site"),
+  metadataBase: new URL("https://aluminica-cordoba.pozzojoa.chatgpt.site"),
   title: "Aluminica | Herrería y carpintería de aluminio en Córdoba",
   description: "Soluciones integrales y a medida en herrería y carpintería de aluminio para obras, profesionales y hogares en Córdoba y Gran Córdoba.",
   keywords: ["herrería Córdoba", "carpintería de aluminio Córdoba", "estructuras metálicas", "pérgolas", "portones"],
