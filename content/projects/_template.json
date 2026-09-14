@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "status": "template",
+    "publicationReady": false
+  },
+  "slug": "{{PROJECT_SLUG}}",
+  "title": "{{PROJECT_TITLE}}",
+  "summary": "{{PROJECT_SUMMARY}}",
+  "location": null,
+  "year": null,
+  "services": [],
+  "challenge": "{{PROJECT_CHALLENGE}}",
+  "solution": "{{PROJECT_SOLUTION}}",
+  "result": "{{PROJECT_RESULT}}",
+  "coverAssetId": null,
+  "galleryAssetIds": [],
+  "featured": false,
+  "permissions": {
+    "clientNamePublic": false,
+    "mediaApproved": false
+  }
+}
+

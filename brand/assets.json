@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "status": "existing-with-client-awaiting-file-delivery",
+    "rule": "Components reference slot names. Do not hardcode asset paths."
+  },
+  "logo": {
+    "primary": {
+      "src": null,
+      "fallbackText": "ALUMINICA",
+      "intendedSurface": "light",
+      "status": "required"
+    },
+    "inverse": {
+      "src": null,
+      "fallbackText": "ALUMINICA",
+      "intendedSurface": "dark",
+      "status": "required"
+    },
+    "mark": {
+      "src": null,
+      "fallbackText": "A",
+      "status": "optional"
+    },
+    "monochrome": {
+      "src": null,
+      "fallbackText": "ALUMINICA",
+      "status": "required"
+    }
+  },
+  "favicon": {
+    "src": null,
+    "status": "required"
+  },
+  "socialShare": {
+    "src": null,
+    "status": "required",
+    "recommendedSize": "1200x630"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "status": "draft",
+    "publicationReady": false,
+    "requiredPlaceholdersRemaining": true
+  },
+  "hero": {
+    "eyebrow": "Herrería y carpintería de aluminio",
+    "heading": "Más de 50 años transformando proyectos en soluciones.",
+    "body": "Soluciones integrales y a medida para hogares y obras, con la experiencia y cercanía de una empresa familiar.",
+    "primaryActionLabel": "Consultar por WhatsApp",
+    "secondaryActionLabel": "Ver trabajos",
+    "mediaAssetId": null
+  },
+  "positioning": {
+    "heading": "Todo el proyecto, un solo equipo.",
+    "body": "Integramos herrería y carpintería de aluminio para simplificar la coordinación, acompañar cada decisión y resolver distintas necesidades con un mismo proveedor.",
+    "principles": [
+      "Más de 50 años de trayectoria familiar",
+      "Soluciones integrales y a medida",
+      "Asesoramiento y contacto directo"
+    ],
+    "mediaAssetId": null
+  },
+  "featuredProjects": {
+    "heading": "Trabajos que hablan por nosotros.",
+    "intro": "Una selección de soluciones realizadas para obras, remodelaciones y hogares.",
+    "projectSlugs": []
+  },
+  "capabilities": {
+    "heading": "Soluciones para cada parte del proyecto.",
+    "intro": "Combinamos aluminio y herrería para resolver distintas necesidades con un único proveedor.",
+    "serviceSlugs": [
+      "carpinteria-de-aluminio",
+      "frentes-de-asador",
+      "puertas-de-chapa",
+      "revestimientos-wpc",
+      "portones",
+      "rejas",
+      "pergolas",
+      "barandas",
+      "escaleras",
+      "estructuras-metalicas"
+    ]
+  },
+  "precision": {
+    "heading": "Experiencia que se adapta a cada proyecto.",
+    "body": "Más de cinco décadas de oficio se combinan con una mirada actual sobre el diseño, los materiales y las necesidades de cada obra.",
+    "evidence": [
+      {
+        "label": "Más de 50 años",
+        "detail": "Trayectoria familiar iniciada en la década de 1970",
+        "source": "client-questionnaire"
+      }
+    ],
+    "mediaAssetIds": []
+  },
+  "contact": {
+    "heading": "Conversemos sobre tu proyecto.",
+    "body": "Contanos qué necesitás y te asesoramos para encontrar una solución adecuada a tu obra o vivienda.",
+    "submitLabel": "Enviar consulta",
+    "requiredFields": ["name", "email", "message"]
+  }
+}

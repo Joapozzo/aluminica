@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "status": "draft",
+    "publicationReady": false
+  },
+  "siteName": "Aluminica",
+  "legalName": "{{LEGAL_NAME}}",
+  "descriptor": "Herrería y carpintería de aluminio",
+  "locale": "es-AR",
+  "primaryAction": {
+    "label": "Consultar por WhatsApp",
+    "href": "#contacto"
+  },
+  "navigation": [
+    { "label": "Proyectos", "href": "#proyectos" },
+    { "label": "Capacidades", "href": "#capacidades" },
+    { "label": "Proceso", "href": "#precision" },
+    { "label": "Contacto", "href": "#contacto" }
+  ],
+  "contact": {
+    "email": "{{PUBLIC_EMAIL}}",
+    "phone": "{{PUBLIC_PHONE}}",
+    "whatsapp": null,
+    "address": "{{PUBLIC_ADDRESS}}",
+    "hours": null
+  },
+  "social": [
+    {
+      "label": "Instagram",
+      "href": "https://www.instagram.com/_aluminica/",
+      "handle": "_aluminica",
+      "verificationStatus": "pending"
+    }
+  ],
+  "seo": {
+    "defaultTitle": "Aluminica | Herrería y carpintería de aluminio en Córdoba",
+    "defaultDescription": "Soluciones integrales y a medida en herrería y carpintería de aluminio para hogares, profesionales y obras en Córdoba y Gran Córdoba.",
+    "coverage": "Córdoba y Gran Córdoba"
+  }
+}

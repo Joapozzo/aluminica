@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "status": "template",
+    "publicationReady": false
+  },
+  "slug": "{{SERVICE_SLUG}}",
+  "name": "{{SERVICE_NAME}}",
+  "summary": "{{SERVICE_SUMMARY}}",
+  "applications": [],
+  "scope": [],
+  "mediaAssetId": null,
+  "priority": null
+}
+
