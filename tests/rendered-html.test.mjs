@@ -31,7 +31,9 @@ test("server-renders the Aluminica landing", async () => {
   assert.match(html, /<html lang="es"/i);
   assert.match(html, /<title>Aluminica \| Herrería y carpintería de aluminio en Córdoba<\/title>/i);
   assert.match(html, /Una obra\. Un equipo\. Todo el metal resuelto\./);
-  assert.match(html, /Balcones de la Plaza/);
+  assert.match(html, /Del plano/);
+  assert.match(html, /Estructuras que dibujan el cielo/);
+  assert.doesNotMatch(html, /Balcones de la Plaza|balcones-plaza/i);
   assert.match(html, /Empezamos en la década del 70/);
   assert.match(html, /La próxima pieza empieza con una conversación/);
   assert.match(html, /application\/ld\+json/);

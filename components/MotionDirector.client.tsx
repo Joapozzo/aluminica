@@ -12,6 +12,7 @@ export function MotionDirector() {
     let cancelled = false;
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
+      let removePointerMotion = () => {};
       const context = gsap.context(() => {
         gsap.from("[data-hero-line]", {
           yPercent: 115,
@@ -31,9 +32,27 @@ export function MotionDirector() {
           },
         });
         heroTimeline
-          .to("[data-hero-image]", { scale: 1.02, ease: "none" }, 0)
+          .to("[data-hero-image]", { scale: 1.03, yPercent: 5, ease: "none" }, 0)
           .to("[data-hero-wash]", { opacity: 0.88, ease: "none" }, 0)
-          .to("[data-hero-copy]", { yPercent: -16, opacity: 0.16, ease: "none" }, 0.44);
+          .to("[data-hero-copy]", { yPercent: -18, opacity: 0.08, ease: "none" }, 0.38)
+          .to('[data-depth-layer="1"]', { yPercent: -55, rotate: -7, ease: "none" }, 0)
+          .to('[data-depth-layer="2"]', { yPercent: 78, rotate: 9, ease: "none" }, 0)
+          .to('[data-depth-layer="3"]', { xPercent: 65, rotate: 18, ease: "none" }, 0)
+          .to("[data-hero-ticker]", { xPercent: -28, ease: "none" }, 0);
+
+        const hero = document.querySelector<HTMLElement>(".hero");
+        const depthLayers = gsap.utils.toArray<HTMLElement>("[data-depth-layer]");
+        if (hero && window.matchMedia("(pointer: fine)").matches) {
+          const onPointerMove = (event: PointerEvent) => {
+            const x = event.clientX / window.innerWidth - 0.5;
+            const y = event.clientY / window.innerHeight - 0.5;
+            depthLayers.forEach((layer, index) => {
+              gsap.to(layer, { x: x * (index + 1) * 18, y: y * (index + 1) * 12, duration: 0.8, ease: "power3.out", overwrite: "auto" });
+            });
+          };
+          hero.addEventListener("pointermove", onPointerMove);
+          removePointerMotion = () => hero.removeEventListener("pointermove", onPointerMove);
+        }
 
         gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
           gsap.from(element, {
@@ -45,17 +64,32 @@ export function MotionDirector() {
           });
         });
 
-        gsap.utils.toArray<HTMLElement>("[data-project-image]").forEach((element, index) => {
-          gsap.fromTo(
-            element,
-            { clipPath: index ? "inset(16% 0 0 28%)" : "inset(12% 8% 12% 8%)", y: index ? 70 : 0 },
-            {
-              clipPath: "inset(0% 0% 0% 0%)",
-              y: index ? -24 : 0,
-              ease: "none",
-              scrollTrigger: { trigger: ".project-stage", start: "top 85%", end: "bottom 42%", scrub: true },
-            },
-          );
+        gsap.fromTo("[data-visual-reveal]", { clipPath: "inset(18% 24% 18% 24% round 48%)", rotate: 3 }, {
+          clipPath: "inset(0% 0% 0% 0% round 0%)", rotate: 0, ease: "none",
+          scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
+        });
+        gsap.to("[data-depth-float]", {
+          yPercent: -90, rotate: 160, ease: "none",
+          scrollTrigger: { trigger: ".positioning", start: "top bottom", end: "bottom top", scrub: true },
+        });
+
+        const galleryTrack = document.querySelector<HTMLElement>("[data-gallery-track]");
+        if (galleryTrack && window.matchMedia("(min-width: 761px)").matches) {
+          const travel = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth + 48);
+          gsap.to(galleryTrack, {
+            x: () => -travel(), ease: "none",
+            scrollTrigger: { trigger: ".work-reel__viewport", start: "top top", end: () => `+=${travel() * 1.15}`, pin: true, scrub: 0.75, invalidateOnRefresh: true },
+          });
+          gsap.fromTo(galleryTrack.querySelectorAll("img"), { scale: 1.2 }, {
+            scale: 1.02, ease: "none",
+            scrollTrigger: { trigger: ".work-reel__viewport", start: "top top", end: () => `+=${travel() * 1.15}`, scrub: true, invalidateOnRefresh: true },
+          });
+        }
+
+        gsap.utils.toArray<HTMLElement>("[data-gallery-frame]").forEach((frame, index) => {
+          const image = frame.querySelector("img");
+          if (image && window.innerWidth <= 760) gsap.fromTo(image, { scale: 1.18, yPercent: -4 }, { scale: 1.02, yPercent: 4, ease: "none", scrollTrigger: { trigger: frame, start: "top bottom", end: "bottom top", scrub: true } });
+          gsap.from(frame, { rotate: index % 2 ? 2.5 : -2.5, opacity: 0.55, duration: 1, scrollTrigger: { trigger: frame, start: "top 92%" } });
         });
 
         gsap.utils.toArray<HTMLElement>("[data-service-panel]").forEach((panel, index) => {
@@ -69,6 +103,8 @@ export function MotionDirector() {
               scrollTrigger: { trigger: panel, start: "top bottom", end: "top 34%", scrub: true },
             },
           );
+          const mediaImage = panel.querySelector("img");
+          if (mediaImage) gsap.fromTo(mediaImage, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: panel, start: "top bottom", end: "bottom top", scrub: true } });
         });
 
         gsap.fromTo(
@@ -80,6 +116,7 @@ export function MotionDirector() {
             scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true },
           },
         );
+        gsap.fromTo("[data-legacy-image]", { scale: 1.22, yPercent: -5 }, { scale: 1.02, yPercent: 5, ease: "none", scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true } });
 
         gsap.fromTo(
           "[data-contact-panel]",
@@ -92,7 +129,10 @@ export function MotionDirector() {
         );
       });
 
-      return () => context.revert();
+      return () => {
+        removePointerMotion();
+        context.revert();
+      };
     });
 
     document.fonts?.ready.then(() => {
@@ -107,4 +147,3 @@ export function MotionDirector() {
 
   return null;
 }
-

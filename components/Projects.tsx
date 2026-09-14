@@ -1,44 +1,39 @@
 import Image from "next/image";
 import { SectionHeading } from "./SectionHeading";
 
+const frames = [
+  { src: "/stock/pergola.jpg", kicker: "Sombra", title: "Estructuras que dibujan el cielo", alt: "Detalle de pérgola moderna de aluminio" },
+  { src: "/stock/glass-doors.jpg", kicker: "Apertura", title: "Límites que desaparecen", alt: "Puertas plegables de vidrio y aluminio abiertas" },
+  { src: "/stock/staircase.jpg", kicker: "Recorrido", title: "Metal que sostiene el movimiento", alt: "Escalera contemporánea con estructura metálica" },
+  { src: "/stock/facade-detail.jpg", kicker: "Envolvente", title: "Precisión convertida en fachada", alt: "Detalle azul de fachada metálica contemporánea" },
+];
+
 export function Projects() {
   return (
-    <section className="projects section-shell" id="trabajos" aria-labelledby="projects-title">
+    <section className="projects work-reel section-shell" id="trabajos" aria-labelledby="projects-title">
       <div className="container projects__intro">
         <SectionHeading
           id="projects-title"
-          label="Trabajo seleccionado · Balcones de la Plaza"
-          title="La mejor carta de presentación ocupa espacio."
-          body="No mostramos renders de intención. Mostramos decisiones construidas: estructura, sombra, cerramiento y material encontrándose en una misma obra."
+          label="Materia en movimiento"
+          title={<><span className="title-light">Del plano</span> <span className="title-bold title-wide">al espacio.</span></>}
+          body="El metal no termina en una pieza: modifica la luz, el recorrido y la manera de habitar. Deslizá la mirada por cuatro formas de hacerlo trabajar."
           light
         />
       </div>
 
-      <div className="project-stage" data-project-stage>
-        <div className="project-stage__primary media-frame" data-project-image>
-          <Image
-            src="/images/balcones-plaza-02.jpg"
-            alt="Pérgola de WPC con estructura de perfil UPN realizada en Balcones de la Plaza"
-            fill
-            sizes="(max-width: 760px) 100vw, 66vw"
-          />
-        </div>
-        <div className="project-stage__secondary media-frame" data-project-image>
-          <Image
-            src="/images/balcones-plaza-01.jpg"
-            alt="Vista integral de la intervención de Aluminica en Balcones de la Plaza"
-            fill
-            sizes="(max-width: 760px) 70vw, 25vw"
-          />
-        </div>
-        <div className="project-stage__caption" data-reveal>
-          <p className="section-label"><span aria-hidden="true">+</span>Proyecto 01</p>
-          <h3>Balcones<br />de la Plaza</h3>
-          <dl>
-            <div><dt>Resolución</dt><dd>Pérgola WPC + herrería</dd></div>
-            <div><dt>Estructura</dt><dd>Perfil UPN 120</dd></div>
-            <div><dt>Enfoque</dt><dd>Intervención integral</dd></div>
-          </dl>
+      <div className="work-reel__viewport">
+        <div className="work-reel__track" data-gallery-track>
+          {frames.map((frame, index) => (
+            <article className={`work-frame work-frame--${index + 1}`} key={frame.title} data-gallery-frame>
+              <div className="work-frame__image">
+                <Image src={frame.src} alt={frame.alt} fill sizes="(max-width: 760px) 94vw, 70vw" />
+              </div>
+              <div className="work-frame__copy">
+                <span>0{index + 1} / {frame.kicker}</span>
+                <h3>{frame.title}</h3>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
