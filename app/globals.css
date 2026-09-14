@@ -350,3 +350,84 @@ nav a:hover { opacity: .64; }
 @media (prefers-reduced-motion: reduce) {
   [data-depth-layer], [data-depth-float], [data-gallery-track], [data-gallery-frame], [data-legacy-image], [data-hero-ticker] { transform: none !important; }
 }
+
+/* Shared alignment grid */
+:root {
+  --site-max: 1480px;
+  --site-gutter: clamp(20px, 3.2vw, 64px);
+  --card-pad: clamp(26px, 3.1vw, 52px);
+}
+
+.container,
+.site-header,
+.hero__content,
+.contact__top,
+.contact__main,
+.contact__footer {
+  width: min(calc(100% - (var(--site-gutter) * 2)), var(--site-max));
+  margin-inline: auto;
+}
+
+.hero__content { padding-inline: 0; }
+.hero__meta { right: auto; left: 50%; width: min(calc(100% - (var(--site-gutter) * 2)), var(--site-max)); transform: translateX(-50%); }
+.contact__panel { padding-inline: 0; }
+.work-reel__track { padding-inline: max(var(--site-gutter), calc((100vw - var(--site-max)) / 2 + var(--site-gutter))); }
+
+.service-panel {
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1fr);
+}
+
+.service-panel__top {
+  right: var(--card-pad);
+  left: var(--card-pad);
+  padding-inline: 0;
+}
+
+.service-panel__media,
+.service-panel__content {
+  min-width: 0;
+}
+
+.service-panel__content {
+  padding-right: var(--card-pad);
+  padding-left: var(--card-pad);
+}
+
+.service-panel h3 {
+  max-width: 100%;
+  font-size: clamp(2.65rem, 4.25vw, 5.35rem);
+  overflow-wrap: normal;
+}
+
+.service-panel h3 strong {
+  font-size: .9em;
+  letter-spacing: .018em;
+  white-space: normal;
+}
+
+.service-panel h3 span {
+  font-size: .9em;
+  white-space: normal;
+}
+
+.service-panel__content > p,
+.service-panel__content ul {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 1120px) {
+  .service-panel { grid-template-columns: minmax(0, .58fr) minmax(0, 1fr); }
+  .service-panel h3 { font-size: clamp(2.55rem, 4.65vw, 4.65rem); }
+}
+
+@media (max-width: 760px) {
+  :root { --site-gutter: 16px; --card-pad: 24px; }
+  .site-header { width: calc(100% - (var(--site-gutter) * 2)); margin-inline: auto; }
+  .hero__content { width: calc(100% - (var(--site-gutter) * 2)); padding-inline: 0; }
+  .hero__meta { width: calc(100% - (var(--site-gutter) * 2)); }
+  .contact__panel { padding-inline: 0; }
+  .contact__top, .contact__main, .contact__footer { width: calc(100% - (var(--site-gutter) * 2)); }
+  .service-panel h3 { font-size: clamp(2.7rem, 12vw, 3.45rem); }
+  .service-panel h3 strong, .service-panel h3 span { font-size: 1em; }
+}
