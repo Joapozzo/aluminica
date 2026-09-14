@@ -75,15 +75,28 @@ export function MotionDirector() {
 
         const galleryTrack = document.querySelector<HTMLElement>("[data-gallery-track]");
         if (galleryTrack && window.matchMedia("(min-width: 761px)").matches) {
-          const travel = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth + 48);
-          gsap.to(galleryTrack, {
-            x: () => -travel(), ease: "none",
-            scrollTrigger: { trigger: ".work-reel__viewport", start: "top top", end: () => `+=${travel() * 1.15}`, pin: true, scrub: 0.75, invalidateOnRefresh: true },
+          const progress = document.querySelector<HTMLElement>("[data-gallery-progress]");
+          const horizontalDistance = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth);
+          const scrollDistance = () => Math.max(horizontalDistance() * 1.08, window.innerHeight * 3.6);
+          const galleryTimeline = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: ".work-reel__viewport",
+              start: "top top",
+              end: () => `+=${scrollDistance()}`,
+              pin: true,
+              pinSpacing: true,
+              scrub: 1.1,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                if (progress) gsap.set(progress, { scaleX: self.progress });
+              },
+            },
           });
-          gsap.fromTo(galleryTrack.querySelectorAll("img"), { scale: 1.2 }, {
-            scale: 1.02, ease: "none",
-            scrollTrigger: { trigger: ".work-reel__viewport", start: "top top", end: () => `+=${travel() * 1.15}`, scrub: true, invalidateOnRefresh: true },
-          });
+          galleryTimeline
+            .to(galleryTrack, { x: () => -horizontalDistance() }, 0)
+            .fromTo(galleryTrack.querySelectorAll("img"), { scale: 1.16 }, { scale: 1.015 }, 0);
         }
 
         gsap.utils.toArray<HTMLElement>("[data-gallery-frame]").forEach((frame, index) => {

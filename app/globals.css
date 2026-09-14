@@ -268,8 +268,11 @@ nav a:hover { opacity: .64; }
 .projects { overflow: clip; background: var(--ink); padding-bottom: 0; }
 .projects__intro { margin-bottom: clamp(70px,8vw,130px); }
 .work-reel__viewport { position: relative; height: 100svh; overflow: hidden; background: linear-gradient(135deg,#091315,#12262b); }
-.work-reel__viewport::before { position: absolute; top: 4%; right: 3%; content: "SCROLL / 04"; color: var(--acid); font-size: .65rem; font-weight: 700; letter-spacing: .24em; }
+.work-reel__viewport::before { position: absolute; z-index: 4; top: 4%; right: 3%; content: "SCROLL HORIZONTAL"; color: var(--acid); font-size: .65rem; font-weight: 700; letter-spacing: .24em; }
 .work-reel__track { display: flex; align-items: center; gap: clamp(26px,4vw,70px); width: max-content; height: 100%; padding: 9vh 8vw; will-change: transform; }
+.work-reel__progress { position: absolute; z-index: 5; right: var(--site-gutter); bottom: 3.5vh; left: var(--site-gutter); display: grid; grid-template-columns: auto minmax(80px,220px) auto; justify-content: end; align-items: center; gap: 14px; color: rgba(255,255,255,.62); font-size: .58rem; font-weight: 700; letter-spacing: .18em; pointer-events: none; }
+.work-reel__progress-line { width: clamp(90px,12vw,220px); height: 1px; overflow: hidden; background: rgba(255,255,255,.22); }
+.work-reel__progress-line i { display: block; width: 100%; height: 100%; background: var(--acid); transform: scaleX(0); transform-origin: left center; will-change: transform; }
 .work-frame { position: relative; flex: 0 0 auto; width: min(68vw,1080px); height: 76vh; overflow: hidden; background: var(--brand-deep); color: white; box-shadow: 0 36px 100px rgba(0,0,0,.35); will-change: transform,opacity; }
 .work-frame--2 { width: min(56vw,880px); height: 65vh; margin-top: -9vh; }
 .work-frame--3 { width: min(62vw,980px); height: 72vh; margin-top: 8vh; }
@@ -281,6 +284,9 @@ nav a:hover { opacity: .64; }
 .work-frame__copy span { font-size: .65rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
 .work-frame__copy h3 { max-width: 760px; margin: 18px 0 0; font-size: clamp(2.7rem,5vw,6.5rem); font-weight: 280; letter-spacing: -.025em; line-height: .92; }
 .work-frame:nth-child(even) .work-frame__copy h3 { font-weight: 720; letter-spacing: .02em; }
+.work-reel__exit { display: flex; flex: 0 0 clamp(310px,35vw,600px); flex-direction: column; justify-content: center; align-self: stretch; padding-right: clamp(60px,10vw,180px); color: white; }
+.work-reel__exit span { color: rgba(255,255,255,.48); font-size: clamp(1rem,1.6vw,1.5rem); font-weight: 300; letter-spacing: .06em; }
+.work-reel__exit strong { max-width: 8ch; margin-top: 14px; color: var(--acid); font-size: clamp(2.8rem,5vw,6rem); font-weight: 760; letter-spacing: -.035em; line-height: .86; }
 
 /* Image-backed service cards */
 .services { background: var(--acid); }
@@ -335,6 +341,8 @@ nav a:hover { opacity: .64; }
   .principle, .principle + .principle { min-height: 270px; padding: 26px; }
   .work-reel__viewport { height: auto; overflow: visible; padding-bottom: 90px; }
   .work-reel__track { display: grid; width: auto; height: auto; padding: 18px 16px; gap: 24px; }
+  .work-reel__progress, .work-reel__exit { display: none; }
+  .work-reel__viewport::before { display: none; }
   .work-frame, .work-frame--2, .work-frame--3, .work-frame--4 { width: 100%; height: 118vw; margin: 0; }
   .work-frame:nth-child(even) { height: 92vw; }
   .work-frame__copy h3 { font-size: 2.75rem; }
@@ -345,6 +353,14 @@ nav a:hover { opacity: .64; }
   .service-panel h3 { font-size: 3.2rem; }
   .service-panel__content > p { margin-bottom: 30px; }
   .legacy__overlay { background: linear-gradient(0deg,rgba(27,70,80,.98),rgba(27,70,80,.62)); }
+}
+
+@media (min-width: 761px) and (max-height: 820px) {
+  .work-frame { height: 70vh; }
+  .work-frame--2 { height: 61vh; margin-top: -5vh; }
+  .work-frame--3 { height: 66vh; margin-top: 5vh; }
+  .work-frame--4 { height: 72vh; }
+  .work-frame__copy h3 { font-size: clamp(2.35rem,4.5vw,5rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
