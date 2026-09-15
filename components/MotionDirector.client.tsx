@@ -143,15 +143,17 @@ export function MotionDirector() {
           if (mediaImage) gsap.fromTo(mediaImage, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: panel, start: "top bottom", end: "bottom top", scrub: true } });
         });
 
-        gsap.fromTo(
-          "[data-legacy-mark]",
-          { xPercent: -18 },
-          {
-            xPercent: 8,
-            ease: "none",
-            scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true },
-          },
-        );
+        if (window.matchMedia("(min-width: 761px)").matches) {
+          gsap.fromTo(
+            "[data-legacy-mark]",
+            { xPercent: -18 },
+            {
+              xPercent: 8,
+              ease: "none",
+              scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true },
+            },
+          );
+        }
         gsap.fromTo("[data-legacy-image]", { scale: 1.22, yPercent: -5 }, { scale: 1.02, yPercent: 5, ease: "none", scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true } });
 
         gsap.fromTo(
