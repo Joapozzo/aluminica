@@ -5,6 +5,7 @@ import { MotionDirector } from "../components/MotionDirector.client";
 import { Positioning } from "../components/Positioning";
 import { Projects } from "../components/Projects";
 import { Services } from "../components/Services";
+import { SiteHeader } from "../components/SiteHeader";
 
 export default function Home() {
   const structuredData = {
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <SiteHeader />
       <Hero />
       <Positioning />
       <Projects />

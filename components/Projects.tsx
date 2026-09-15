@@ -22,11 +22,7 @@ export function Projects() {
       </div>
 
       <div className="work-reel__viewport">
-        <div className="work-reel__progress" aria-hidden="true">
-          <span>01</span>
-          <span className="work-reel__progress-line"><i data-gallery-progress /></span>
-          <span>04</span>
-        </div>
+        <div className="work-reel__progress" aria-hidden="true"><i data-gallery-progress /></div>
         <div className="work-reel__track" data-gallery-track>
           {frames.map((frame, index) => (
             <article className={`work-frame work-frame--${index + 1}`} key={frame.title} data-gallery-frame>

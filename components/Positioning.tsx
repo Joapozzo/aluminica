@@ -20,7 +20,6 @@ export function Positioning() {
         <div className="positioning__visual" data-visual-reveal>
           <Image src="/stock/glass-house.jpg" alt="Casa contemporánea rodeada de vegetación con grandes paños de vidrio" fill sizes="(max-width: 760px) 90vw, 52vw" />
           <span className="positioning__disc" data-depth-float aria-hidden="true">UN SOLO<br />EQUIPO</span>
-          <span className="positioning__index" aria-hidden="true">02 — FORMA / FUNCIÓN</span>
         </div>
         <div className="principles">
           {principles.map(([number, title, body]) => (

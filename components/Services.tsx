@@ -51,7 +51,7 @@ export function Services() {
         <div className="service-stack">
           {groups.map((group) => (
             <article className="service-panel" data-service-panel key={group.number}>
-              <div className="service-panel__top"><span>{group.number}</span><span>Aluminica / Soluciones</span></div>
+              <div className="service-panel__top"><span>{group.number}</span></div>
               <div className="service-panel__media"><Image src={group.image} alt="" fill sizes="(max-width: 760px) 100vw, 38vw" /></div>
               <div className="service-panel__content">
                 <h3><strong>{group.lead}</strong> <span>{group.title}</span></h3>

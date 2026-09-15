@@ -73,11 +73,30 @@ export function MotionDirector() {
           scrollTrigger: { trigger: ".positioning", start: "top bottom", end: "bottom top", scrub: true },
         });
 
+        const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");
+        const headerProgress = document.querySelector<HTMLElement>("[data-header-progress]");
+        if (siteHeader) {
+          gsap.fromTo(siteHeader, { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.15 });
+          ScrollTrigger.create({
+            start: 0,
+            end: "max",
+            onUpdate: (self) => {
+              gsap.to(siteHeader, {
+                backgroundColor: self.scroll() > 80 ? "rgba(8, 22, 25, 0.88)" : "rgba(8, 22, 25, 0)",
+                backdropFilter: self.scroll() > 80 ? "blur(14px)" : "blur(0px)",
+                duration: 0.28,
+                overwrite: "auto",
+              });
+              if (headerProgress) gsap.set(headerProgress, { scaleX: self.progress });
+            },
+          });
+        }
+
         const galleryTrack = document.querySelector<HTMLElement>("[data-gallery-track]");
         if (galleryTrack && window.matchMedia("(min-width: 761px)").matches) {
           const progress = document.querySelector<HTMLElement>("[data-gallery-progress]");
           const horizontalDistance = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth);
-          const scrollDistance = () => Math.max(horizontalDistance() * 1.08, window.innerHeight * 3.6);
+          const scrollDistance = () => Math.max(horizontalDistance(), window.innerHeight * 2.4);
           const galleryTimeline = gsap.timeline({
             defaults: { ease: "none" },
             scrollTrigger: {

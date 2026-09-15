@@ -26,18 +26,6 @@ export function Hero() {
         </div>
         <div className="metal-profile" data-depth-layer="3" aria-hidden="true"><span /><span /></div>
 
-        <header className="site-header">
-          <a className="brand" href="#inicio" aria-label="Aluminica, inicio">
-            <Image src="/brand/aluminica-logo.png" alt="Aluminica" width={184} height={80} priority />
-          </a>
-          <nav aria-label="Navegación principal">
-            <a href="#trabajos">Trabajos</a>
-            <a href="#soluciones">Soluciones</a>
-            <a href="#trayectoria">Trayectoria</a>
-            <a className="header-cta" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
-          </nav>
-        </header>
-
         <div className="hero__content" data-hero-copy>
           <p className="eyebrow">Herrería + carpintería de aluminio · Córdoba</p>
           <h1 id="hero-title" aria-label="Una obra. Un equipo. Todo el metal resuelto.">
