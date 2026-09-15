@@ -81,9 +81,13 @@ export function MotionDirector() {
             start: 0,
             end: "max",
             onUpdate: (self) => {
+              const isFloating = self.scroll() > 80;
               gsap.to(siteHeader, {
-                backgroundColor: self.scroll() > 80 ? "rgba(8, 22, 25, 0.88)" : "rgba(8, 22, 25, 0)",
-                backdropFilter: self.scroll() > 80 ? "blur(14px)" : "blur(0px)",
+                y: isFloating ? 18 : 0,
+                backgroundColor: isFloating ? "rgba(8, 22, 25, 0.91)" : "rgba(8, 22, 25, 0)",
+                backdropFilter: isFloating ? "blur(14px)" : "blur(0px)",
+                borderRadius: isFloating ? 10 : 0,
+                boxShadow: isFloating ? "0 16px 42px rgba(0, 0, 0, 0.22)" : "0 0 0 rgba(0, 0, 0, 0)",
                 duration: 0.28,
                 overwrite: "auto",
               });
@@ -96,7 +100,7 @@ export function MotionDirector() {
         if (galleryTrack && window.matchMedia("(min-width: 761px)").matches) {
           const progress = document.querySelector<HTMLElement>("[data-gallery-progress]");
           const horizontalDistance = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth);
-          const scrollDistance = () => Math.max(horizontalDistance(), window.innerHeight * 2.4);
+          const scrollDistance = () => horizontalDistance();
           const galleryTimeline = gsap.timeline({
             defaults: { ease: "none" },
             scrollTrigger: {
@@ -105,6 +109,7 @@ export function MotionDirector() {
               end: () => `+=${scrollDistance()}`,
               pin: true,
               pinSpacing: true,
+              pinReparent: true,
               scrub: 1.1,
               anticipatePin: 1,
               invalidateOnRefresh: true,

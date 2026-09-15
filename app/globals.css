@@ -47,7 +47,7 @@ img { display: block; }
 .hero__image { z-index: -4; object-fit: cover; object-position: center 44%; scale: 1.24; filter: saturate(.72) contrast(1.04); will-change: transform; }
 .hero__wash { position: absolute; inset: 0; z-index: -3; background: linear-gradient(90deg, rgba(5,17,21,.96) 0%, rgba(12,35,40,.75) 45%, rgba(12,35,40,.18) 100%), linear-gradient(0deg, rgba(5,17,21,.72) 0%, transparent 58%); }
 .hero__grid { position: absolute; inset: 0; z-index: -2; pointer-events: none; background-image: linear-gradient(var(--line-light) 1px, transparent 1px), linear-gradient(90deg,var(--line-light) 1px,transparent 1px); background-size: 100% 100%, calc((100vw - (var(--page-pad) * 2)) / 4) 100%; background-position: 0 0, var(--page-pad) 0; opacity: .23; }
-.site-header { position: fixed; z-index: 100; top: 0; left: 50%; display: flex; align-items: center; justify-content: space-between; width: min(calc(100% - (var(--page-pad) * 2)), 1480px); min-height: 96px; margin-inline: 0; padding-inline: clamp(14px,1.5vw,24px); border-bottom: 1px solid var(--line-light); color: white; transform: translateX(-50%); will-change: transform,background-color; }
+.site-header { position: fixed; z-index: 100; top: 0; right: max(var(--site-gutter), calc((100vw - var(--site-max)) / 2 + var(--site-gutter))); left: max(var(--site-gutter), calc((100vw - var(--site-max)) / 2 + var(--site-gutter))); display: flex; align-items: center; justify-content: space-between; width: auto; min-height: 96px; margin-inline: 0; padding-inline: clamp(14px,1.5vw,24px); border-bottom: 1px solid var(--line-light); color: white; will-change: transform,background-color; }
 .site-header__progress { position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; background: var(--acid); transform: scaleX(0); transform-origin: left center; }
 .brand img { width: 150px; height: auto; }
 nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 52px); font-size: .69rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
@@ -266,7 +266,7 @@ nav a:hover { opacity: .64; }
 .principle__number { letter-spacing: .16em; }
 
 /* Horizontal scroll reel */
-.projects { overflow: clip; background: var(--ink); padding-bottom: 0; }
+.projects { overflow: visible; background: var(--ink); padding-bottom: 0; }
 .projects__intro { margin-bottom: clamp(70px,8vw,130px); }
 .work-reel__viewport { position: relative; height: 100svh; overflow: hidden; background: linear-gradient(135deg,#091315,#12262b); }
 .work-reel__track { display: flex; align-items: center; gap: clamp(26px,4vw,70px); width: max-content; height: 100%; padding: 9vh 8vw; will-change: transform; }
@@ -374,7 +374,6 @@ nav a:hover { opacity: .64; }
 }
 
 .container,
-.site-header,
 .hero__content,
 .contact__top,
 .contact__main,
@@ -406,18 +405,20 @@ nav a:hover { opacity: .64; }
 .service-panel__content {
   padding-right: var(--card-pad);
   padding-left: var(--card-pad);
+  container-type: inline-size;
 }
 
 .service-panel h3 {
   max-width: 100%;
   font-size: clamp(2.5rem, 3.55vw, 4.2rem);
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .service-panel h3 strong {
-  font-size: .88em;
+  font-size: clamp(2.15rem, 8.4cqi, 3.45rem);
   letter-spacing: -.01em;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .service-panel h3 span {
@@ -438,11 +439,12 @@ nav a:hover { opacity: .64; }
 
 @media (max-width: 760px) {
   :root { --site-gutter: 16px; --card-pad: 24px; }
-  .site-header { width: calc(100% - (var(--site-gutter) * 2)); }
+  .site-header { right: var(--site-gutter); left: var(--site-gutter); width: auto; }
   .hero__content { width: calc(100% - (var(--site-gutter) * 2)); padding-inline: 0; }
   .hero__meta { width: calc(100% - (var(--site-gutter) * 2)); }
   .contact__panel { padding-inline: 0; }
   .contact__top, .contact__main, .contact__footer { width: calc(100% - (var(--site-gutter) * 2)); }
   .service-panel h3 { font-size: clamp(2.7rem, 12vw, 3.45rem); }
-  .service-panel h3 strong, .service-panel h3 span { font-size: 1em; }
+  .service-panel h3 strong { font-size: clamp(2rem, 10cqi, 2.8rem); }
+  .service-panel h3 span { font-size: 1em; }
 }
