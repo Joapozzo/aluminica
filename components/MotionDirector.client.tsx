@@ -37,7 +37,6 @@ export function MotionDirector() {
           .to("[data-hero-copy]", { yPercent: -18, opacity: 0.08, ease: "none" }, 0.38)
           .to('[data-depth-layer="1"]', { yPercent: -55, rotate: -7, ease: "none" }, 0)
           .to('[data-depth-layer="2"]', { yPercent: 78, rotate: 9, ease: "none" }, 0)
-          .to('[data-depth-layer="3"]', { xPercent: 65, rotate: 18, ease: "none" }, 0)
           .to("[data-hero-ticker]", { xPercent: -28, ease: "none" }, 0);
 
         const hero = document.querySelector<HTMLElement>(".hero");
