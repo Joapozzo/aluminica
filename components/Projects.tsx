@@ -21,23 +21,25 @@ export function Projects() {
         />
       </div>
 
-      <div className="work-reel__viewport">
-        <div className="work-reel__progress" aria-hidden="true"><i data-gallery-progress /></div>
-        <div className="work-reel__track" data-gallery-track>
-          {frames.map((frame, index) => (
-            <article className={`work-frame work-frame--${index + 1}`} key={frame.title} data-gallery-frame>
-              <div className="work-frame__image">
-                <Image src={frame.src} alt={frame.alt} fill sizes="(max-width: 760px) 94vw, 70vw" />
-              </div>
-              <div className="work-frame__copy">
-                <span>0{index + 1} / {frame.kicker}</span>
-                <h3>{frame.title}</h3>
-              </div>
-            </article>
-          ))}
-          <div className="work-reel__exit" aria-hidden="true">
-            <span>Cuatro escalas.</span>
-            <strong>Una misma precisión.</strong>
+      <div className="work-reel__scroll" data-gallery-scroll>
+        <div className="work-reel__viewport">
+          <div className="work-reel__progress" aria-hidden="true"><i data-gallery-progress /></div>
+          <div className="work-reel__track" data-gallery-track>
+            {frames.map((frame, index) => (
+              <article className={`work-frame work-frame--${index + 1}`} key={frame.title} data-gallery-frame>
+                <div className="work-frame__image">
+                  <Image src={frame.src} alt={frame.alt} fill sizes="(max-width: 760px) 94vw, 70vw" />
+                </div>
+                <div className="work-frame__copy">
+                  <span>0{index + 1} / {frame.kicker}</span>
+                  <h3>{frame.title}</h3>
+                </div>
+              </article>
+            ))}
+            <div className="work-reel__exit" aria-hidden="true">
+              <span>Cuatro escalas.</span>
+              <strong>Una misma precisión.</strong>
+            </div>
           </div>
         </div>
       </div>

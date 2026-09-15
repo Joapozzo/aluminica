@@ -271,7 +271,8 @@ nav a:hover { opacity: .64; }
 /* Horizontal scroll reel */
 .projects { overflow: visible; background: var(--ink); padding-bottom: 0; }
 .projects__intro { margin-bottom: clamp(70px,8vw,130px); }
-.work-reel__viewport { position: relative; height: 100svh; overflow: hidden; background: linear-gradient(135deg,#091315,#12262b); }
+.work-reel__scroll { position: relative; min-height: 100svh; }
+.work-reel__viewport { position: sticky; top: 0; height: 100svh; overflow: hidden; background: linear-gradient(135deg,#091315,#12262b); }
 .work-reel__track { display: flex; align-items: center; gap: clamp(26px,4vw,70px); width: max-content; height: 100%; padding: 9vh 8vw; will-change: transform; }
 .work-reel__progress { position: absolute; z-index: 5; right: var(--site-gutter); bottom: 3.5vh; width: clamp(100px,14vw,240px); height: 2px; overflow: hidden; background: rgba(255,255,255,.2); pointer-events: none; }
 .work-reel__progress i { display: block; width: 100%; height: 100%; background: var(--acid); transform: scaleX(0); transform-origin: left center; will-change: transform; }
@@ -341,7 +342,8 @@ nav a:hover { opacity: .64; }
   .positioning__index { right: -8px; bottom: auto; top: 18px; }
   .principles { margin-top: 96px; }
   .principle, .principle + .principle { min-height: 270px; padding: 26px; }
-  .work-reel__viewport { height: auto; overflow: visible; padding-bottom: 90px; }
+  .work-reel__scroll { min-height: 0; height: auto !important; }
+  .work-reel__viewport { position: relative; top: auto; height: auto; overflow: visible; padding-bottom: 90px; }
   .work-reel__track { display: grid; width: auto; height: auto; padding: 18px 16px; gap: 24px; }
   .work-reel__progress, .work-reel__exit { display: none; }
   .work-reel__viewport::before { display: none; }

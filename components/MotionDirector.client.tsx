@@ -13,6 +13,7 @@ export function MotionDirector() {
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
       let removePointerMotion = () => {};
+      let resetGalleryHeight = () => {};
       const context = gsap.context(() => {
         gsap.from("[data-hero-line]", {
           yPercent: 115,
@@ -96,22 +97,23 @@ export function MotionDirector() {
         }
 
         const galleryTrack = document.querySelector<HTMLElement>("[data-gallery-track]");
-        if (galleryTrack && window.matchMedia("(min-width: 761px)").matches) {
+        const galleryScroll = document.querySelector<HTMLElement>("[data-gallery-scroll]");
+        if (galleryTrack && galleryScroll && window.matchMedia("(min-width: 761px)").matches) {
           const progress = document.querySelector<HTMLElement>("[data-gallery-progress]");
           const horizontalDistance = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth);
-          const scrollDistance = () => horizontalDistance();
+          const setScrollLength = () => {
+            galleryScroll.style.height = `${window.innerHeight + horizontalDistance()}px`;
+          };
+          setScrollLength();
           const galleryTimeline = gsap.timeline({
             defaults: { ease: "none" },
             scrollTrigger: {
-              trigger: ".work-reel__viewport",
+              trigger: galleryScroll,
               start: "top top",
-              end: () => `+=${scrollDistance()}`,
-              pin: true,
-              pinSpacing: true,
-              pinReparent: true,
-              scrub: 1.1,
-              anticipatePin: 1,
+              end: "bottom bottom",
+              scrub: 0.65,
               invalidateOnRefresh: true,
+              onRefreshInit: setScrollLength,
               onUpdate: (self) => {
                 if (progress) gsap.set(progress, { scaleX: self.progress });
               },
@@ -120,6 +122,10 @@ export function MotionDirector() {
           galleryTimeline
             .to(galleryTrack, { x: () => -horizontalDistance() }, 0)
             .fromTo(galleryTrack.querySelectorAll("img"), { scale: 1.16 }, { scale: 1.015 }, 0);
+
+          resetGalleryHeight = () => {
+            galleryScroll.style.removeProperty("height");
+          };
         }
 
         gsap.utils.toArray<HTMLElement>("[data-gallery-frame]").forEach((frame, index) => {
@@ -179,6 +185,7 @@ export function MotionDirector() {
 
       return () => {
         removePointerMotion();
+        resetGalleryHeight();
         context.revert();
       };
     });
