@@ -351,7 +351,7 @@ nav a:hover { opacity: .64; }
   .service-panel { display: flex; flex-direction: column; min-height: 0; }
   .service-panel__media { position: relative; inset: auto; flex: 0 0 auto; width: 100%; height: clamp(280px,58vw,430px); min-height: 0; }
   .service-panel__media::after { position: absolute; inset: 0; content: ""; background: linear-gradient(0deg,currentColor,transparent 70%); opacity: .5; }
-  .service-panel__content { position: relative; z-index: 2; padding: clamp(32px,8vw,48px) 24px 30px; }
+  .service-panel__content { position: relative; z-index: 2; align-self: stretch; width: 100%; padding: clamp(32px,8vw,48px) 24px 30px; }
   .service-panel h3 { margin-top: 0; font-size: 3.2rem; }
   .service-panel__content > p { margin-bottom: 30px; }
   .legacy__overlay { background: linear-gradient(0deg,rgba(27,70,80,.98),rgba(27,70,80,.62)); }
