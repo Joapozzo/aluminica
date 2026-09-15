@@ -24,7 +24,6 @@ export function Hero() {
         <div className="hero__cutout hero__cutout--pergola" data-depth-layer="2" aria-hidden="true">
           <Image src="/stock/pergola-black.jpg" alt="" fill sizes="22vw" />
         </div>
-        <div className="metal-profile" data-depth-layer="3" aria-hidden="true"><span /><span /></div>
 
         <div className="hero__content" data-hero-copy>
           <p className="eyebrow">Herrería + carpintería de aluminio · Córdoba</p>

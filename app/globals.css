@@ -237,14 +237,11 @@ nav a:hover { opacity: .64; }
 .hero h1 em { font-weight: 250; letter-spacing: .015em; }
 .hero-line--muted > span { color: rgba(255,255,255,.78); }
 .hero-line--muted strong { color: var(--acid); }
-.hero__cutout { position: absolute; z-index: 1; overflow: hidden; pointer-events: none; will-change: transform; }
-.hero__cutout img { object-fit: cover; }
-.hero__cutout--facade { top: 12%; right: 7%; width: clamp(180px,22vw,390px); height: 58%; clip-path: polygon(18% 0,100% 10%,82% 100%,0 88%); opacity: .82; box-shadow: 0 40px 90px rgba(0,0,0,.28); }
-.hero__cutout--facade::after { position: absolute; inset: 0; content: ""; background: rgba(79,127,255,.18); mix-blend-mode: color; }
-.hero__cutout--pergola { right: 29%; bottom: 18%; width: clamp(150px,20vw,340px); aspect-ratio: 1.35; clip-path: ellipse(49% 43% at 50% 50%); border: 1px solid rgba(255,255,255,.5); opacity: .88; }
-.metal-profile { position: absolute; z-index: 2; top: 8%; right: -7%; width: 36vw; height: 36vw; pointer-events: none; rotate: -22deg; opacity: .72; filter: drop-shadow(0 35px 40px rgba(0,0,0,.4)); will-change: transform; }
-.metal-profile span { position: absolute; inset: 42% 0 auto; height: clamp(18px,2.2vw,38px); background: linear-gradient(180deg,#f2f7f8 0 18%,#7e999f 19% 46%,#1a353b 47% 76%,#b9d0d4 77%); clip-path: polygon(0 0,100% 0,96% 100%,2% 100%); }
-.metal-profile span:last-child { inset: 0 47% 0 auto; width: clamp(18px,2.2vw,38px); height: 100%; background: linear-gradient(90deg,#edf4f6,#547078 44%,#10282e 58%,#c7d9dc); }
+.hero__cutout { position: absolute; z-index: 1; overflow: hidden; border: 1px solid rgba(255,255,255,.28); pointer-events: none; box-shadow: 0 32px 80px rgba(0,0,0,.3); will-change: transform; }
+.hero__cutout img { object-fit: cover; filter: saturate(.72) contrast(1.08); }
+.hero__cutout--facade { top: 14%; right: 5%; width: clamp(180px,19vw,340px); height: 48%; clip-path: polygon(4% 0,100% 5%,96% 100%,0 94%); opacity: .75; }
+.hero__cutout--facade::after { position: absolute; inset: 0; content: ""; background: linear-gradient(145deg,rgba(79,127,255,.28),transparent 52%,rgba(223,255,103,.08)); mix-blend-mode: color; }
+.hero__cutout--pergola { right: 24%; bottom: 17%; width: clamp(145px,17vw,300px); aspect-ratio: 1.55; clip-path: polygon(5% 0,100% 7%,94% 100%,0 91%); opacity: .78; }
 .hero__ticker { position: absolute; z-index: 3; right: -35%; bottom: 14px; left: -4%; display: flex; align-items: center; gap: 34px; width: max-content; color: rgba(255,255,255,.18); font-size: clamp(2.4rem,5vw,6.5rem); font-weight: 800; letter-spacing: .15em; line-height: .8; white-space: nowrap; pointer-events: none; will-change: transform; }
 .hero__ticker i { color: var(--brand-blue); font-style: normal; font-weight: 300; }
 .hero__meta { z-index: 5; bottom: 52px; }
@@ -318,8 +315,8 @@ nav a:hover { opacity: .64; }
 .contact-form button { background: var(--acid); }
 
 @media (max-width: 980px) {
-  .hero__cutout--facade { right: 3%; opacity: .55; }
-  .hero__cutout--pergola { right: 16%; }
+  .hero__cutout--facade { right: 3%; opacity: .58; }
+  .hero__cutout--pergola { right: 18%; opacity: .62; }
   .positioning__visual { width: 84%; }
   .service-panel { grid-template-columns: .65fr 1fr; }
 }
@@ -328,9 +325,8 @@ nav a:hover { opacity: .64; }
   .section-heading h2 { letter-spacing: -.025em; }
   .title-wide { letter-spacing: .045em; }
   .hero__image { object-position: 60% 50%; }
-  .hero__cutout--facade { top: 11%; right: -12%; width: 48vw; height: 34%; opacity: .55; }
-  .hero__cutout--pergola { right: auto; bottom: 32%; left: -8%; width: 42vw; opacity: .62; }
-  .metal-profile { top: 14%; right: -25%; width: 68vw; height: 68vw; opacity: .48; }
+  .hero__cutout--facade { top: 12%; right: -9%; width: 42vw; height: 31%; opacity: .46; }
+  .hero__cutout--pergola { right: auto; bottom: 34%; left: -7%; width: 36vw; opacity: .5; }
   .hero h1 { font-size: clamp(3.05rem,13.5vw,5rem); }
   .hero__ticker { bottom: 10px; font-size: 2.2rem; }
   .positioning__visual { width: calc(100% - 24px); height: 115vw; margin-top: 76px; }
