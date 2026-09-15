@@ -124,8 +124,18 @@ export function MotionDirector() {
 
         gsap.utils.toArray<HTMLElement>("[data-gallery-frame]").forEach((frame, index) => {
           const image = frame.querySelector("img");
-          if (image && window.innerWidth <= 760) gsap.fromTo(image, { scale: 1.18, yPercent: -4 }, { scale: 1.02, yPercent: 4, ease: "none", scrollTrigger: { trigger: frame, start: "top bottom", end: "bottom top", scrub: true } });
-          gsap.from(frame, { rotate: index % 2 ? 2.5 : -2.5, opacity: 0.55, duration: 1, scrollTrigger: { trigger: frame, start: "top 92%" } });
+          const copy = frame.querySelector(".work-frame__copy");
+          if (window.innerWidth <= 760) {
+            gsap.fromTo(
+              frame,
+              { xPercent: index % 2 ? 9 : -9, rotate: index % 2 ? 2.5 : -2.5, opacity: 0.38 },
+              { xPercent: 0, rotate: 0, opacity: 1, ease: "none", scrollTrigger: { trigger: frame, start: "top 94%", end: "top 54%", scrub: 0.8 } },
+            );
+            if (image) gsap.fromTo(image, { scale: 1.2, yPercent: -6 }, { scale: 1.02, yPercent: 6, ease: "none", scrollTrigger: { trigger: frame, start: "top bottom", end: "bottom top", scrub: true } });
+            if (copy) gsap.fromTo(copy, { y: 44, opacity: 0.2 }, { y: 0, opacity: 1, ease: "none", scrollTrigger: { trigger: frame, start: "top 76%", end: "top 48%", scrub: 0.7 } });
+          } else {
+            gsap.from(frame, { rotate: index % 2 ? 2.5 : -2.5, opacity: 0.55, duration: 1, scrollTrigger: { trigger: frame, start: "top 92%" } });
+          }
         });
 
         gsap.utils.toArray<HTMLElement>("[data-service-panel]").forEach((panel, index) => {
