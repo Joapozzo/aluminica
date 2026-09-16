@@ -18,8 +18,10 @@ export function Positioning() {
           body="Cuando aluminio y herrería conversan desde el principio, la obra gana coherencia y vos ganás tiempo. Un solo equipo acompaña la idea, la resolución y cada detalle que hace que funcione."
         />
         <div className="positioning__visual-track">
-          <div className="positioning__visual" data-visual-reveal>
-            <Image src="/stock/glass-house.jpg" alt="Casa contemporánea rodeada de vegetación con grandes paños de vidrio" fill sizes="(max-width: 760px) 90vw, 55vh" />
+          <div className="positioning__visual">
+            <div className="positioning__media" data-visual-reveal>
+              <Image src="/stock/glass-house.jpg" alt="Casa contemporánea rodeada de vegetación con grandes paños de vidrio" fill sizes="(max-width: 760px) 90vw, 55vh" />
+            </div>
             <span className="structure-note structure-note--left structure-note--profiles" data-structure-note aria-hidden="true">
               <span className="structure-note__copy">01 / Perfiles de aluminio</span>
               <span className="structure-note__line" data-note-line />
