@@ -16,6 +16,7 @@ const prompts = [
 
 export function WhatsAppAssistant() {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const mascotRef = useRef<HTMLSpanElement>(null);
@@ -65,7 +66,10 @@ export function WhatsAppAssistant() {
         gsap.set([heading, message, options.children], { autoAlpha: open ? 1 : 0 });
         gsap.set(mascot, { x: open ? restingX : 0, y: open ? restingY : 0, rotation: 0, scale: 1 });
         gsap.set(nudge, { autoAlpha: open ? 0 : 1, x: open ? 10 : 0 });
-        if (!open) gsap.set(panel, { visibility: "hidden" });
+        if (!open) {
+          gsap.set(panel, { visibility: "hidden" });
+          setClosing(false);
+        }
         return;
       }
 
@@ -130,8 +134,8 @@ export function WhatsAppAssistant() {
         const currentY = Number(gsap.getProperty(mascot, "y")) || 0;
         timelineRef.current = gsap.timeline({ defaults: { ease: "power2.inOut" } })
           .to(options.children, { autoAlpha: 0, y: 8, duration: 0.14, stagger: 0.035 })
-          .to([message, heading], { autoAlpha: 0, y: 6, duration: 0.16 }, "-=0.08")
-          .to(mascot, { scaleX: 1.1, scaleY: 0.88, duration: 0.12, ease: "power2.in" }, "-=0.05")
+          .to(message, { autoAlpha: 0, y: 6, duration: 0.16 }, "-=0.08")
+          .to(mascot, { scaleX: 1.1, scaleY: 0.88, duration: 0.12, ease: "power2.in" }, "-=0.04")
           .to(mascot, {
             motionPath: {
               path: [
@@ -148,12 +152,15 @@ export function WhatsAppAssistant() {
             duration: 0.62,
             ease: "power1.inOut",
           })
+          .to(heading, { autoAlpha: 0, y: 5, duration: 0.18 }, "-=0.34")
           .to(buildLine, { scaleX: 0, duration: 0.3, ease: "power2.inOut" }, "-=0.34")
           .to(panel, { autoAlpha: 0, clipPath: "inset(92% 0% 0% 78% round 16px)", duration: 0.36 }, "-=0.3")
           .to(mascot, { x: 0, y: 0, rotation: 0, scaleX: 1.12, scaleY: 0.88, duration: 0.1, ease: "power2.in" }, "-=0.08")
           .to(mascot, { scaleX: 1, scaleY: 1, duration: 0.24, ease: "back.out(2)" })
           .set(panel, { visibility: "hidden" })
           .to(nudge, { autoAlpha: 1, x: 0, duration: 0.22 });
+
+        timelineRef.current.eventCallback("onComplete", () => setClosing(false));
       }
     }, root);
 
@@ -168,13 +175,25 @@ export function WhatsAppAssistant() {
     window.open(`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
+  const toggleAssistant = () => {
+    if (open) {
+      setClosing(true);
+      setOpen(false);
+      return;
+    }
+    setClosing(false);
+    setOpen(true);
+  };
+
+  const active = open || closing;
+
   return (
-    <aside ref={rootRef} className={`whatsapp-assistant${open ? " is-open" : ""}`} aria-label="Contacto por WhatsApp">
+    <aside ref={rootRef} className={`whatsapp-assistant${active ? " is-open" : ""}${closing ? " is-closing" : ""}`} aria-label="Contacto por WhatsApp">
       <div ref={panelRef} className="whatsapp-assistant__panel" id="whatsapp-assistant-panel" aria-hidden={!open}>
         <span ref={buildLineRef} className="whatsapp-assistant__build-line" aria-hidden="true" />
         <div ref={headingRef} className="whatsapp-assistant__heading">
           <span className="whatsapp-assistant__online"><i aria-hidden="true" />En línea</span>
-          <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar asistente">×</button>
+          <button type="button" onClick={toggleAssistant} aria-label="Cerrar asistente">×</button>
         </div>
         <div ref={messageRef} className="whatsapp-assistant__message">
           <span ref={targetRef} className="whatsapp-assistant__alu-seat" aria-hidden="true" />
@@ -189,8 +208,8 @@ export function WhatsAppAssistant() {
       </div>
 
       <div className="whatsapp-assistant__dock">
-        <span ref={nudgeRef} className="whatsapp-assistant__nudge" aria-hidden={open}>¿Te ayudo con tu obra?</span>
-        <button ref={launcherRef} className="whatsapp-assistant__launcher" type="button" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-controls="whatsapp-assistant-panel" aria-label={open ? "Cerrar asistente de WhatsApp" : "Abrir asistente de WhatsApp"}>
+        <span ref={nudgeRef} className="whatsapp-assistant__nudge" aria-hidden={active}>¿Te ayudo con tu obra?</span>
+        <button ref={launcherRef} className="whatsapp-assistant__launcher" type="button" onClick={toggleAssistant} aria-expanded={open} aria-controls="whatsapp-assistant-panel" aria-label={active ? "Cerrar asistente de WhatsApp" : "Abrir asistente de WhatsApp"}>
           <span className="whatsapp-assistant__launcher-core" aria-hidden="true" />
           <span className="whatsapp-assistant__status" aria-hidden="true" />
         </button>
