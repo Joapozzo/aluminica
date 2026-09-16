@@ -173,12 +173,15 @@ export function WhatsAppAssistant() {
       <div ref={panelRef} className="whatsapp-assistant__panel" id="whatsapp-assistant-panel" aria-hidden={!open}>
         <span ref={buildLineRef} className="whatsapp-assistant__build-line" aria-hidden="true" />
         <div ref={headingRef} className="whatsapp-assistant__heading">
-          <div className="whatsapp-assistant__identity"><strong>ALU</strong><span className="whatsapp-assistant__online"><i aria-hidden="true" />En línea</span></div>
+          <span className="whatsapp-assistant__online"><i aria-hidden="true" />En línea</span>
           <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar asistente">×</button>
         </div>
         <div ref={messageRef} className="whatsapp-assistant__message">
           <span ref={targetRef} className="whatsapp-assistant__alu-seat" aria-hidden="true" />
-          <p>Hola. ¿Qué necesitás resolver?</p>
+          <div className="whatsapp-assistant__message-copy">
+            <strong>ALU</strong>
+            <p>Hola. ¿Qué necesitás resolver?</p>
+          </div>
         </div>
         <div ref={optionsRef} className="whatsapp-assistant__options">
           {prompts.map((prompt) => <button type="button" key={prompt.label} onClick={() => sendMessage(prompt.message)}><span>{prompt.label}</span><span aria-hidden="true">↗</span></button>)}
