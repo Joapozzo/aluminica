@@ -70,32 +70,46 @@ export function MotionDirector() {
         });
         const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
         if (structureNotes.length && window.matchMedia("(min-width: 761px)").matches) {
-          const noteTimeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: ".positioning__visual-track",
-              start: "top 68%",
-              end: "bottom 32%",
-              scrub: 1.1,
-            },
-          });
+          const noteParts = structureNotes.map((note) => ({
+            note,
+            line: note.querySelector<HTMLElement>("[data-note-line]"),
+            copy: note.querySelector<HTMLElement>(".structure-note__copy"),
+            offset: note.classList.contains("structure-note--left") ? -28 : 28,
+          }));
+          const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
+          const smooth = (value: number) => {
+            const clamped = clamp01(value);
+            return clamped * clamped * (3 - 2 * clamped);
+          };
+          const renderStructureNotes = (progress: number) => {
+            const phase = Math.min(progress * noteParts.length, noteParts.length - 0.0001);
+            const activeIndex = Math.floor(phase);
+            const localProgress = phase - activeIndex;
+            const lineStrength = Math.min(smooth(localProgress / 0.18), smooth((1 - localProgress) / 0.14));
+            const copyStrength = Math.min(smooth((localProgress - 0.08) / 0.2), smooth((0.88 - localProgress) / 0.16));
 
-          structureNotes.forEach((note, index) => {
-            const line = note.querySelector<HTMLElement>("[data-note-line]");
-            const copy = note.querySelector<HTMLElement>(".structure-note__copy");
-            const isLeft = note.classList.contains("structure-note--left");
-            const position = index * 0.64;
-            if (line) {
-              gsap.set(line, { scaleX: 0 });
-              noteTimeline
-                .to(line, { scaleX: 1, duration: 0.22, ease: "power2.out" }, position)
-                .to(line, { scaleX: 0, duration: 0.15, ease: "power2.inOut" }, position + 0.51);
-            }
-            if (copy) {
-              gsap.set(copy, { autoAlpha: 0, x: isLeft ? -28 : 28 });
-              noteTimeline
-                .to(copy, { autoAlpha: 1, x: 0, duration: 0.24, ease: "power3.out" }, position + 0.07)
-                .to(copy, { autoAlpha: 0, x: isLeft ? 18 : -18, duration: 0.14, ease: "power2.inOut" }, position + 0.48);
-            }
+            noteParts.forEach(({ line, copy, offset }, index) => {
+              const isActive = index === activeIndex;
+              const currentLineStrength = isActive ? lineStrength : 0;
+              const currentCopyStrength = isActive ? copyStrength : 0;
+              if (line) gsap.set(line, { scaleX: currentLineStrength, opacity: currentLineStrength });
+              if (copy) {
+                gsap.set(copy, {
+                  x: offset * (1 - currentCopyStrength),
+                  opacity: currentCopyStrength,
+                  visibility: currentCopyStrength > 0.01 ? "visible" : "hidden",
+                });
+              }
+            });
+          };
+
+          renderStructureNotes(0);
+          ScrollTrigger.create({
+            trigger: ".positioning__visual-track",
+            start: "top 68%",
+            end: "bottom 32%",
+            onRefresh: (self) => renderStructureNotes(self.progress),
+            onUpdate: (self) => renderStructureNotes(self.progress),
           });
         }
 

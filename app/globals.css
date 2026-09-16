@@ -258,22 +258,22 @@ nav a:hover { opacity: .64; }
 /* Positioning with an image plane */
 .positioning { overflow: clip; background: var(--cream); }
 .positioning::before { position: absolute; top: 24%; left: -3vw; content: "INTEGRAL"; color: transparent; font-size: 18vw; font-weight: 850; letter-spacing: .08em; line-height: .75; -webkit-text-stroke: 1px rgba(41,83,92,.16); pointer-events: none; }
-.positioning__visual-track { position: relative; height: 285svh; margin-block: clamp(90px,12vw,190px) clamp(90px,10vw,150px); }
+.positioning__visual-track { position: relative; height: 310svh; margin-block: clamp(90px,12vw,190px) clamp(90px,10vw,150px); }
 .positioning__visual { position: sticky; top: 100px; width: auto; max-width: min(72vw,1100px); height: calc(100svh - 112px); aspect-ratio: 2200 / 3312; margin-inline: auto; overflow: visible; background: var(--brand-blue); will-change: clip-path,transform; }
 .positioning__media { position: absolute; inset: 0; overflow: hidden; background: var(--brand-blue); will-change: clip-path,transform; }
 .positioning__media > img { object-fit: contain; object-position: center; filter: saturate(.74) contrast(1.08); }
 .positioning__visual::before { position: absolute; z-index: 2; inset: -22px auto auto -22px; width: 38%; height: 52%; content: ""; border-top: 22px solid var(--brand-blue); border-left: 22px solid var(--brand-blue); pointer-events: none; }
 .structure-note { --note-color: var(--acid); position: absolute; z-index: 4; display: flex; align-items: center; pointer-events: none; }
-.structure-note__copy { padding: 14px 17px; border: 1px solid var(--note-color); background: var(--acid); color: var(--ink); box-shadow: 0 14px 34px rgba(8,22,25,.22); font-size: clamp(.66rem,.82vw,.82rem); font-weight: 800; letter-spacing: .13em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
-.structure-note__line { position: relative; display: block; width: clamp(110px,14vw,250px); height: 1px; background: var(--note-color); }
+.structure-note__copy { visibility: hidden; padding: 14px 17px; border: 1px solid var(--note-color); opacity: 0; background: var(--acid); color: var(--ink); box-shadow: 0 14px 34px rgba(8,22,25,.22); font-size: clamp(.66rem,.82vw,.82rem); font-weight: 800; letter-spacing: .13em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.structure-note__line { position: relative; display: block; width: clamp(110px,14vw,250px); height: 1px; opacity: 0; background: var(--note-color); transform: scaleX(0); }
 .structure-note--left .structure-note__line { transform-origin: right center; }
 .structure-note--right .structure-note__line { transform-origin: left center; }
 .structure-note--left .structure-note__line::after { position: absolute; top: -4px; right: -1px; content: ""; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 7px solid var(--note-color); }
 .structure-note--right .structure-note__line::before { position: absolute; top: -4px; left: -1px; content: ""; border-top: 4px solid transparent; border-right: 7px solid var(--note-color); border-bottom: 4px solid transparent; }
-.structure-note--profiles { top: 29%; right: 68%; }
-.structure-note--glass { --note-color: var(--brand-blue); top: 44%; left: 63%; }
+.structure-note--profiles { top: 39%; right: 44%; }
+.structure-note--glass { --note-color: var(--brand-blue); top: 47%; left: 65%; }
 .structure-note--glass .structure-note__copy { background: var(--brand-blue); color: white; }
-.structure-note--beam { --note-color: white; top: 61%; right: 48%; }
+.structure-note--beam { --note-color: white; top: 56%; right: 39%; }
 .structure-note--beam .structure-note__copy { background: white; color: var(--ink); }
 .positioning__index { position: absolute; right: -7%; bottom: 6%; z-index: 3; padding: 14px 18px; background: var(--ink); color: white; font-size: .62rem; letter-spacing: .18em; }
 .principles { position: relative; z-index: 2; gap: 0; border: 0; }
