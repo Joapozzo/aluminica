@@ -432,7 +432,9 @@ nav a:hover { opacity: .64; }
 .whatsapp-assistant__heading { padding-bottom: 8px; }
 .whatsapp-assistant__message { margin: 10px 0 8px; transform: none; transition: none; }
 .whatsapp-assistant.is-open .whatsapp-assistant__message { opacity: 0; transform: none; }
-.whatsapp-assistant__alu-seat { display: block; flex: 0 0 52px; width: 52px; height: 58px; border-radius: 50% 50% 44% 44%; background: radial-gradient(circle at 50% 60%,rgba(223,255,103,.16),transparent 68%); }
+.whatsapp-assistant__alu-seat { position: relative; display: block; flex: 0 0 52px; width: 52px; height: 58px; border-radius: 50% 50% 44% 44%; background: radial-gradient(circle at 50% 52%,rgba(223,255,103,.17),transparent 68%); transform-origin: center bottom; }
+.whatsapp-assistant__alu-seat::before { position: absolute; right: 4px; bottom: 1px; left: 4px; height: 2px; border-radius: 999px; content: ""; background: linear-gradient(90deg,transparent,var(--acid),transparent); box-shadow: 0 0 10px rgba(223,255,103,.38); }
+.whatsapp-assistant__alu-seat::after { position: absolute; right: 8px; bottom: -2px; left: 8px; height: 7px; border-radius: 50%; content: ""; background: rgba(0,0,0,.28); filter: blur(4px); }
 .whatsapp-assistant__message p { padding: 9px 10px; font-size: .72rem; }
 .whatsapp-assistant__options { gap: 5px; }
 .whatsapp-assistant__options button { padding: 9px 10px; font-size: .66rem; transform: none; transition: color 160ms ease,background-color 160ms ease,border-color 160ms ease,transform 160ms ease; }

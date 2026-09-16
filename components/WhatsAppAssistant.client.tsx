@@ -3,7 +3,10 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { siteConfig } from "../lib/site";
+
+gsap.registerPlugin(MotionPathPlugin);
 
 const prompts = [
   { label: "Cotizar un proyecto", message: "Hola Aluminica, quiero cotizar una solución para mi proyecto. ¿Podemos conversar?" },
@@ -51,10 +54,16 @@ export function WhatsAppAssistant() {
 
     const context = gsap.context(() => {
       if (reduceMotion) {
+        if (open) gsap.set(panel, { visibility: "visible" });
+        const mascotBox = mascot.getBoundingClientRect();
+        const targetBox = target.getBoundingClientRect();
+        const restingX = targetBox.left + targetBox.width / 2 - (mascotBox.left + mascotBox.width / 2);
+        const restingY = targetBox.top + targetBox.height / 2 - (mascotBox.top + mascotBox.height / 2);
         gsap.set(panel, { autoAlpha: open ? 1 : 0, clipPath: open ? "inset(0% 0% 0% 0% round 16px)" : "inset(92% 0% 0% 78% round 16px)" });
         gsap.set([heading, message, options.children], { autoAlpha: open ? 1 : 0 });
-        gsap.set(mascot, { x: 0, y: 0, rotation: 0, scale: 1 });
+        gsap.set(mascot, { x: open ? restingX : 0, y: open ? restingY : 0, rotation: 0, scale: 1 });
         gsap.set(nudge, { autoAlpha: open ? 0 : 1, x: open ? 10 : 0 });
+        if (!open) gsap.set(panel, { visibility: "hidden" });
         return;
       }
 
@@ -73,28 +82,62 @@ export function WhatsAppAssistant() {
 
         timelineRef.current = gsap.timeline({ defaults: { ease: "power3.out" } })
           .to(nudge, { autoAlpha: 0, x: 12, duration: 0.18 }, 0)
-          .to(launcher, { scale: 0.92, duration: 0.16 }, 0)
-          .to(mascot, { y: -10, scaleX: 1.12, scaleY: 0.88, duration: 0.16, ease: "power2.in" }, 0)
-          .to(mascot, { y: -24, scaleX: 0.88, scaleY: 1.12, rotation: -8, duration: 0.2, ease: "power2.out" })
-          .to(panel, { autoAlpha: 1, clipPath: "inset(0% 0% 0% 0% round 16px)", duration: 0.5 }, "-=0.12")
-          .to(buildLine, { scaleX: 1, duration: 0.42, ease: "power2.inOut" }, "-=0.42")
-          .to(mascot, { keyframes: [
-            { x: travelX * 0.35, y: travelY * 0.48 - 22, rotation: 12, duration: 0.22 },
-            { x: travelX * 0.72, y: travelY * 0.78 - 14, rotation: -7, duration: 0.22 },
-            { x: travelX, y: travelY, rotation: 0, scaleX: 1, scaleY: 1, duration: 0.26 },
-          ], ease: "none" }, "-=0.28")
-          .to(launcher, { scale: 1, duration: 0.24 }, "-=0.45")
-          .to(mascot, { scale: 1.06, repeat: 1, yoyo: true, duration: 0.15 }, "-=0.2")
-          .to(heading, { autoAlpha: 1, duration: 0.24 }, "-=0.36")
-          .to(message, { autoAlpha: 1, y: 0, duration: 0.3 }, "-=0.08")
-          .to(options.children, { autoAlpha: 1, y: 0, duration: 0.26, stagger: 0.08 }, "-=0.08");
+          .to(launcher, { scaleX: 1.06, scaleY: 0.9, duration: 0.16 }, 0)
+          .to(mascot, { y: 4, scaleX: 1.13, scaleY: 0.82, duration: 0.16, ease: "power2.in" }, 0)
+          .to(buildLine, { scaleX: 1, duration: 0.42, ease: "power2.inOut" }, 0.08)
+          .to(panel, { autoAlpha: 1, clipPath: "inset(0% 0% 0% 0% round 16px)", duration: 0.48 }, 0.16)
+          .to(heading, { autoAlpha: 1, duration: 0.24 }, 0.38)
+          .to(mascot, {
+            motionPath: {
+              path: [
+                { x: 0, y: 4 },
+                { x: travelX * 0.34, y: travelY * 0.3 - 72 },
+                { x: travelX * 0.72, y: travelY * 0.68 - 42 },
+                { x: travelX, y: travelY },
+              ],
+              curviness: 1.65,
+            },
+            scaleX: 0.94,
+            scaleY: 1.07,
+            duration: 0.78,
+            ease: "power1.inOut",
+          }, 0.14)
+          .to(mascot, { rotation: -11, duration: 0.22, ease: "power1.out" }, 0.14)
+          .to(mascot, { rotation: 7, duration: 0.28, ease: "sine.inOut" }, 0.36)
+          .to(mascot, { rotation: 0, duration: 0.26, ease: "power2.out" }, 0.64)
+          .to(target, { scaleX: 1.12, scaleY: 0.88, duration: 0.1 }, 0.86)
+          .to(mascot, { scaleX: 1.14, scaleY: 0.86, duration: 0.1, ease: "power2.in" }, 0.88)
+          .to([mascot, target], { scaleX: 1, scaleY: 1, duration: 0.28, ease: "back.out(2.2)" }, 0.98)
+          .to(launcher, { scaleX: 1, scaleY: 1, duration: 0.24 }, 0.72)
+          .to(message, { autoAlpha: 1, y: 0, duration: 0.3 }, 1.05)
+          .to(options.children, { autoAlpha: 1, y: 0, duration: 0.26, stagger: 0.08 }, 1.18);
       } else {
+        const currentX = Number(gsap.getProperty(mascot, "x")) || 0;
+        const currentY = Number(gsap.getProperty(mascot, "y")) || 0;
         timelineRef.current = gsap.timeline({ defaults: { ease: "power2.inOut" } })
           .to(options.children, { autoAlpha: 0, y: 8, duration: 0.14, stagger: 0.035 })
           .to([message, heading], { autoAlpha: 0, y: 6, duration: 0.16 }, "-=0.08")
-          .to(mascot, { x: 0, y: -16, rotation: 8, duration: 0.34, ease: "power3.inOut" }, "-=0.12")
-          .to(panel, { autoAlpha: 0, clipPath: "inset(92% 0% 0% 78% round 16px)", duration: 0.34 }, "-=0.25")
-          .to(mascot, { x: 0, y: 0, rotation: 0, scale: 1, duration: 0.24, ease: "back.out(1.8)" }, "-=0.08")
+          .to(mascot, { scaleX: 1.1, scaleY: 0.88, duration: 0.12, ease: "power2.in" }, "-=0.05")
+          .to(mascot, {
+            motionPath: {
+              path: [
+                { x: currentX, y: currentY },
+                { x: currentX * 0.7, y: currentY * 0.68 - 36 },
+                { x: currentX * 0.3, y: currentY * 0.28 - 54 },
+                { x: 0, y: 0 },
+              ],
+              curviness: 1.55,
+            },
+            rotation: -8,
+            scaleX: 0.96,
+            scaleY: 1.04,
+            duration: 0.62,
+            ease: "power1.inOut",
+          })
+          .to(buildLine, { scaleX: 0, duration: 0.3, ease: "power2.inOut" }, "-=0.34")
+          .to(panel, { autoAlpha: 0, clipPath: "inset(92% 0% 0% 78% round 16px)", duration: 0.36 }, "-=0.3")
+          .to(mascot, { x: 0, y: 0, rotation: 0, scaleX: 1.12, scaleY: 0.88, duration: 0.1, ease: "power2.in" }, "-=0.08")
+          .to(mascot, { scaleX: 1, scaleY: 1, duration: 0.24, ease: "back.out(2)" })
           .set(panel, { visibility: "hidden" })
           .to(nudge, { autoAlpha: 1, x: 0, duration: 0.22 });
       }
