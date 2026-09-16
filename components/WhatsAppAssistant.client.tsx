@@ -83,10 +83,8 @@ export function WhatsAppAssistant() {
             { x: travelX * 0.72, y: travelY * 0.78 - 14, rotation: -7, duration: 0.22 },
             { x: travelX, y: travelY, rotation: 0, scaleX: 1, scaleY: 1, duration: 0.26 },
           ], ease: "none" }, "-=0.28")
-          .to(mascot, { color: "#dfff67", duration: 0.14 }, "-=0.18")
-          .to(".alu-character__body img", { filter: "brightness(0) invert(1)", duration: 0.14 }, "<")
           .to(launcher, { scale: 1, duration: 0.24 }, "-=0.45")
-          .fromTo(".alu-character__arm--right", { rotation: -16 }, { rotation: 34, repeat: 3, yoyo: true, duration: 0.12, transformOrigin: "left top" }, "-=0.2")
+          .to(mascot, { scale: 1.06, repeat: 1, yoyo: true, duration: 0.15 }, "-=0.2")
           .to(heading, { autoAlpha: 1, duration: 0.24 }, "-=0.36")
           .to(message, { autoAlpha: 1, y: 0, duration: 0.3 }, "-=0.08")
           .to(options.children, { autoAlpha: 1, y: 0, duration: 0.26, stagger: 0.08 }, "-=0.08");
@@ -96,8 +94,6 @@ export function WhatsAppAssistant() {
           .to([message, heading], { autoAlpha: 0, y: 6, duration: 0.16 }, "-=0.08")
           .to(mascot, { x: 0, y: -16, rotation: 8, duration: 0.34, ease: "power3.inOut" }, "-=0.12")
           .to(panel, { autoAlpha: 0, clipPath: "inset(92% 0% 0% 78% round 16px)", duration: 0.34 }, "-=0.25")
-          .to(mascot, { color: "#081619", duration: 0.12 }, "-=0.12")
-          .to(".alu-character__body img", { filter: "brightness(0) saturate(100%)", duration: 0.12 }, "<")
           .to(mascot, { x: 0, y: 0, rotation: 0, scale: 1, duration: 0.24, ease: "back.out(1.8)" }, "-=0.08")
           .set(panel, { visibility: "hidden" })
           .to(nudge, { autoAlpha: 1, x: 0, duration: 0.22 });
@@ -140,9 +136,7 @@ export function WhatsAppAssistant() {
       </div>
 
       <span ref={mascotRef} className="alu-character" aria-hidden="true">
-        <i className="alu-character__arm alu-character__arm--left" /><i className="alu-character__arm alu-character__arm--right" />
-        <i className="alu-character__leg alu-character__leg--left" /><i className="alu-character__leg alu-character__leg--right" />
-        <span className="alu-character__body"><Image src="/brand/aluminica-mark.png" alt="" width={30} height={64} /><i className="alu-character__eye alu-character__eye--left" /><i className="alu-character__eye alu-character__eye--right" /><i className="alu-character__smile" /></span>
+        <Image className="alu-character__art" src="/brand/alu-mascot.png" alt="" width={120} height={136} />
         <i className="alu-character__spark" />
       </span>
     </aside>
