@@ -76,12 +76,24 @@ export function MotionDirector() {
         const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");
         const headerProgress = document.querySelector<HTMLElement>("[data-header-progress]");
         if (siteHeader) {
+          const brand = siteHeader.querySelector<HTMLElement>(".brand");
+          const fullLogo = siteHeader.querySelector<HTMLElement>(".brand__full");
+          const compactLogo = siteHeader.querySelector<HTMLElement>(".brand__mark");
+          let logoIsCompact: boolean | null = null;
           gsap.fromTo(siteHeader, { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.15 });
           ScrollTrigger.create({
             start: 0,
             end: "max",
             onUpdate: (self) => {
               const isFloating = self.scroll() > 80;
+              if (logoIsCompact !== isFloating) {
+                logoIsCompact = isFloating;
+                const expandedWidth = window.innerWidth <= 760 ? 112 : 150;
+                gsap.to(fullLogo, { autoAlpha: isFloating ? 0 : 1, x: isFloating ? -10 : 0, scale: isFloating ? 0.82 : 1, duration: 0.38, ease: "power3.out", overwrite: true });
+                gsap.to(compactLogo, { autoAlpha: isFloating ? 1 : 0, x: isFloating ? 0 : -8, scale: isFloating ? 1 : 0.72, duration: 0.38, ease: "power3.out", overwrite: true });
+                gsap.to(brand, { width: isFloating ? 24 : expandedWidth, duration: 0.42, ease: "power3.inOut", overwrite: true });
+                gsap.to(siteHeader, { minHeight: isFloating ? 72 : window.innerWidth <= 760 ? 76 : 96, duration: 0.42, ease: "power3.inOut", overwrite: "auto" });
+              }
               gsap.to(siteHeader, {
                 y: isFloating ? 18 : 0,
                 backgroundColor: isFloating ? "rgba(8, 22, 25, 0.91)" : "rgba(8, 22, 25, 0)",
