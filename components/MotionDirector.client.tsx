@@ -75,7 +75,7 @@ export function MotionDirector() {
               trigger: ".positioning__visual-track",
               start: "top 68%",
               end: "bottom 32%",
-              scrub: 0.65,
+              scrub: 1.1,
             },
           });
 
@@ -83,18 +83,18 @@ export function MotionDirector() {
             const line = note.querySelector<HTMLElement>("[data-note-line]");
             const copy = note.querySelector<HTMLElement>(".structure-note__copy");
             const isLeft = note.classList.contains("structure-note--left");
-            const position = index * 0.48;
+            const position = index * 0.64;
             if (line) {
               gsap.set(line, { scaleX: 0 });
               noteTimeline
-                .to(line, { scaleX: 1, duration: 0.14, ease: "power2.out" }, position)
-                .to(line, { scaleX: 0, duration: 0.12, ease: "power2.in" }, position + 0.35);
+                .to(line, { scaleX: 1, duration: 0.22, ease: "power2.out" }, position)
+                .to(line, { scaleX: 0, duration: 0.15, ease: "power2.inOut" }, position + 0.51);
             }
             if (copy) {
               gsap.set(copy, { autoAlpha: 0, x: isLeft ? -28 : 28 });
               noteTimeline
-                .to(copy, { autoAlpha: 1, x: 0, duration: 0.16, ease: "power3.out" }, position + 0.05)
-                .to(copy, { autoAlpha: 0, x: isLeft ? 18 : -18, duration: 0.1, ease: "power2.in" }, position + 0.32);
+                .to(copy, { autoAlpha: 1, x: 0, duration: 0.24, ease: "power3.out" }, position + 0.07)
+                .to(copy, { autoAlpha: 0, x: isLeft ? 18 : -18, duration: 0.14, ease: "power2.inOut" }, position + 0.48);
             }
           });
         }
