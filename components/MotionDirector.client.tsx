@@ -69,7 +69,7 @@ export function MotionDirector() {
           scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
         });
         const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
-        if (structureNotes.length && window.matchMedia("(min-width: 761px)").matches) {
+        if (structureNotes.length) {
           const noteParts = structureNotes.map((note) => ({
             note,
             line: note.querySelector<HTMLElement>("[data-note-line]"),
@@ -119,6 +119,7 @@ export function MotionDirector() {
           const brand = siteHeader.querySelector<HTMLElement>(".brand");
           const fullLogo = siteHeader.querySelector<HTMLElement>(".brand__full");
           const compactLogo = siteHeader.querySelector<HTMLElement>(".brand__mark");
+          const isMobileHeader = window.innerWidth <= 760;
           let logoIsCompact: boolean | null = null;
           gsap.fromTo(siteHeader, { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.15 });
           ScrollTrigger.create({
@@ -136,6 +137,7 @@ export function MotionDirector() {
               }
               gsap.to(siteHeader, {
                 y: isFloating ? 18 : 0,
+                ...(isMobileHeader ? { left: isFloating ? 16 : 0, right: isFloating ? 16 : 0 } : {}),
                 backgroundColor: isFloating ? "rgba(8, 22, 25, 0.91)" : "rgba(8, 22, 25, 0)",
                 backdropFilter: isFloating ? "blur(14px)" : "blur(0px)",
                 borderRadius: isFloating ? 10 : 0,
@@ -152,7 +154,7 @@ export function MotionDirector() {
         }
 
         const immersiveTrack = document.querySelector<HTMLElement>("[data-immersive-track]");
-        if (immersiveTrack && window.matchMedia("(min-width: 761px)").matches) {
+        if (immersiveTrack) {
           const base = immersiveTrack.querySelector<HTMLElement>("[data-immersive-base]");
           const facade = immersiveTrack.querySelector<HTMLElement>('[data-immersive-plane="facade"]');
           const opening = immersiveTrack.querySelector<HTMLElement>('[data-immersive-plane="opening"]');

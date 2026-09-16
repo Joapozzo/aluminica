@@ -366,6 +366,35 @@ nav a:hover { opacity: .64; }
 .legacy__facts strong { color: var(--acid); }
 .contact-form button { background: var(--acid); }
 
+/* WhatsApp assistant */
+.whatsapp-assistant { position: fixed; z-index: 140; right: max(20px,calc((100vw - var(--site-max)) / 2 + 28px)); bottom: 24px; color: white; }
+.whatsapp-assistant__dock { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+.whatsapp-assistant__nudge { padding: 10px 13px; border: 1px solid rgba(255,255,255,.2); border-radius: 4px; opacity: 1; background: rgba(8,22,25,.92); box-shadow: 0 12px 32px rgba(0,0,0,.2); font-size: .64rem; font-weight: 700; letter-spacing: .06em; transition: opacity 180ms ease,transform 180ms ease; backdrop-filter: blur(10px); }
+.whatsapp-assistant.is-open .whatsapp-assistant__nudge { opacity: 0; transform: translateX(10px); pointer-events: none; }
+.whatsapp-assistant__launcher { position: relative; display: grid; place-items: center; width: 66px; height: 66px; border: 0; border-radius: 50%; background: var(--acid); box-shadow: 0 18px 44px rgba(0,0,0,.28); cursor: pointer; }
+.whatsapp-assistant__launcher:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+.whatsapp-assistant__status { position: absolute; top: 3px; right: 3px; width: 13px; height: 13px; border: 3px solid var(--ink); border-radius: 50%; background: #21c466; }
+.alu-character { position: relative; display: block; width: 31px; height: 48px; animation: alu-float 2.8s ease-in-out infinite; }
+.alu-character img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: brightness(0) saturate(100%); }
+.alu-character__eye { position: absolute; z-index: 2; top: 18px; width: 4px; height: 5px; border-radius: 50%; background: var(--acid); animation: alu-blink 4.2s infinite; }
+.alu-character__eye--left { left: 10px; }
+.alu-character__eye--right { right: 9px; }
+.alu-character__smile { position: absolute; z-index: 2; top: 27px; left: 12px; width: 9px; height: 5px; border-bottom: 2px solid var(--acid); border-radius: 0 0 10px 10px; }
+.whatsapp-assistant__panel { position: absolute; right: 0; bottom: 80px; width: min(390px,calc(100vw - 32px)); visibility: hidden; padding: 22px; border: 1px solid rgba(255,255,255,.2); border-radius: 10px; opacity: 0; background: rgba(8,22,25,.97); box-shadow: 0 28px 80px rgba(0,0,0,.4); transform: translateY(14px) scale(.97); transform-origin: right bottom; transition: opacity 220ms ease,transform 220ms ease,visibility 220ms; backdrop-filter: blur(16px); }
+.whatsapp-assistant.is-open .whatsapp-assistant__panel { visibility: visible; opacity: 1; transform: translateY(0) scale(1); }
+.whatsapp-assistant__heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,.2); }
+.whatsapp-assistant__heading div { display: grid; gap: 7px; }
+.whatsapp-assistant__heading span { color: var(--acid); font-size: .58rem; font-weight: 800; letter-spacing: .16em; }
+.whatsapp-assistant__heading strong { font-family: var(--font-display); font-size: 1.45rem; font-weight: 560; letter-spacing: -.035em; }
+.whatsapp-assistant__heading button { width: 28px; height: 28px; padding: 0; border-radius: 50%; background: rgba(255,255,255,.1); color: white; cursor: pointer; font-size: 1.25rem; line-height: 1; }
+.whatsapp-assistant__panel > p { margin: 18px 0; color: rgba(255,255,255,.68); font-size: .82rem; line-height: 1.5; }
+.whatsapp-assistant__options { display: grid; }
+.whatsapp-assistant__options button { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 0; border-top: 1px solid rgba(255,255,255,.18); background: transparent; color: white; cursor: pointer; font-size: .72rem; font-weight: 700; letter-spacing: .045em; text-align: left; transition: color 160ms ease,padding 160ms ease; }
+.whatsapp-assistant__options button:hover { padding-left: 8px; color: var(--acid); }
+
+@keyframes alu-float { 0%,100% { transform: translateY(1px) rotate(-2deg); } 50% { transform: translateY(-4px) rotate(2deg); } }
+@keyframes alu-blink { 0%,44%,48%,100% { transform: scaleY(1); } 46% { transform: scaleY(.1); } }
+
 @media (max-width: 980px) {
   .hero__cutout--facade { right: 3%; opacity: .58; }
   .hero__cutout--pergola { right: 18%; opacity: .62; }
@@ -494,7 +523,7 @@ nav a:hover { opacity: .64; }
 
 @media (max-width: 760px) {
   :root { --site-gutter: 16px; --card-pad: 24px; }
-  .site-header { right: var(--site-gutter); left: var(--site-gutter); width: auto; }
+  .site-header { right: 0; left: 0; width: auto; margin-inline: 0; }
   .hero__content { width: calc(100% - (var(--site-gutter) * 2)); padding-inline: 0; }
   .hero__meta { width: calc(100% - (var(--site-gutter) * 2)); }
   .contact__panel { padding-inline: 0; }
@@ -502,17 +531,35 @@ nav a:hover { opacity: .64; }
   .service-panel h3 { font-size: clamp(2.7rem, 12vw, 3.45rem); }
   .service-panel h3 strong { font-size: clamp(2rem, 10cqi, 2.8rem); }
   .service-panel h3 span { font-size: 1em; }
-  .immersive { padding-block: 82px 100px; }
-  .immersive__track { height: auto; }
-  .immersive__viewport { position: relative; height: auto; overflow: hidden; padding: 76px 16px 0; }
+  .positioning__visual-track { height: 320svh; margin: 76px 0 90px; }
+  .positioning__visual { position: sticky; top: 94px; width: calc(100% - 24px); max-width: none; height: calc(100svh - 112px); aspect-ratio: auto; margin: 0 auto; }
+  .positioning__media > img { object-fit: cover; object-position: center 40%; }
+  .structure-note { display: flex; }
+  .structure-note__copy { max-width: 112px; padding: 9px 10px; font-size: .54rem; letter-spacing: .08em; line-height: 1.22; white-space: normal; }
+  .structure-note__line { width: 46px; }
+  .structure-note--profiles { top: 39%; right: 44%; }
+  .structure-note--glass { top: 48%; left: 57%; }
+  .structure-note--beam { top: 57%; right: 39%; }
+  .immersive { padding: 0; }
+  .immersive__track { height: 420svh; }
+  .immersive__viewport { position: sticky; top: 0; height: 100svh; overflow: hidden; padding: 0; }
   .immersive__topline { top: 24px; right: 16px; left: 16px; }
-  .immersive__scene { position: relative; inset: auto; z-index: 0; height: 66svh; min-height: 520px; margin-bottom: 54px; border-radius: 2px; }
-  .immersive__base { inset: 0; }
-  .immersive__base img { object-position: center 38%; }
-  .immersive__plane { display: none; }
-  .immersive__chapters { position: relative; right: auto; bottom: auto; left: auto; min-height: 0; }
-  .immersive__chapter, .immersive__chapter.is-active { position: relative; bottom: auto; left: auto; width: 100%; visibility: visible; opacity: 1; padding: 34px 0 38px; border-top: 1px solid rgba(255,255,255,.22); transform: none !important; }
-  .immersive__chapter h2 { max-width: 11ch; font-size: clamp(3rem,14vw,4.8rem); }
-  .immersive__chapter span { margin-top: 18px; }
-  .immersive__progress, .immersive__hint { display: none; }
+  .immersive__scene { position: absolute; inset: 0; z-index: -2; height: auto; min-height: 0; margin: 0; border-radius: 0; }
+  .immersive__base { inset: -5%; }
+  .immersive__base img { object-position: center 40%; }
+  .immersive__plane { display: block; top: 15%; left: 7%; width: 86vw; height: 58svh; }
+  .immersive__plane--opening { top: 16%; left: 6%; width: 88vw; height: 60svh; }
+  .immersive__plane--structure { top: 15%; left: 5%; width: 90vw; height: 62svh; }
+  .immersive__plane span { right: 14px; bottom: 14px; }
+  .immersive__chapters { position: absolute; right: 16px; bottom: 70px; left: 16px; min-height: 245px; }
+  .immersive__chapter, .immersive__chapter.is-active { position: absolute; bottom: 0; left: 0; width: 100%; visibility: hidden; opacity: 0; padding: 0; border: 0; }
+  .immersive__chapter.is-active { visibility: visible; opacity: 1; }
+  .immersive__chapter h2 { max-width: 10ch; font-size: clamp(2.8rem,13vw,4.35rem); }
+  .immersive__chapter span { max-width: 92%; margin-top: 16px; font-size: .82rem; }
+  .immersive__progress { right: 16px; bottom: 26px; left: 16px; display: block; }
+  .immersive__hint { display: none; }
+  .whatsapp-assistant { right: 16px; bottom: 16px; }
+  .whatsapp-assistant__nudge { display: none; }
+  .whatsapp-assistant__launcher { width: 58px; height: 58px; }
+  .whatsapp-assistant__panel { bottom: 70px; width: calc(100vw - 32px); }
 }

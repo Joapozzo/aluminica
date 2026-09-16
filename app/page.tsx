@@ -7,6 +7,7 @@ import { Positioning } from "../components/Positioning";
 import { Projects } from "../components/Projects";
 import { Services } from "../components/Services";
 import { SiteHeader } from "../components/SiteHeader";
+import { WhatsAppAssistant } from "../components/WhatsAppAssistant.client";
 
 export default function Home() {
   const structuredData = {
@@ -29,6 +30,7 @@ export default function Home() {
       <Services />
       <Legacy />
       <Contact />
+      <WhatsAppAssistant />
       <MotionDirector />
     </main>
   );
