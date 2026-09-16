@@ -307,6 +307,35 @@ nav a:hover { opacity: .64; }
 .work-reel__exit span { color: rgba(255,255,255,.48); font-size: clamp(1rem,1.6vw,1.5rem); font-weight: 300; letter-spacing: .06em; }
 .work-reel__exit strong { max-width: 8ch; margin-top: 14px; color: var(--acid); font-size: clamp(2.8rem,5vw,6rem); font-weight: 760; letter-spacing: -.035em; line-height: .86; }
 
+/* Immersive 2.5D work tour */
+.immersive { position: relative; z-index: 2; background: var(--ink); color: white; }
+.immersive__track { position: relative; height: 440svh; }
+.immersive__viewport { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: #071113; perspective: 1400px; }
+.immersive__scene { position: absolute; inset: 0; z-index: -2; overflow: hidden; transform-style: preserve-3d; }
+.immersive__base { position: absolute; inset: -7%; will-change: transform,opacity; }
+.immersive__base img { object-fit: cover; object-position: center 42%; filter: saturate(.62) contrast(1.12); }
+.immersive__wash { position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg,rgba(3,11,13,.92) 0%,rgba(7,20,23,.52) 42%,rgba(7,20,23,.18) 72%,rgba(4,13,15,.64) 100%),linear-gradient(0deg,rgba(4,13,15,.84),transparent 64%); pointer-events: none; }
+.immersive__grid { position: absolute; inset: 0; z-index: 3; opacity: .22; background-image: linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px); background-size: 100% 25%,25% 100%; pointer-events: none; }
+.immersive__plane { position: absolute; z-index: 4; overflow: hidden; opacity: 0; box-shadow: 0 42px 110px rgba(0,0,0,.58); transform-style: preserve-3d; will-change: transform,opacity; }
+.immersive__plane::after { position: absolute; inset: 0; content: ""; background: linear-gradient(0deg,rgba(3,12,14,.76),transparent 52%); pointer-events: none; }
+.immersive__plane img { object-fit: cover; filter: saturate(.72) contrast(1.1); }
+.immersive__plane span { position: absolute; z-index: 2; right: 24px; bottom: 22px; padding: 10px 12px; background: var(--acid); color: var(--ink); font-size: .62rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.immersive__plane--facade { top: 15%; right: 9%; width: min(53vw,920px); height: 68svh; }
+.immersive__plane--opening { top: 13%; left: 10%; width: min(58vw,980px); height: 72svh; }
+.immersive__plane--structure { top: 11%; left: 18%; width: min(64vw,1120px); height: 76svh; }
+.immersive__topline { position: absolute; z-index: 8; top: 30px; right: var(--site-gutter); left: var(--site-gutter); display: flex; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.28); font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.immersive__topline b { color: var(--acid); font-weight: 800; }
+.immersive__chapters { position: absolute; z-index: 7; right: var(--site-gutter); bottom: clamp(70px,9vh,112px); left: var(--site-gutter); min-height: min(36vh,330px); pointer-events: none; }
+.immersive__chapter { position: absolute; bottom: 0; left: 0; width: min(760px,68vw); visibility: hidden; opacity: 0; will-change: transform,opacity; }
+.immersive__chapter.is-active { visibility: visible; opacity: 1; }
+.immersive__chapter p { margin: 0 0 16px; color: var(--acid); font-size: .66rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+.immersive__chapter h2 { max-width: 10ch; margin: 0; font-family: var(--font-display); font-size: clamp(3.6rem,7.6vw,9rem); font-weight: 560; letter-spacing: -.06em; line-height: .82; text-wrap: balance; }
+.immersive__chapter span { display: block; max-width: 560px; margin-top: 24px; color: rgba(255,255,255,.72); font-size: clamp(.9rem,1.1vw,1.08rem); line-height: 1.52; }
+.immersive__progress { position: absolute; z-index: 9; right: var(--site-gutter); bottom: 36px; left: var(--site-gutter); height: 2px; overflow: hidden; background: rgba(255,255,255,.2); }
+.immersive__progress i { display: block; width: 100%; height: 100%; background: var(--acid); transform: scaleX(0); transform-origin: left center; }
+.immersive__hint { position: absolute; z-index: 8; right: var(--site-gutter); bottom: 50px; margin: 0; color: rgba(255,255,255,.64); font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.immersive__hint span { display: inline-block; margin-left: 8px; color: var(--acid); }
+
 /* Image-backed service cards */
 .services { background: var(--acid); }
 .services__sticky .section-heading h2 { letter-spacing: -.025em; }
@@ -389,7 +418,7 @@ nav a:hover { opacity: .64; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-depth-layer], [data-depth-float], [data-gallery-track], [data-gallery-frame], [data-legacy-image], [data-hero-ticker] { transform: none !important; }
+  [data-depth-layer], [data-depth-float], [data-gallery-track], [data-gallery-frame], [data-legacy-image], [data-hero-ticker], [data-immersive-base], [data-immersive-plane] { transform: none !important; }
 }
 
 /* Shared alignment grid */
@@ -473,4 +502,17 @@ nav a:hover { opacity: .64; }
   .service-panel h3 { font-size: clamp(2.7rem, 12vw, 3.45rem); }
   .service-panel h3 strong { font-size: clamp(2rem, 10cqi, 2.8rem); }
   .service-panel h3 span { font-size: 1em; }
+  .immersive { padding-block: 82px 100px; }
+  .immersive__track { height: auto; }
+  .immersive__viewport { position: relative; height: auto; overflow: hidden; padding: 76px 16px 0; }
+  .immersive__topline { top: 24px; right: 16px; left: 16px; }
+  .immersive__scene { position: relative; inset: auto; z-index: 0; height: 66svh; min-height: 520px; margin-bottom: 54px; border-radius: 2px; }
+  .immersive__base { inset: 0; }
+  .immersive__base img { object-position: center 38%; }
+  .immersive__plane { display: none; }
+  .immersive__chapters { position: relative; right: auto; bottom: auto; left: auto; min-height: 0; }
+  .immersive__chapter, .immersive__chapter.is-active { position: relative; bottom: auto; left: auto; width: 100%; visibility: visible; opacity: 1; padding: 34px 0 38px; border-top: 1px solid rgba(255,255,255,.22); transform: none !important; }
+  .immersive__chapter h2 { max-width: 11ch; font-size: clamp(3rem,14vw,4.8rem); }
+  .immersive__chapter span { margin-top: 18px; }
+  .immersive__progress, .immersive__hint { display: none; }
 }

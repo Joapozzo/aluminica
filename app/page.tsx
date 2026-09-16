@@ -1,5 +1,6 @@
 import { Contact } from "../components/Contact";
 import { Hero } from "../components/Hero";
+import { ImmersiveWork } from "../components/ImmersiveWork";
 import { Legacy } from "../components/Legacy";
 import { MotionDirector } from "../components/MotionDirector.client";
 import { Positioning } from "../components/Positioning";
@@ -24,6 +25,7 @@ export default function Home() {
       <Hero />
       <Positioning />
       <Projects />
+      <ImmersiveWork />
       <Services />
       <Legacy />
       <Contact />

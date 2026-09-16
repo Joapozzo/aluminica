@@ -151,6 +151,61 @@ export function MotionDirector() {
           });
         }
 
+        const immersiveTrack = document.querySelector<HTMLElement>("[data-immersive-track]");
+        if (immersiveTrack && window.matchMedia("(min-width: 761px)").matches) {
+          const base = immersiveTrack.querySelector<HTMLElement>("[data-immersive-base]");
+          const facade = immersiveTrack.querySelector<HTMLElement>('[data-immersive-plane="facade"]');
+          const opening = immersiveTrack.querySelector<HTMLElement>('[data-immersive-plane="opening"]');
+          const structure = immersiveTrack.querySelector<HTMLElement>('[data-immersive-plane="structure"]');
+          const chapters = gsap.utils.toArray<HTMLElement>("[data-immersive-chapter]", immersiveTrack);
+          const progress = immersiveTrack.querySelector<HTMLElement>("[data-immersive-progress]");
+          const counter = immersiveTrack.querySelector<HTMLElement>("[data-immersive-counter]");
+          let activeChapter = 0;
+
+          gsap.set(chapters, { autoAlpha: 0, y: 34 });
+          if (chapters[0]) gsap.set(chapters[0], { autoAlpha: 1, y: 0 });
+
+          const updateImmersiveUI = (scrollProgress: number) => {
+            const nextChapter = Math.min(chapters.length - 1, Math.floor(scrollProgress * chapters.length));
+            if (nextChapter !== activeChapter) {
+              const direction = nextChapter > activeChapter ? 1 : -1;
+              gsap.to(chapters[activeChapter], { autoAlpha: 0, y: -24 * direction, duration: 0.34, ease: "power2.inOut", overwrite: true });
+              gsap.fromTo(chapters[nextChapter], { autoAlpha: 0, y: 34 * direction }, { autoAlpha: 1, y: 0, duration: 0.48, ease: "power3.out", overwrite: true });
+              activeChapter = nextChapter;
+            }
+            if (counter) counter.textContent = String(nextChapter + 1).padStart(2, "0");
+            if (progress) gsap.set(progress, { scaleX: scrollProgress });
+          };
+
+          const immersiveTimeline = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: immersiveTrack,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 0.9,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => updateImmersiveUI(self.progress),
+              onRefresh: (self) => updateImmersiveUI(self.progress),
+            },
+          });
+
+          if (base) immersiveTimeline.fromTo(base, { scale: 1.02, xPercent: 0, yPercent: 0 }, { scale: 1.2, xPercent: -4, yPercent: 2, duration: 1 }, 0);
+          if (facade) {
+            immersiveTimeline
+              .fromTo(facade, { autoAlpha: 0, scale: 0.68, z: -520, rotateY: 12, xPercent: 18 }, { autoAlpha: 1, scale: 1, z: 0, rotateY: 0, xPercent: 0, duration: 0.16 }, 0.18)
+              .to(facade, { autoAlpha: 0, scale: 1.12, z: 180, xPercent: -14, duration: 0.14 }, 0.37);
+          }
+          if (opening) {
+            immersiveTimeline
+              .fromTo(opening, { autoAlpha: 0, scale: 0.72, z: -460, rotateY: -11, xPercent: -16 }, { autoAlpha: 1, scale: 1, z: 0, rotateY: 0, xPercent: 0, duration: 0.17 }, 0.42)
+              .to(opening, { autoAlpha: 0, scale: 1.1, z: 170, xPercent: 13, duration: 0.14 }, 0.62);
+          }
+          if (structure) {
+            immersiveTimeline.fromTo(structure, { autoAlpha: 0, scale: 0.7, z: -500, rotateX: 8, yPercent: 15 }, { autoAlpha: 1, scale: 1, z: 0, rotateX: 0, yPercent: 0, duration: 0.2 }, 0.68);
+          }
+        }
+
         const galleryTrack = document.querySelector<HTMLElement>("[data-gallery-track]");
         const galleryScroll = document.querySelector<HTMLElement>("[data-gallery-scroll]");
         if (galleryTrack && galleryScroll) {
