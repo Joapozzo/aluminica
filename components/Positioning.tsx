@@ -20,7 +20,18 @@ export function Positioning() {
         <div className="positioning__visual-track">
           <div className="positioning__visual" data-visual-reveal>
             <Image src="/stock/glass-house.jpg" alt="Casa contemporánea rodeada de vegetación con grandes paños de vidrio" fill sizes="(max-width: 760px) 90vw, 55vh" />
-            <span className="positioning__disc" data-depth-float aria-hidden="true">UN SOLO<br />EQUIPO</span>
+            <span className="structure-note structure-note--left structure-note--profiles" data-structure-note aria-hidden="true">
+              <span className="structure-note__copy">01 / Perfiles de aluminio</span>
+              <span className="structure-note__line" data-note-line />
+            </span>
+            <span className="structure-note structure-note--right structure-note--glass" data-structure-note aria-hidden="true">
+              <span className="structure-note__line" data-note-line />
+              <span className="structure-note__copy">02 / Paños de vidrio</span>
+            </span>
+            <span className="structure-note structure-note--left structure-note--beam" data-structure-note aria-hidden="true">
+              <span className="structure-note__copy">03 / Viga perimetral</span>
+              <span className="structure-note__line" data-note-line />
+            </span>
           </div>
         </div>
         <div className="principles">

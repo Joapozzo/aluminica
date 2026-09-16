@@ -68,10 +68,32 @@ export function MotionDirector() {
           clipPath: "inset(0% 0% 0% 0% round 0%)", rotate: 0, ease: "none",
           scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
         });
-        gsap.to("[data-depth-float]", {
-          yPercent: -90, rotate: 160, ease: "none",
-          scrollTrigger: { trigger: ".positioning", start: "top bottom", end: "bottom top", scrub: true },
-        });
+        const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
+        if (structureNotes.length && window.matchMedia("(min-width: 761px)").matches) {
+          const noteTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".positioning__visual-track",
+              start: "top 68%",
+              end: "bottom 32%",
+              scrub: 0.65,
+            },
+          });
+
+          structureNotes.forEach((note, index) => {
+            const line = note.querySelector<HTMLElement>("[data-note-line]");
+            const copy = note.querySelector<HTMLElement>(".structure-note__copy");
+            const isLeft = note.classList.contains("structure-note--left");
+            const position = index * 0.32;
+            if (line) {
+              gsap.set(line, { scaleX: 0 });
+              noteTimeline.to(line, { scaleX: 1, duration: 0.18, ease: "power2.out" }, position);
+            }
+            if (copy) {
+              gsap.set(copy, { autoAlpha: 0, x: isLeft ? -28 : 28 });
+              noteTimeline.to(copy, { autoAlpha: 1, x: 0, duration: 0.2, ease: "power3.out" }, position + 0.06);
+            }
+          });
+        }
 
         const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");
         const headerProgress = document.querySelector<HTMLElement>("[data-header-progress]");
