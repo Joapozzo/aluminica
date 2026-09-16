@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "../components/Analytics.client";
+import { absoluteUrl, siteConfig } from "../lib/site";
+import { defaultDescription } from "../lib/seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aluminica-cordoba.pozzojoa.chatgpt.site"),
-  title: "Aluminica | Herrería y carpintería de aluminio en Córdoba",
-  description: "Soluciones integrales y a medida en herrería y carpintería de aluminio para obras, profesionales y hogares en Córdoba y Gran Córdoba.",
+  metadataBase: new URL(siteConfig.siteUrl),
+  title: { default: "Aluminica | Herrería y carpintería de aluminio en Córdoba", template: "%s | Aluminica" },
+  description: defaultDescription,
   keywords: ["herrería Córdoba", "carpintería de aluminio Córdoba", "estructuras metálicas", "pérgolas", "portones"],
   icons: { icon: "/brand/aluminica-mark.png" },
+  alternates: { canonical: absoluteUrl("/") },
+  verification: siteConfig.searchConsoleVerification ? { google: siteConfig.searchConsoleVerification } : undefined,
   openGraph: {
     title: "Una obra. Un equipo. Todo el metal resuelto.",
     description: "Herrería y carpintería de aluminio en Córdoba.",
@@ -23,5 +28,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es"><body>{children}</body></html>;
+  return <html lang={siteConfig.language}><body>{children}<Analytics /></body></html>;
 }

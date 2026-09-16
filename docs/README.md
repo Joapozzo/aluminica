@@ -33,6 +33,7 @@
 21. [`assets/requirements.md`](assets/requirements.md): registro de recursos visuales faltantes.
 22. [`05-development/brief.md`](05-development/brief.md): requisitos de ejecución, calidad y validación.
 23. [`06-production/production-readiness-plan.md`](06-production/production-readiness-plan.md): plan maestro de producción, SEO, medición, QA y estabilización.
+24. [`06-production/release-report.md`](06-production/release-report.md): evidencia técnica, bloqueos externos y rollback.
 
 ## Jerarquía de decisiones
 

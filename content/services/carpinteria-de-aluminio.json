@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "carpinteria-de-aluminio",
   "name": "Carpintería de aluminio",
-  "summary": "{{CARPINTERIA_DE_ALUMINIO_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Aberturas de aluminio a medida que integran luz, hermeticidad y una apertura precisa para viviendas, ampliaciones y obras nuevas.",
+  "applications": ["Ventanas", "Puertas", "Paños fijos", "Cerramientos"],
+  "scope": ["Asesoramiento de tipología", "Medición en obra", "Fabricación", "Colocación y regulación"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 1
 }
-

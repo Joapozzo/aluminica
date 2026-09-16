@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "portones",
   "name": "Portones",
-  "summary": "{{PORTONES_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Portones a medida que combinan seguridad, funcionamiento fluido y una presencia alineada con el frente de cada propiedad.",
+  "applications": ["Cocheras", "Ingresos residenciales", "Accesos de servicio", "Frentes comerciales"],
+  "scope": ["Relevamiento", "Definición de apertura", "Fabricación", "Instalación y ajuste"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 6
 }
-

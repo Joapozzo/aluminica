@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "puertas-de-chapa",
   "name": "Puertas de chapa",
-  "summary": "{{PUERTAS_DE_CHAPA_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Puertas de chapa fabricadas a medida para resolver accesos resistentes, seguros y visualmente integrados a cada proyecto.",
+  "applications": ["Ingresos", "Patios", "Depósitos", "Áreas de servicio"],
+  "scope": ["Medición", "Diseño", "Fabricación", "Colocación"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 4
 }
-

@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "pergolas",
   "name": "Pérgolas",
-  "summary": "{{PERGOLAS_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Pérgolas metálicas diseñadas para extender la arquitectura hacia el exterior y sumar sombra sin perder amplitud ni proporción.",
+  "applications": ["Patios", "Galerías", "Terrazas", "Cocheras"],
+  "scope": ["Relevamiento", "Diseño según el espacio", "Fabricación", "Montaje"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 7
 }
-

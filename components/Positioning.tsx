@@ -20,7 +20,7 @@ export function Positioning() {
         <div className="positioning__visual-track">
           <div className="positioning__visual">
             <div className="positioning__media" data-visual-reveal>
-              <Image src="/stock/glass-house.jpg" alt="Casa contemporánea rodeada de vegetación con grandes paños de vidrio" fill sizes="(max-width: 760px) 90vw, 55vh" />
+              <Image src="/stock/glass-house.webp" alt="Casa contemporánea rodeada de vegetación con grandes paños de vidrio" fill sizes="(max-width: 760px) 90vw, 55vh" />
             </div>
             <span className="structure-note structure-note--left structure-note--profiles" data-structure-note aria-hidden="true">
               <span className="structure-note__copy">01 / Perfiles de aluminio</span>

@@ -9,7 +9,7 @@ export function Hero() {
         <Image
           className="hero__image"
           data-hero-image
-          src="/stock/glass-doors.jpg"
+          src="/stock/glass-doors.webp"
           alt="Carpintería de aluminio plegable abierta hacia una galería contemporánea"
           fill
           priority
@@ -19,10 +19,10 @@ export function Hero() {
         <div className="hero__wash" data-hero-wash />
         <div className="hero__grid" aria-hidden="true" />
         <div className="hero__cutout hero__cutout--facade" data-depth-layer="1" aria-hidden="true">
-          <Image src="/stock/facade-detail.jpg" alt="" fill sizes="28vw" />
+          <Image src="/stock/facade-detail.webp" alt="" fill sizes="28vw" />
         </div>
         <div className="hero__cutout hero__cutout--pergola" data-depth-layer="2" aria-hidden="true">
-          <Image src="/stock/pergola-black.jpg" alt="" fill sizes="22vw" />
+          <Image src="/stock/pergola-black.webp" alt="" fill sizes="22vw" />
         </div>
 
         <div className="hero__content" data-hero-copy>

@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "estructuras-metalicas",
   "name": "Estructuras metálicas",
-  "summary": "{{ESTRUCTURAS_METALICAS_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Estructuras metálicas a medida para ampliar, sostener o transformar espacios con resoluciones robustas y una ejecución coordinada.",
+  "applications": ["Ampliaciones", "Cubiertas", "Entrepiso", "Soportes especiales"],
+  "scope": ["Lectura de proyecto", "Desarrollo constructivo", "Fabricación", "Montaje en obra"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 10
 }
-

@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "barandas",
   "name": "Barandas",
-  "summary": "{{BARANDAS_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Barandas de hierro y aluminio diseñadas a medida para proteger desniveles sin quitarle liviandad visual a la arquitectura.",
+  "applications": ["Balcones", "Escaleras", "Terrazas", "Entrepiso"],
+  "scope": ["Relevamiento", "Diseño y fabricación", "Terminación", "Instalación"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 8
 }
-

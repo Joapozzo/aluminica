@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "frentes-de-asador",
   "name": "Frentes de asador",
-  "summary": "{{FRENTES_DE_ASADOR_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Frentes de asador fabricados a medida para ordenar el fuego, el guardado y el uso cotidiano con una terminación limpia y durable.",
+  "applications": ["Asadores", "Quinchos", "Galerías", "Espacios gastronómicos"],
+  "scope": ["Medición", "Definición funcional", "Fabricación", "Instalación"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 5
 }
-

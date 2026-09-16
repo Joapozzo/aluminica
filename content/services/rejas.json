@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "rejas",
   "name": "Rejas",
-  "summary": "{{REJAS_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Rejas a medida que aportan protección sin convertir la fachada en una barrera, con proporciones pensadas para cada abertura.",
+  "applications": ["Ventanas", "Frentes", "Patios", "Cerramientos"],
+  "scope": ["Relevamiento", "Diseño según fachada", "Fabricación", "Instalación"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 3
 }
-

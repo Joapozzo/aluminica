@@ -4,7 +4,7 @@ import Image from "next/image";
 export function Legacy() {
   return (
     <section className="legacy section-shell" id="trayectoria" aria-labelledby="legacy-title">
-      <Image className="legacy__image" data-legacy-image src="/stock/welding.jpg" alt="Trabajo de soldadura sobre una estructura de acero" fill sizes="100vw" />
+      <Image className="legacy__image" data-legacy-image src="/stock/welding.webp" alt="Trabajo de soldadura sobre una estructura de acero" fill sizes="100vw" />
       <div className="legacy__overlay" aria-hidden="true" />
       <div className="legacy__mark" data-legacy-mark aria-hidden="true">50+</div>
       <div className="container legacy__content">

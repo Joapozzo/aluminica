@@ -39,21 +39,21 @@ export function ImmersiveWork() {
 
           <div className="immersive__scene" data-immersive-scene aria-hidden="true">
             <div className="immersive__base" data-immersive-base>
-              <Image src="/stock/glass-house.jpg" alt="" fill sizes="100vw" />
+              <Image src="/stock/glass-house.webp" alt="" fill sizes="100vw" />
             </div>
             <div className="immersive__wash" />
             <div className="immersive__grid" />
 
             <div className="immersive__plane immersive__plane--facade" data-immersive-plane="facade">
-              <Image src="/stock/facade-detail.jpg" alt="" fill sizes="52vw" />
+              <Image src="/stock/facade-detail.webp" alt="" fill sizes="52vw" />
               <span>01 / Modulación</span>
             </div>
             <div className="immersive__plane immersive__plane--opening" data-immersive-plane="opening">
-              <Image src="/stock/glass-doors.jpg" alt="" fill sizes="56vw" />
+              <Image src="/stock/glass-doors.webp" alt="" fill sizes="56vw" />
               <span>02 / Apertura total</span>
             </div>
             <div className="immersive__plane immersive__plane--structure" data-immersive-plane="structure">
-              <Image src="/stock/pergola-black.jpg" alt="" fill sizes="64vw" />
+              <Image src="/stock/pergola-black.webp" alt="" fill sizes="64vw" />
               <span>03 / Estructura</span>
             </div>
           </div>

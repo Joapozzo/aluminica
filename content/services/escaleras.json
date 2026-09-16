@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "escaleras",
   "name": "Escaleras",
-  "summary": "{{ESCALERAS_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Escaleras metálicas que convierten una necesidad de circulación en una pieza estructural clara, segura y coherente con el espacio.",
+  "applications": ["Interiores", "Exteriores", "Entrepiso", "Accesos técnicos"],
+  "scope": ["Relevamiento", "Cálculo y definición", "Fabricación", "Montaje"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 9
 }
-

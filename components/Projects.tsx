@@ -2,10 +2,10 @@ import Image from "next/image";
 import { SectionHeading } from "./SectionHeading";
 
 const frames = [
-  { src: "/stock/pergola.jpg", kicker: "Sombra", title: "Estructuras que dibujan el cielo", alt: "Detalle de pérgola moderna de aluminio" },
-  { src: "/stock/glass-doors.jpg", kicker: "Apertura", title: "Límites que desaparecen", alt: "Puertas plegables de vidrio y aluminio abiertas" },
-  { src: "/stock/staircase.jpg", kicker: "Recorrido", title: "Metal que sostiene el movimiento", alt: "Escalera contemporánea con estructura metálica" },
-  { src: "/stock/facade-detail.jpg", kicker: "Envolvente", title: "Precisión convertida en fachada", alt: "Detalle azul de fachada metálica contemporánea" },
+  { src: "/stock/pergola.webp", kicker: "Sombra", title: "Estructuras que dibujan el cielo", alt: "Detalle de pérgola moderna de aluminio" },
+  { src: "/stock/glass-doors.webp", kicker: "Apertura", title: "Límites que desaparecen", alt: "Puertas plegables de vidrio y aluminio abiertas" },
+  { src: "/stock/staircase.webp", kicker: "Recorrido", title: "Metal que sostiene el movimiento", alt: "Escalera contemporánea con estructura metálica" },
+  { src: "/stock/facade-detail.webp", kicker: "Envolvente", title: "Precisión convertida en fachada", alt: "Detalle azul de fachada metálica contemporánea" },
 ];
 
 export function Projects() {

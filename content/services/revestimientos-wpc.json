@@ -1,11 +1,10 @@
 {
-  "meta": { "status": "draft", "publicationReady": false },
+  "meta": { "status": "published", "publicationReady": true },
   "slug": "revestimientos-wpc",
   "name": "Revestimientos de WPC",
-  "summary": "{{REVESTIMIENTOS_WPC_SUMMARY}}",
-  "applications": [],
-  "scope": [],
+  "summary": "Revestimientos de WPC para sumar textura, calidez y bajo mantenimiento en frentes y exteriores expuestos al uso cotidiano.",
+  "applications": ["Fachadas", "Muros exteriores", "Galerías", "Detalles arquitectónicos"],
+  "scope": ["Relevamiento", "Modulación", "Preparación de soporte", "Instalación"],
   "mediaAssetId": null,
-  "priority": null
+  "priority": 2
 }
-

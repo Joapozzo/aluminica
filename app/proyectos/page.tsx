@@ -1,0 +1,8 @@
+import Image from "next/image";
+import { InnerPageShell } from "../../components/InnerPageShell";
+import { buildMetadata } from "../../lib/seo";
+
+export const metadata = buildMetadata({ title: "Proyectos y formas de trabajar el metal", description: "Una exploración visual de carpinterías, pérgolas, escaleras y fachadas para imaginar soluciones a medida en Córdoba.", path: "/proyectos" });
+const studies = [{ title: "Sombra que ordena el exterior", type: "Pérgolas y estructuras", image: "/stock/pergola.webp" }, { title: "Aberturas que amplían la casa", type: "Carpintería de aluminio", image: "/stock/glass-doors.webp" }, { title: "Recorridos con presencia", type: "Escaleras y barandas", image: "/stock/staircase.webp" }, { title: "Una piel precisa", type: "Fachadas y revestimientos", image: "/stock/facade-detail.webp" }];
+
+export default function ProjectsPage() { return <InnerPageShell><section className="editorial-hero container"><p className="eyebrow">Inspiración de proyecto</p><h1>El metal cambia<br /><strong>cómo se habita.</strong></h1><p>Estas imágenes son referencias visuales que muestran posibilidades de material, escala y uso. Cada solución de Aluminica se desarrolla a medida de la obra.</p></section><section className="project-list container">{studies.map((study, index) => <article key={study.title}><div className="project-list__image"><Image src={study.image} alt={`Referencia arquitectónica: ${study.title}`} fill sizes="(max-width: 760px) 100vw, 68vw" /></div><div><span>0{index + 1} / {study.type}</span><h2>{study.title}</h2></div></article>)}</section></InnerPageShell>; }

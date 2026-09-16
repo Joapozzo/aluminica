@@ -1,12 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SectionHeading } from "./SectionHeading";
+import { services as servicePages } from "../lib/content";
 
 const groups = [
   {
     number: "01",
     lead: "Aluminio",
     title: "que abre",
-    image: "/stock/glass-doors.jpg",
+    image: "/stock/glass-doors.webp",
     description: "Carpinterías que conectan interior y exterior con luz, hermeticidad y una presencia precisa.",
     items: ["Carpintería de aluminio", "Aberturas", "Puertas"],
   },
@@ -14,7 +16,7 @@ const groups = [
     number: "02",
     lead: "Hierro",
     title: "que protege",
-    image: "/stock/welding.jpg",
+    image: "/stock/welding.webp",
     description: "Seguridad resuelta sin esconder el diseño: piezas robustas que pertenecen a la arquitectura.",
     items: ["Portones", "Rejas", "Puertas de chapa"],
   },
@@ -22,7 +24,7 @@ const groups = [
     number: "03",
     lead: "Estructuras",
     title: "que expanden",
-    image: "/stock/pergola-black.jpg",
+    image: "/stock/pergola-black.webp",
     description: "Sistemas a medida para sumar sombra, recorrido, soporte y nuevos modos de usar cada ambiente.",
     items: ["Pérgolas", "Barandas", "Escaleras", "Estructuras metálicas"],
   },
@@ -30,7 +32,7 @@ const groups = [
     number: "04",
     lead: "Terminaciones",
     title: "que transforman",
-    image: "/stock/staircase.jpg",
+    image: "/stock/staircase.webp",
     description: "El último plano también construye: superficies y frentes que cambian cómo se vive el espacio.",
     items: ["Revestimientos WPC", "Frentes de asador"],
   },
@@ -56,7 +58,7 @@ export function Services() {
               <div className="service-panel__content">
                 <h3><strong>{group.lead}</strong> <span>{group.title}</span></h3>
                 <p>{group.description}</p>
-                <ul>{group.items.map((item) => <li key={item}>{item}<span aria-hidden="true">↗</span></li>)}</ul>
+                <ul>{group.items.map((item) => { const page = servicePages.find((service) => service.name === item || service.name.replace(" de ", " ") === item); return <li key={item}>{page ? <Link href={`/servicios/${page.slug}`}>{item}<span aria-hidden="true">↗</span></Link> : <span>{item}</span>}</li>; })}</ul>
               </div>
             </article>
           ))}

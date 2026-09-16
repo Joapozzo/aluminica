@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { siteConfig } from "../lib/site";
+import { trackEvent } from "../lib/analytics";
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -172,15 +173,18 @@ export function WhatsAppAssistant() {
   }, [open]);
 
   const sendMessage = (message: string) => {
+    trackEvent("generate_lead", { method: "whatsapp_assistant" });
     window.open(`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   const toggleAssistant = () => {
     if (open) {
+      trackEvent("assistant_close");
       setClosing(true);
       setOpen(false);
       return;
     }
+    trackEvent("assistant_open");
     setClosing(false);
     setOpen(true);
   };
@@ -203,7 +207,7 @@ export function WhatsAppAssistant() {
           </div>
         </div>
         <div ref={optionsRef} className="whatsapp-assistant__options">
-          {prompts.map((prompt) => <button type="button" key={prompt.label} onClick={() => sendMessage(prompt.message)}><span>{prompt.label}</span><span aria-hidden="true">↗</span></button>)}
+          {prompts.map((prompt) => <button type="button" key={prompt.label} onClick={() => sendMessage(prompt.message)} data-analytics-event="whatsapp_click" data-analytics-label={prompt.label}><span>{prompt.label}</span><span aria-hidden="true">↗</span></button>)}
         </div>
       </div>
 
