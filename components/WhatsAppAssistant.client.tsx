@@ -27,6 +27,7 @@ export function WhatsAppAssistant() {
   const launcherRef = useRef<HTMLButtonElement>(null);
   const buildLineRef = useRef<HTMLSpanElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const idleTweenRef = useRef<gsap.core.Tween | null>(null);
   const didMountRef = useRef(false);
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export function WhatsAppAssistant() {
     if (!root || !panel || !mascot || !target || !heading || !message || !options || !nudge || !launcher || !buildLine) return;
 
     timelineRef.current?.kill();
+    idleTweenRef.current?.kill();
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!didMountRef.current) {
@@ -111,6 +113,18 @@ export function WhatsAppAssistant() {
           .to(launcher, { scaleX: 1, scaleY: 1, duration: 0.24 }, 0.72)
           .to(message, { autoAlpha: 1, y: 0, duration: 0.3 }, 1.05)
           .to(options.children, { autoAlpha: 1, y: 0, duration: 0.26, stagger: 0.08 }, 1.18);
+
+        timelineRef.current.eventCallback("onComplete", () => {
+          idleTweenRef.current = gsap.to(mascot, {
+            y: travelY - 3,
+            rotation: 1.4,
+            scaleY: 1.015,
+            duration: 1.45,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+          });
+        });
       } else {
         const currentX = Number(gsap.getProperty(mascot, "x")) || 0;
         const currentY = Number(gsap.getProperty(mascot, "y")) || 0;
@@ -145,6 +159,7 @@ export function WhatsAppAssistant() {
 
     return () => {
       timelineRef.current?.kill();
+      idleTweenRef.current?.kill();
       context.kill(false);
     };
   }, [open]);
