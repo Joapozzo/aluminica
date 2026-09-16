@@ -105,6 +105,7 @@ export function MotionDirector() {
               });
               if (headerProgress) {
                 headerProgress.style.setProperty("--nav-progress", `${self.progress * 360}deg`);
+                headerProgress.style.opacity = self.scroll() > 0 ? "1" : "0";
               }
             },
           });
