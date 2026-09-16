@@ -6,19 +6,15 @@ import { siteConfig } from "../lib/site";
 
 const prompts = [
   {
-    label: "Cotizar aberturas",
-    message: "Hola Aluminica, quiero cotizar aberturas de aluminio para mi proyecto. ¿Podemos conversar?",
+    label: "Cotizar un proyecto",
+    message: "Hola Aluminica, quiero cotizar una solución para mi proyecto. ¿Podemos conversar?",
   },
   {
-    label: "Tengo una obra en curso",
-    message: "Hola Aluminica, tengo una obra en curso y necesito resolver carpintería de aluminio y/o herrería. Quiero recibir asesoramiento.",
+    label: "Consultar una solución",
+    message: "Hola Aluminica, necesito asesoramiento sobre carpintería de aluminio o herrería para una obra.",
   },
   {
-    label: "Herrería a medida",
-    message: "Hola Aluminica, necesito una solución de herrería a medida. Quisiera contarles el proyecto y solicitar un presupuesto.",
-  },
-  {
-    label: "Hablar con una persona",
+    label: "Hablar con el equipo",
     message: "Hola Aluminica, quisiera hablar con una persona del equipo para realizar una consulta.",
   },
 ];
@@ -35,16 +31,16 @@ export function WhatsAppAssistant() {
   };
 
   return (
-    <aside className={`whatsapp-assistant${open ? " is-open" : ""}`} aria-label="Asistente de WhatsApp">
+    <aside className={`whatsapp-assistant${open ? " is-open" : ""}`} aria-label="Contacto por WhatsApp">
       <div className="whatsapp-assistant__panel" id="whatsapp-assistant-panel" aria-hidden={!open}>
         <div className="whatsapp-assistant__heading">
-          <div>
-            <span>ALU / ASISTENTE</span>
-            <strong>¿En qué podemos ayudarte?</strong>
-          </div>
+          <span>ALUMINICA / EN LÍNEA</span>
           <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar asistente">×</button>
         </div>
-        <p>Elegí una opción y dejamos el mensaje listo para continuar directamente en WhatsApp.</p>
+        <div className="whatsapp-assistant__message">
+          <span className="whatsapp-assistant__mini-alu" aria-hidden="true"><Image src="/brand/aluminica-mark.png" alt="" width={18} height={38} /></span>
+          <p>Hola. ¿Qué necesitás resolver?</p>
+        </div>
         <div className="whatsapp-assistant__options">
           {prompts.map((prompt) => (
             <button type="button" key={prompt.label} onClick={() => sendMessage(prompt.message)}>
