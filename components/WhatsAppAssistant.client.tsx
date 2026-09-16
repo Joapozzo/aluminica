@@ -34,7 +34,13 @@ export function WhatsAppAssistant() {
     <aside className={`whatsapp-assistant${open ? " is-open" : ""}`} aria-label="Contacto por WhatsApp">
       <div className="whatsapp-assistant__panel" id="whatsapp-assistant-panel" aria-hidden={!open}>
         <div className="whatsapp-assistant__heading">
-          <span>ALUMINICA / EN LÍNEA</span>
+          <div className="whatsapp-assistant__identity">
+            <strong>ALU</strong>
+            <span className="whatsapp-assistant__online">
+              <i aria-hidden="true" />
+              En línea
+            </span>
+          </div>
           <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar asistente">×</button>
         </div>
         <div className="whatsapp-assistant__message">
