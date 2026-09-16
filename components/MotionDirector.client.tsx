@@ -103,7 +103,9 @@ export function MotionDirector() {
                 duration: 0.28,
                 overwrite: "auto",
               });
-              if (headerProgress) gsap.set(headerProgress, { scaleX: self.progress });
+              if (headerProgress) {
+                headerProgress.style.setProperty("--nav-progress", `${self.progress * 360}deg`);
+              }
             },
           });
         }
