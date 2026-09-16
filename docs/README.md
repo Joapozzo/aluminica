@@ -32,6 +32,7 @@
 20. [`../content/README.md`](../content/README.md): paquete editorial estructurado.
 21. [`assets/requirements.md`](assets/requirements.md): registro de recursos visuales faltantes.
 22. [`05-development/brief.md`](05-development/brief.md): requisitos de ejecución, calidad y validación.
+23. [`06-production/production-readiness-plan.md`](06-production/production-readiness-plan.md): plan maestro de producción, SEO, medición, QA y estabilización.
 
 ## Jerarquía de decisiones
 
