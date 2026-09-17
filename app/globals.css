@@ -665,3 +665,40 @@ nav a:hover { opacity: .64; }
 }
 .contact__footer div > span { opacity: 1; }
 .contact__logo img { filter: brightness(0) saturate(100%); }
+
+/* The annotated photo should stay visually clean; labels supply the structure. */
+.positioning__visual,
+.positioning__media { background: transparent; }
+.positioning__visual::before { display: none; }
+
+/* Compact ALU panel: the character remains the focus and actions use two rows. */
+.whatsapp-assistant__panel {
+  width: min(374px, calc(100vw - 32px));
+  padding: 12px;
+}
+.whatsapp-assistant__heading { padding-bottom: 7px; }
+.whatsapp-assistant__message {
+  gap: 10px;
+  margin: 8px 0;
+}
+.whatsapp-assistant__alu-seat {
+  flex-basis: 54px;
+  width: 54px;
+  height: 58px;
+}
+.whatsapp-assistant__message-copy { gap: 1px; }
+.whatsapp-assistant__options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+.whatsapp-assistant__options button {
+  min-height: 42px;
+  padding: 8px 10px;
+  line-height: 1.18;
+}
+.whatsapp-assistant__options button:first-child { grid-column: 1 / -1; }
+
+@media (max-width: 420px) {
+  .whatsapp-assistant__panel { width: calc(100vw - 24px); }
+  .whatsapp-assistant__options button { font-size: .62rem; }
+}
