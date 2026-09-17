@@ -12,7 +12,7 @@ export function Contact() {
           <p>Córdoba y Gran Córdoba<br />Obras · Profesionales · Hogares</p>
         </div>
         <div className="contact__main">
-          <h2 id="contact-title">La próxima pieza empieza con una conversación.</h2>
+          <h2 id="contact-title">La próxima pieza empieza <span className="title-accent">con una conversación.</span></h2>
           <ContactForm />
         </div>
         <div className="contact__footer">

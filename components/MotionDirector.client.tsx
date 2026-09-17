@@ -54,7 +54,10 @@ export function MotionDirector() {
           removePointerMotion = () => hero.removeEventListener("pointermove", onPointerMove);
         }
 
+        const isDesktop = window.matchMedia("(min-width: 761px)").matches;
+
         gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
+          if (isDesktop && element.hasAttribute("data-principle")) return;
           gsap.from(element, {
             y: 54,
             opacity: 0,
@@ -64,8 +67,8 @@ export function MotionDirector() {
           });
         });
 
-        gsap.fromTo("[data-visual-reveal]", { clipPath: "inset(18% 24% 18% 24% round 48%)", rotate: 3 }, {
-          clipPath: "inset(0% 0% 0% 0% round 0%)", rotate: 0, ease: "none",
+        gsap.fromTo("[data-visual-reveal]", { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
+          clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
           scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
         });
         const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
@@ -103,14 +106,91 @@ export function MotionDirector() {
             });
           };
 
+          const visual = document.querySelector<HTMLElement>("[data-positioning-visual]");
+          const visualTrack = document.querySelector<HTMLElement>("[data-positioning-track]");
+          const stage = document.querySelector<HTMLElement>("[data-positioning-stage]");
+          const principlesWrap = document.querySelector<HTMLElement>("[data-principles]");
+          const principleCards = gsap.utils.toArray<HTMLElement>("[data-principle]");
+          const useDesktopSplit = isDesktop && Boolean(visual && visualTrack && stage && principlesWrap && principleCards.length);
+          const sceneTopValue = stage ? getComputedStyle(stage).top : "140px";
+          const sceneTop = !sceneTopValue || sceneTopValue === "auto" ? "140px" : sceneTopValue;
+
+          const applySplitLayout = () => {
+            if (!visual || !principlesWrap || !stage) return 0;
+            const currentX = Number(gsap.getProperty(visual, "x")) || 0;
+            const stageRect = stage.getBoundingClientRect();
+            const visualRect = visual.getBoundingClientRect();
+            const layoutLeft = visualRect.left - stageRect.left - currentX;
+            gsap.set(principlesWrap, { "--principle-left": `${visualRect.width + 24}px` });
+            return Math.max(0, layoutLeft);
+          };
+
+          const renderDesktopScene = (progress: number) => {
+            const shift = applySplitLayout();
+            const positioning = document.querySelector<HTMLElement>(".positioning");
+            const integralEnd = 0.22;
+            const notesStart = 0.26;
+            const notesEnd = 0.58;
+            const splitEnd = 0.68;
+
+            const integral = smooth(clamp01(progress / integralEnd));
+            if (positioning) {
+              positioning.style.setProperty("--integral-opacity", String(integral));
+              positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
+            }
+
+            renderStructureNotes(clamp01((progress - notesStart) / (notesEnd - notesStart)));
+
+            const split = smooth(clamp01((progress - notesEnd) / (splitEnd - notesEnd)));
+            if (visual) gsap.set(visual, { x: -shift * split });
+
+            principleCards.forEach((card, index) => {
+              if (index === 0) {
+                gsap.set(card, { clipPath: `inset(0 ${(1 - split) * 100}% 0 0)` });
+                return;
+              }
+              const span = (1 - splitEnd) / Math.max(1, principleCards.length - 1);
+              const cardStart = splitEnd + (index - 1) * span;
+              const wipe = smooth(clamp01((progress - cardStart) / span));
+              gsap.set(card, { clipPath: `inset(${(1 - wipe) * 100}% 0 0 0)` });
+            });
+          };
+
           renderStructureNotes(0);
-          ScrollTrigger.create({
-            trigger: ".positioning__visual-track",
-            start: "top 68%",
-            end: "bottom 32%",
-            onRefresh: (self) => renderStructureNotes(self.progress),
-            onUpdate: (self) => renderStructureNotes(self.progress),
-          });
+          if (useDesktopSplit) {
+            renderDesktopScene(0);
+            ScrollTrigger.create({
+              trigger: visualTrack,
+              start: `top ${sceneTop}`,
+              end: "bottom bottom",
+              invalidateOnRefresh: true,
+              onRefresh: (self) => renderDesktopScene(self.progress),
+              onUpdate: (self) => renderDesktopScene(self.progress),
+            });
+          } else {
+            const positioning = document.querySelector<HTMLElement>(".positioning");
+            ScrollTrigger.create({
+              trigger: ".positioning__visual-track",
+              start: "top 68%",
+              end: "bottom 32%",
+              onRefresh: (self) => {
+                const integral = smooth(clamp01(self.progress / 0.22));
+                if (positioning) {
+                  positioning.style.setProperty("--integral-opacity", String(integral));
+                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
+                }
+                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
+              },
+              onUpdate: (self) => {
+                const integral = smooth(clamp01(self.progress / 0.22));
+                if (positioning) {
+                  positioning.style.setProperty("--integral-opacity", String(integral));
+                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
+                }
+                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
+              },
+            });
+          }
         }
 
         const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");
@@ -119,7 +199,6 @@ export function MotionDirector() {
           const brand = siteHeader.querySelector<HTMLElement>(".brand");
           const fullLogo = siteHeader.querySelector<HTMLElement>(".brand__full");
           const compactLogo = siteHeader.querySelector<HTMLElement>(".brand__mark");
-          const isMobileHeader = window.innerWidth <= 760;
           let logoIsCompact: boolean | null = null;
           gsap.fromTo(siteHeader, { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.15 });
           ScrollTrigger.create({
@@ -132,12 +211,14 @@ export function MotionDirector() {
                 const expandedWidth = window.innerWidth <= 760 ? 112 : 150;
                 gsap.to(fullLogo, { autoAlpha: isFloating ? 0 : 1, x: isFloating ? -10 : 0, scale: isFloating ? 0.82 : 1, duration: 0.38, ease: "power3.out", overwrite: true });
                 gsap.to(compactLogo, { autoAlpha: isFloating ? 1 : 0, x: isFloating ? 0 : -8, scale: isFloating ? 1 : 0.72, duration: 0.38, ease: "power3.out", overwrite: true });
-                gsap.to(brand, { width: isFloating ? 24 : expandedWidth, duration: 0.42, ease: "power3.inOut", overwrite: true });
-                gsap.to(siteHeader, { minHeight: isFloating ? 72 : window.innerWidth <= 760 ? 76 : 96, duration: 0.42, ease: "power3.inOut", overwrite: "auto" });
+                gsap.to(brand, { width: isFloating ? 40 : expandedWidth, duration: 0.42, ease: "power3.inOut", overwrite: true });
+                gsap.to(siteHeader, { minHeight: isFloating ? (window.innerWidth <= 760 ? 76 : 88) : window.innerWidth <= 760 ? 88 : 112, duration: 0.42, ease: "power3.inOut", overwrite: "auto" });
               }
+              const compactPad = window.innerWidth <= 760 ? 12 : 16;
               gsap.to(siteHeader, {
-                y: isFloating ? 18 : 0,
-                ...(isMobileHeader ? { left: isFloating ? 16 : 0, right: isFloating ? 16 : 0 } : {}),
+                y: 0,
+                paddingLeft: isFloating ? compactPad : 0,
+                paddingRight: isFloating ? compactPad : 0,
                 backgroundColor: isFloating ? "rgba(8, 22, 25, 0.91)" : "rgba(8, 22, 25, 0)",
                 backdropFilter: isFloating ? "blur(14px)" : "blur(0px)",
                 borderRadius: isFloating ? 10 : 0,
