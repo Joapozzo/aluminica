@@ -12,6 +12,9 @@
     "test": "npm run build && node --test tests/*.test.mjs",
     "test:content": "node --test tests/content.test.mjs",
     "test:budgets": "npm run build && node scripts/check-budgets.mjs",
+    "test:e2e": "playwright test",
+    "dev:test": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev --host 127.0.0.1 --port 4173",
+    "start:test": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start --hostname 127.0.0.1 --port 4173",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "typecheck": "tsc --noEmit",
     "validate:release": "node scripts/validate-release.mjs"
@@ -22,10 +25,12 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@cloudflare/vite-plugin": "^1.54.10",
     "@eslint/js": "9.39.4",
     "@next/eslint-plugin-next": "^16.3.5",
     "@openai/sites-vite-plugin": "^0.2.0",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^22.20.3",
     "@types/react": "^19.3.0",

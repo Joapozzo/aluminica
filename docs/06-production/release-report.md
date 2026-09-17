@@ -4,6 +4,8 @@
 
 - Dependencias actualizadas y auditoría de runtime: **0 vulnerabilidades**.
 - ESLint, TypeScript estricto, build y suite de render/contenido en verde.
+- Suite E2E de Playwright en build de producción: **8/8 escenarios aprobados** en Chromium desktop y mobile. Incluye navegación, aperturas/cierre del asistente, rutas de servicio, modo de movimiento reducido y scroll vertical enlazado al reel horizontal.
+- Auditoría automática axe sobre el home: sin infracciones WCAG A/AA de impacto serio o crítico. Se reforzó el contraste de llamados a la acción, tarjetas y formulario sin alterar la identidad cromática.
 - Configuración pública centralizada y validador de release con bloqueo ante datos genéricos.
 - Diez páginas de servicio con contenido único, índice de servicios, índice editorial de proyectos, privacidad y 404.
 - Canonical, Open Graph, Twitter cards, manifest, robots, sitemap y JSON-LD de negocio/servicio.
