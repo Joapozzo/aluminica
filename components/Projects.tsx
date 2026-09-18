@@ -29,9 +29,6 @@ export function Projects() {
 
         <div className="work-reel__scroll" data-gallery-scroll>
           <div className="work-reel__viewport">
-            <div className="work-reel__progress" aria-hidden="true">
-              <i data-gallery-progress />
-            </div>
             <div className="work-reel__track" data-gallery-track>
               {frames.map((frame, index) => (
                 <article className={`work-frame work-frame--${index + 1}`} key={frame.title} data-gallery-frame>

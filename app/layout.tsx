@@ -1,9 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Analytics } from "../components/Analytics.client";
 import { AppShell } from "../components/AppShell.client";
 import { absoluteUrl, siteConfig } from "../lib/site";
 import { defaultDescription } from "../lib/seo";
+
+export const viewport: Viewport = {
+  themeColor: "#29535c",
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),

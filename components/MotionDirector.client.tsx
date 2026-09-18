@@ -76,7 +76,11 @@ export function MotionDirector() {
             return clamped * clamped * (3 - 2 * clamped);
           };
           const renderStructureNotes = (progress: number) => {
-            const phase = Math.min(progress * noteParts.length, noteParts.length - 0.0001);
+            // Cap at the peak of the last note so #3 stays visible instead of fading out.
+            const count = noteParts.length;
+            const holdProgress = (count - 0.5) / count;
+            const effective = Math.min(clamp01(progress), holdProgress);
+            const phase = Math.min(effective * count, count - 0.0001);
             const activeIndex = Math.floor(phase);
             const localProgress = phase - activeIndex;
             const lineStrength = Math.min(smooth(localProgress / 0.18), smooth((1 - localProgress) / 0.14));
@@ -121,6 +125,7 @@ export function MotionDirector() {
             const positioning = document.querySelector<HTMLElement>(".positioning");
             const integralEnd = 0.22;
             const notesStart = 0.26;
+            const notesPeak = 0.52;
             const notesEnd = 0.58;
             const splitEnd = 0.68;
 
@@ -130,7 +135,9 @@ export function MotionDirector() {
               positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
             }
 
-            renderStructureNotes(clamp01((progress - notesStart) / (notesEnd - notesStart)));
+            // Reach note #3 peak by notesPeak, then hold until notesEnd before children split.
+            const notesT = clamp01((progress - notesStart) / (notesPeak - notesStart));
+            renderStructureNotes(progress >= notesPeak ? 1 : notesT);
 
             const split = smooth(clamp01((progress - notesEnd) / (splitEnd - notesEnd)));
             if (visual) gsap.set(visual, { x: -shift * split });
@@ -160,29 +167,30 @@ export function MotionDirector() {
             });
           } else {
             const positioning = document.querySelector<HTMLElement>(".positioning");
+            const renderMobileNotes = (progress: number) => {
+              const integral = smooth(clamp01(progress / 0.18));
+              if (positioning) {
+                positioning.style.setProperty("--integral-opacity", String(integral));
+                positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
+              }
+              // Cycle notes in the first stretch, then hold #3 until principles approach.
+              const cycleEnd = 0.78;
+              const notesProgress = progress <= cycleEnd ? progress / cycleEnd : 1;
+              renderStructureNotes(notesProgress);
+            };
+
+            // Notes finish (and hold #3) before the principles section enters view.
             ScrollTrigger.create({
-              trigger: ".positioning__visual-track",
-              start: "top 68%",
-              end: "bottom 32%",
-              onRefresh: (self) => {
-                const integral = smooth(clamp01(self.progress / 0.22));
-                if (positioning) {
-                  positioning.style.setProperty("--integral-opacity", String(integral));
-                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
-                }
-                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
-              },
-              onUpdate: (self) => {
-                const integral = smooth(clamp01(self.progress / 0.22));
-                if (positioning) {
-                  positioning.style.setProperty("--integral-opacity", String(integral));
-                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
-                }
-                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
-              },
+              trigger: visualTrack,
+              start: "top 72%",
+              endTrigger: principlesWrap || visualTrack,
+              end: principlesWrap ? "top 92%" : "bottom 45%",
+              invalidateOnRefresh: true,
+              onRefresh: (self) => renderMobileNotes(self.progress),
+              onUpdate: (self) => renderMobileNotes(self.progress),
             });
 
-            // Mobile: reveal each principle box via scroll, one after another.
+            // Mobile: reveal each principle only after note #3 has been held.
             principleCards.forEach((card, index) => {
               if (index === 0) {
                 gsap.fromTo(
@@ -194,8 +202,8 @@ export function MotionDirector() {
                     ease: "none",
                     scrollTrigger: {
                       trigger: card,
-                      start: "top 88%",
-                      end: "top 48%",
+                      start: "top 72%",
+                      end: "top 38%",
                       scrub: 0.55,
                     },
                   },
@@ -210,7 +218,7 @@ export function MotionDirector() {
                   ease: "none",
                   scrollTrigger: {
                     trigger: card,
-                    start: "top 85%",
+                    start: "top 78%",
                     end: "top 32%",
                     scrub: 0.55,
                   },
@@ -238,7 +246,7 @@ export function MotionDirector() {
                 const expandedWidth = window.innerWidth <= 760 ? 112 : 150;
                 gsap.to(fullLogo, { autoAlpha: isFloating ? 0 : 1, x: isFloating ? -10 : 0, scale: isFloating ? 0.82 : 1, duration: 0.38, ease: "power3.out", overwrite: true });
                 gsap.to(compactLogo, { autoAlpha: isFloating ? 1 : 0, x: isFloating ? 0 : -8, scale: isFloating ? 1 : 0.72, duration: 0.38, ease: "power3.out", overwrite: true });
-                gsap.to(brand, { width: isFloating ? 40 : expandedWidth, duration: 0.42, ease: "power3.inOut", overwrite: true });
+                gsap.to(brand, { width: isFloating ? 28 : expandedWidth, duration: 0.42, ease: "power3.inOut", overwrite: true });
                 gsap.to(siteHeader, { minHeight: isFloating ? (window.innerWidth <= 760 ? 76 : 88) : window.innerWidth <= 760 ? 88 : 112, duration: 0.42, ease: "power3.inOut", overwrite: "auto" });
               }
               const compactPad = window.innerWidth <= 760 ? 12 : 16;
@@ -321,7 +329,6 @@ export function MotionDirector() {
         const galleryTrack = document.querySelector<HTMLElement>("[data-gallery-track]");
         const galleryScroll = document.querySelector<HTMLElement>("[data-gallery-scroll]");
         if (galleryTrack && galleryScroll) {
-          const progress = document.querySelector<HTMLElement>("[data-gallery-progress]");
           const horizontalDistance = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth);
           const setScrollLength = () => {
             galleryScroll.style.height = `${window.innerHeight + horizontalDistance()}px`;
@@ -336,9 +343,6 @@ export function MotionDirector() {
               scrub: 0.65,
               invalidateOnRefresh: true,
               onRefreshInit: setScrollLength,
-              onUpdate: (self) => {
-                if (progress) gsap.set(progress, { scaleX: self.progress });
-              },
             },
           });
           galleryTimeline
