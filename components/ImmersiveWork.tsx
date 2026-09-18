@@ -4,26 +4,26 @@ const chapters = [
   {
     number: "00",
     kicker: "Vista general",
-    title: "Entrá en la obra.",
-    body: "Una lectura espacial para entender cómo aluminio, vidrio y estructura construyen una misma arquitectura.",
+    title: "Explorá una transformación completa.",
+    body: "Descubrí cómo el aluminio, el vidrio y la herrería pueden sumar luz, apertura, protección y nuevos usos.",
   },
   {
     number: "01",
-    kicker: "Envolvente",
-    title: "La precisión define el ritmo.",
-    body: "Perfiles modulados para ordenar la fachada, sostener los paños y mantener continuidad en cada encuentro.",
+    kicker: "Fachada",
+    title: "Más luz. Mejor aprovechada.",
+    body: "Perfiles y paños de vidrio distribuidos para iluminar, proteger y ordenar visualmente el frente.",
   },
   {
     number: "02",
     kicker: "Apertura",
-    title: "El límite también puede desaparecer.",
-    body: "Grandes hojas plegables conectan interior y exterior sin resignar cierre, escala ni presencia.",
+    title: "Abrir cambia todo.",
+    body: "Grandes aberturas conectan interior y exterior, amplían el paso y mejoran la forma de usar cada ambiente.",
   },
   {
     number: "03",
     kicker: "Estructura",
-    title: "Sombra diseñada como arquitectura.",
-    body: "Vigas y perfiles trabajan como una pieza única: filtran la luz, ordenan el espacio y extienden su uso.",
+    title: "Más sombra. Más espacio útil.",
+    body: "Pérgolas y estructuras a medida permiten aprovechar patios, galerías y áreas de trabajo durante más tiempo.",
   },
 ];
 
@@ -33,7 +33,7 @@ export function ImmersiveWork() {
       <div className="immersive__track" data-immersive-track>
         <div className="immersive__viewport">
           <div className="immersive__topline" aria-hidden="true">
-            <span>Experiencia 2.5D / Obra conceptual</span>
+            <span>Recorrido interactivo / Referencia conceptual</span>
             <span><b data-immersive-counter>01</b> / 04</span>
           </div>
 

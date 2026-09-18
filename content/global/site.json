@@ -13,8 +13,8 @@
   },
   "navigation": [
     { "label": "Proyectos", "href": "#proyectos" },
-    { "label": "Capacidades", "href": "#capacidades" },
-    { "label": "Proceso", "href": "#precision" },
+    { "label": "Servicios", "href": "#soluciones" },
+    { "label": "Trayectoria", "href": "#trayectoria" },
     { "label": "Contacto", "href": "#contacto" }
   ],
   "contact": {
@@ -34,7 +34,7 @@
   ],
   "seo": {
     "defaultTitle": "Aluminica | Herrería y carpintería de aluminio en Córdoba",
-    "defaultDescription": "Soluciones integrales y a medida en herrería y carpintería de aluminio para hogares, profesionales y obras en Córdoba y Gran Córdoba.",
+    "defaultDescription": "Soluciones de aluminio y herrería a medida para viviendas, locales, talleres y obras en Córdoba y Gran Córdoba.",
     "coverage": "Córdoba y Gran Córdoba"
   }
 }

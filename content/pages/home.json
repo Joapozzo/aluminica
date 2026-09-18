@@ -5,31 +5,31 @@
     "requiredPlaceholdersRemaining": true
   },
   "hero": {
-    "eyebrow": "Herrería y carpintería de aluminio",
-    "heading": "Más de 50 años transformando proyectos en soluciones.",
-    "body": "Soluciones integrales y a medida para hogares y obras, con la experiencia y cercanía de una empresa familiar.",
+    "eyebrow": "Aluminio + herrería a medida · Córdoba",
+    "heading": "Transformá tus espacios. Ganá luz, seguridad y funcionalidad.",
+    "body": "Aberturas, cerramientos, portones, pérgolas y estructuras a medida para viviendas, locales, talleres y obras.",
     "primaryActionLabel": "Consultar por WhatsApp",
-    "secondaryActionLabel": "Ver trabajos",
+    "secondaryActionLabel": "Ver soluciones",
     "mediaAssetId": null
   },
   "positioning": {
-    "heading": "Todo el proyecto, un solo equipo.",
-    "body": "Integramos herrería y carpintería de aluminio para simplificar la coordinación, acompañar cada decisión y resolver distintas necesidades con un mismo proveedor.",
+    "heading": "Abrí. Protegé. Ampliá. Aprovechá cada espacio.",
+    "body": "Combinamos aluminio y herrería para mejorar la luz, la seguridad y el uso de cada ambiente. Cada solución se define según el proyecto, las medidas y la necesidad real.",
     "principles": [
-      "Más de 50 años de trayectoria familiar",
-      "Soluciones integrales y a medida",
-      "Asesoramiento y contacto directo"
+      "Más luz y amplitud",
+      "Más seguridad",
+      "Más espacio para usar"
     ],
     "mediaAssetId": null
   },
   "featuredProjects": {
-    "heading": "Trabajos que hablan por nosotros.",
-    "intro": "Una selección de soluciones realizadas para obras, remodelaciones y hogares.",
+    "heading": "Ideas para transformar cada espacio.",
+    "intro": "Referencias visuales para imaginar más luz, protección, sombra y nuevas formas de uso.",
     "projectSlugs": []
   },
   "capabilities": {
-    "heading": "Soluciones para cada parte del proyecto.",
-    "intro": "Combinamos aluminio y herrería para resolver distintas necesidades con un único proveedor.",
+    "heading": "Todo lo que podemos resolver.",
+    "intro": "Soluciones de aluminio y herrería para viviendas, locales, talleres, remodelaciones y obras nuevas.",
     "serviceSlugs": [
       "carpinteria-de-aluminio",
       "frentes-de-asador",
@@ -44,8 +44,8 @@
     ]
   },
   "precision": {
-    "heading": "Experiencia que se adapta a cada proyecto.",
-    "body": "Más de cinco décadas de oficio se combinan con una mirada actual sobre el diseño, los materiales y las necesidades de cada obra.",
+    "heading": "Más de 50 años haciendo las cosas bien.",
+    "body": "Tres generaciones dedicadas a la carpintería de aluminio y la herrería, con experiencia para resolver cada detalle a medida.",
     "evidence": [
       {
         "label": "Más de 50 años",
@@ -56,9 +56,9 @@
     "mediaAssetIds": []
   },
   "contact": {
-    "heading": "Conversemos sobre tu proyecto.",
-    "body": "Contanos qué necesitás y te asesoramos para encontrar una solución adecuada a tu obra o vivienda.",
-    "submitLabel": "Enviar consulta",
+    "heading": "Contanos qué querés transformar.",
+    "body": "Decinos qué necesitás resolver y te asesoramos para encontrar una solución de aluminio o herrería a medida.",
+    "submitLabel": "Consultar por WhatsApp",
     "requiredFields": ["name", "email", "message"]
   }
 }

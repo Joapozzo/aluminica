@@ -14,7 +14,7 @@ export const siteConfig = {
   openingHours: process.env.NEXT_PUBLIC_OPENING_HOURS ?? "",
   instagram: "https://www.instagram.com/_aluminica/",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5493510000000",
-  whatsappMessage: "Hola Aluminica, quiero consultar por una solución para mi proyecto.",
+  whatsappMessage: "Hola Aluminica, quiero transformar un espacio y necesito asesoramiento.",
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "",
   searchConsoleVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "",
 } as const;

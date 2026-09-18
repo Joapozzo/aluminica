@@ -2,9 +2,9 @@ import { SectionHeading } from "./SectionHeading";
 import Image from "next/image";
 
 const principles = [
-  ["01", "Menos intermediarios", "Aluminio y herrería coordinados desde el mismo lugar."],
-  ["02", "Más criterio en cada encuentro", "Cada pieza se piensa como parte del espacio, no como un agregado."],
-  ["03", "Una respuesta para esa obra", "Medidas, materiales y resolución ajustados a cada necesidad real."],
+  ["01", "Más luz y amplitud", "Aberturas y cerramientos que conectan mejor cada ambiente con el exterior."],
+  ["02", "Más seguridad", "Portones, puertas y rejas que protegen sin descuidar el funcionamiento ni el diseño."],
+  ["03", "Más espacio para usar", "Pérgolas y estructuras que vuelven útiles patios, galerías, terrazas y áreas de trabajo."],
 ];
 
 export function Positioning() {
@@ -13,9 +13,9 @@ export function Positioning() {
       <div className="container">
         <SectionHeading
           id="positioning-title"
-          label="Una forma integral de trabajar"
-          title={<><span className="title-light">El proyecto no viene</span> <span className="title-bold title-wide">por partes.</span><br /><span className="title-accent">Nosotros tampoco.</span></>}
-          body="Cuando aluminio y herrería conversan desde el principio, la obra gana coherencia y vos ganás tiempo. Un solo equipo acompaña la idea, la resolución y cada detalle que hace que funcione."
+          label="Soluciones a medida"
+          title={<>Abrí. Protegé. Ampliá.<br /><span className="title-accent">Aprovechá cada espacio.</span></>}
+          body="Combinamos aluminio y herrería para mejorar la luz, la seguridad y el uso de cada ambiente. Cada solución se define según el proyecto, las medidas y la necesidad real."
         />
         <div className="positioning__visual-track" data-positioning-track>
           <div className="positioning__stage" data-positioning-stage>

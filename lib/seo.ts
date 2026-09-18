@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { absoluteUrl, siteConfig } from "./site";
 
-export const defaultDescription = "Soluciones integrales y a medida en herrería y carpintería de aluminio para obras, profesionales y hogares en Córdoba y Gran Córdoba.";
+export const defaultDescription = "Soluciones de aluminio y herrería a medida para viviendas, locales, talleres y obras en Córdoba y Gran Córdoba.";
 
 export function buildMetadata({
   title,

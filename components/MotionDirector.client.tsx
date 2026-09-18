@@ -12,52 +12,41 @@ export function MotionDirector() {
     let cancelled = false;
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      let removePointerMotion = () => {};
       let resetGalleryHeight = () => {};
       const context = gsap.context(() => {
-        gsap.from("[data-hero-line]", {
-          yPercent: 115,
-          duration: 1.15,
-          stagger: 0.12,
-          ease: "power4.out",
-          delay: 0.12,
-        });
+        const hasHero = Boolean(document.querySelector(".hero-track"));
 
-        const heroTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".hero-track",
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        });
-        heroTimeline
-          .to("[data-hero-image]", { scale: 1.03, yPercent: 5, ease: "none" }, 0)
-          .to("[data-hero-wash]", { opacity: 0.88, ease: "none" }, 0)
-          .to("[data-hero-copy]", { yPercent: -18, opacity: 0.08, ease: "none" }, 0.38)
-          .to('[data-depth-layer="1"]', { yPercent: -55, rotate: -7, ease: "none" }, 0)
-          .to('[data-depth-layer="2"]', { yPercent: 78, rotate: 9, ease: "none" }, 0)
-          .to("[data-hero-ticker]", { xPercent: -28, ease: "none" }, 0);
+        if (hasHero) {
+          gsap.from("[data-hero-line]", {
+            yPercent: 115,
+            duration: 1.15,
+            stagger: 0.12,
+            ease: "power4.out",
+            delay: 0.12,
+          });
 
-        const hero = document.querySelector<HTMLElement>(".hero");
-        const depthLayers = gsap.utils.toArray<HTMLElement>("[data-depth-layer]");
-        if (hero && window.matchMedia("(pointer: fine)").matches) {
-          const onPointerMove = (event: PointerEvent) => {
-            const x = event.clientX / window.innerWidth - 0.5;
-            const y = event.clientY / window.innerHeight - 0.5;
-            depthLayers.forEach((layer, index) => {
-              gsap.to(layer, { x: x * (index + 1) * 18, y: y * (index + 1) * 12, duration: 0.8, ease: "power3.out", overwrite: "auto" });
-            });
-          };
-          hero.addEventListener("pointermove", onPointerMove);
-          removePointerMotion = () => hero.removeEventListener("pointermove", onPointerMove);
+          const heroTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".hero-track",
+              start: "top top",
+              end: "bottom bottom",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          });
+          heroTimeline
+            .to("[data-hero-image]", { scale: 1.03, yPercent: 5, ease: "none" }, 0)
+            .to("[data-hero-wash]", { opacity: 0.88, ease: "none" }, 0)
+            .to("[data-hero-copy]", { yPercent: -12, opacity: 0.2, ease: "none" }, 0.38);
         }
 
         const isDesktop = window.matchMedia("(min-width: 761px)").matches;
 
         gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
-          if (isDesktop && element.hasAttribute("data-principle")) return;
+          // Principles use dedicated clip-path scrub (desktop + mobile).
+          if (element.hasAttribute("data-principle")) return;
+          // Mobile contact uses a dedicated stagger reveal below.
+          if (!isDesktop && element.closest(".contact")) return;
           gsap.from(element, {
             y: 54,
             opacity: 0,
@@ -67,10 +56,12 @@ export function MotionDirector() {
           });
         });
 
-        gsap.fromTo("[data-visual-reveal]", { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
-          clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
-          scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
-        });
+        if (document.querySelector("[data-visual-reveal]")) {
+          gsap.fromTo("[data-visual-reveal]", { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
+            clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
+            scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
+          });
+        }
         const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
         if (structureNotes.length) {
           const noteParts = structureNotes.map((note) => ({
@@ -190,6 +181,42 @@ export function MotionDirector() {
                 renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
               },
             });
+
+            // Mobile: reveal each principle box via scroll, one after another.
+            principleCards.forEach((card, index) => {
+              if (index === 0) {
+                gsap.fromTo(
+                  card,
+                  { clipPath: "inset(12% 0 0 0)", y: 28 },
+                  {
+                    clipPath: "inset(0% 0% 0% 0%)",
+                    y: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                      trigger: card,
+                      start: "top 88%",
+                      end: "top 48%",
+                      scrub: 0.55,
+                    },
+                  },
+                );
+                return;
+              }
+              gsap.fromTo(
+                card,
+                { clipPath: "inset(100% 0 0 0)" },
+                {
+                  clipPath: "inset(0% 0% 0% 0%)",
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    end: "top 32%",
+                    scrub: 0.55,
+                  },
+                },
+              );
+            });
           }
         }
 
@@ -223,9 +250,11 @@ export function MotionDirector() {
                 backdropFilter: isFloating ? "blur(14px)" : "blur(0px)",
                 borderRadius: isFloating ? 10 : 0,
                 boxShadow: isFloating ? "0 16px 42px rgba(0, 0, 0, 0.22)" : "0 0 0 rgba(0, 0, 0, 0)",
+                color: isFloating || siteHeader.dataset.headerLight !== "true" ? "#ffffff" : "#0b1619",
                 duration: 0.28,
                 overwrite: "auto",
               });
+              siteHeader.classList.toggle("is-floating", isFloating);
               if (headerProgress) {
                 headerProgress.style.setProperty("--nav-progress", `${self.progress * 360}deg`);
                 headerProgress.style.opacity = self.scroll() > 0 ? "1" : "0";
@@ -349,19 +378,50 @@ export function MotionDirector() {
         }
         gsap.fromTo("[data-legacy-image]", { scale: 1.22, yPercent: -5 }, { scale: 1.02, yPercent: 5, ease: "none", scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true } });
 
-        gsap.fromTo(
-          "[data-contact-panel]",
-          { clipPath: "inset(10% 3% 0% 3% round 24px 24px 0 0)" },
-          {
-            clipPath: "inset(0% 0% 0% 0% round 0px)",
-            ease: "none",
-            scrollTrigger: { trigger: ".contact", start: "top bottom", end: "top 18%", scrub: true },
-          },
-        );
+        if (document.querySelector("[data-contact-panel]")) {
+          if (isDesktop) {
+            gsap.fromTo(
+              "[data-contact-panel]",
+              { clipPath: "inset(10% 3% 0% 3% round 24px 24px 0 0)" },
+              {
+                clipPath: "inset(0% 0% 0% 0% round 0px)",
+                ease: "none",
+                scrollTrigger: { trigger: ".contact", start: "top bottom", end: "top 18%", scrub: true },
+              },
+            );
+          } else {
+            gsap.fromTo(
+              "[data-contact-panel]",
+              { clipPath: "inset(18% 6% 0% 6% round 28px 28px 0 0)", y: 40 },
+              {
+                clipPath: "inset(0% 0% 0% 0% round 0px)",
+                y: 0,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: ".contact",
+                  start: "top 92%",
+                  end: "top 28%",
+                  scrub: 0.6,
+                },
+              },
+            );
+
+            gsap.from(
+              ".contact__main h2, .contact-form label, .contact-form button, .contact-form__note",
+              {
+                y: 36,
+                opacity: 0,
+                duration: 0.75,
+                stagger: 0.08,
+                ease: "power3.out",
+                scrollTrigger: { trigger: ".contact__main", start: "top 78%", once: true },
+              },
+            );
+          }
+        }
       });
 
       return () => {
-        removePointerMotion();
         resetGalleryHeight();
         context.revert();
       };

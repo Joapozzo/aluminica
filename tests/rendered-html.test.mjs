@@ -32,12 +32,13 @@ test("server-renders the Aluminica landing", async () => {
   const html = await response.text();
   assert.match(html, /<html lang="es-AR"/i);
   assert.match(html, /<title>Aluminica \| Herrería y carpintería de aluminio en Córdoba<\/title>/i);
-  assert.match(html, /Una obra\. Un equipo\. Todo el metal resuelto\./);
-  assert.match(html, /Del plano/);
-  assert.match(html, /Estructuras que dibujan el cielo/);
+  assert.match(html, /Transformá tus espacios\. Ganá luz, seguridad y funcionalidad\./);
+  assert.match(html, /Mirá todo lo que podés hacer/);
+  assert.match(html, /Exteriores para disfrutar todo el año/);
   assert.doesNotMatch(html, /Balcones de la Plaza|balcones-plaza/i);
-  assert.match(html, /Empezamos en la década del 70/);
-  assert.match(html, /La próxima pieza empieza con una conversación/);
+  assert.match(html, /Tres generaciones dedicadas a la carpintería de aluminio y la herrería/);
+  assert.match(html, /Contanos qué querés/);
+  assert.match(html, /transformar\./);
   assert.match(html, /application\/ld\+json/);
   assert.doesNotMatch(html, /Building your site|react-loading-skeleton|codex-preview/i);
 });
@@ -58,7 +59,9 @@ test("server-renders indexable service and privacy pages", async () => {
 
   const privacy = await render("/privacidad");
   assert.equal(privacy.status, 200);
-  assert.match(await privacy.text(), /Tu consulta es tuya/);
+  const privacyHtml = await privacy.text();
+  assert.match(privacyHtml, /Tu consulta/);
+  assert.match(privacyHtml, /es tuya\./);
 });
 
 test("publishes technical discovery endpoints and a real 404", async () => {

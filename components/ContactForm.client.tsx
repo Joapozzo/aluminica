@@ -18,9 +18,9 @@ export function ContactForm() {
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
       <label><span>Tu nombre</span><input name="name" autoComplete="name" required placeholder="¿Cómo te llamás?" /></label>
-      <label><span>Tipo de proyecto</span><input name="project" required placeholder="Obra, remodelación, abertura…" /></label>
-      <button type="submit" data-analytics-event="whatsapp_click" data-analytics-label="contact_form"><span>Empezar por WhatsApp</span><span aria-hidden="true">↗</span></button>
-      <p className="contact-form__note">Tu consulta se prepara acá y continúa directamente por WhatsApp.</p>
+      <label><span>¿Qué necesitás resolver?</span><input name="project" required placeholder="Abertura, cerramiento, portón, pérgola…" /></label>
+      <button type="submit" data-analytics-event="whatsapp_click" data-analytics-label="contact_form"><span>Consultar por WhatsApp</span><span aria-hidden="true">↗</span></button>
+      <p className="contact-form__note">Completá estos datos y continuá la consulta directamente por WhatsApp.</p>
     </form>
   );
 }

@@ -10,9 +10,9 @@ import { trackEvent } from "../lib/analytics";
 gsap.registerPlugin(MotionPathPlugin);
 
 const prompts = [
-  { label: "Cotizar un proyecto", message: "Hola Aluminica, quiero cotizar una solución para mi proyecto. ¿Podemos conversar?" },
-  { label: "Consultar una solución", message: "Hola Aluminica, necesito asesoramiento sobre carpintería de aluminio o herrería para una obra." },
-  { label: "Hablar con el equipo", message: "Hola Aluminica, quisiera hablar con una persona del equipo para realizar una consulta." },
+  { label: "Cotizar mi proyecto", message: "Hola Aluminica, quiero cotizar una solución para mi proyecto. ¿Podemos conversar?" },
+  { label: "Consultar un servicio", message: "Hola Aluminica, necesito asesoramiento sobre una solución de aluminio o herrería." },
+  { label: "Hacer otra consulta", message: "Hola Aluminica, tengo una consulta y quisiera recibir asesoramiento." },
 ];
 
 export function WhatsAppAssistant() {
@@ -203,7 +203,7 @@ export function WhatsAppAssistant() {
           <span ref={targetRef} className="whatsapp-assistant__alu-seat" aria-hidden="true" />
           <div className="whatsapp-assistant__message-copy">
             <strong>ALU</strong>
-            <p>Hola. ¿Qué necesitás resolver?</p>
+            <p>Hola. ¿Qué espacio querés transformar?</p>
           </div>
         </div>
         <div ref={optionsRef} className="whatsapp-assistant__options">
@@ -212,7 +212,7 @@ export function WhatsAppAssistant() {
       </div>
 
       <div className="whatsapp-assistant__dock">
-        <span ref={nudgeRef} className="whatsapp-assistant__nudge" aria-hidden={active}>¿Te ayudo con tu obra?</span>
+        <span ref={nudgeRef} className="whatsapp-assistant__nudge" aria-hidden={active}>¿Qué necesitás resolver?</span>
         <button ref={launcherRef} className="whatsapp-assistant__launcher" type="button" onClick={toggleAssistant} aria-expanded={open} aria-controls="whatsapp-assistant-panel" aria-label={active ? "Cerrar asistente de WhatsApp" : "Abrir asistente de WhatsApp"}>
           <span className="whatsapp-assistant__launcher-core" aria-hidden="true" />
           <span className="whatsapp-assistant__status" aria-hidden="true" />

@@ -10,15 +10,15 @@ export function Legacy() {
       <div className="container legacy__content">
         <SectionHeading
           id="legacy-title"
-          label="Empresa familiar · Córdoba"
-          title={<><span className="title-light">La experiencia</span> <span className="title-bold title-wide">no envejece</span><br /><span className="title-accent">cuando sigue aprendiendo.</span></>}
-          body="Empezamos en la década del 70. Tres generaciones después, el oficio sigue siendo el mismo compromiso: entender el problema, encontrar la forma y hacer que dure. Lo que cambió es todo lo que hoy podemos imaginar con el metal."
+          label="Empresa familiar · Desde la década del 70"
+          title={<>Más de 50 años<br /><span className="title-accent">haciendo las cosas bien.</span></>}
+          body="Tres generaciones dedicadas a la carpintería de aluminio y la herrería. Conocemos los materiales, la obra y los detalles que hacen que una solución funcione y dure."
           light
         />
         <div className="legacy__facts" data-reveal>
-          <div><strong>50+</strong><span>años resolviendo proyectos</span></div>
-          <div><strong>02</strong><span>oficios integrados</span></div>
-          <div><strong>01</strong><span>equipo de principio a fin</span></div>
+          <div><strong>50+</strong><span>años de experiencia</span></div>
+          <div><strong>03</strong><span>generaciones de oficio</span></div>
+          <div><strong>10</strong><span>tipos de soluciones a medida</span></div>
         </div>
       </div>
     </section>

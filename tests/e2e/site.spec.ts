@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 test("home is usable, accessible and maps vertical scroll to the project reel", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Una obra. Un equipo. Todo el metal resuelto." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Transformá tus espacios. Ganá luz, seguridad y funcionalidad." })).toBeVisible();
   await expect(page.getByRole("button", { name: "Abrir asistente de WhatsApp" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0);
 
@@ -35,7 +35,7 @@ test("assistant opens and closes without losing focusable actions", async ({ pag
   await expect(launcher).toHaveAccessibleName("Abrir asistente de WhatsApp");
   await launcher.click();
   await expect(launcher).toHaveAttribute("aria-expanded", "true");
-  await expect(page.getByRole("button", { name: "Cotizar un proyecto", exact: true })).toBeVisible({ timeout: 10_000 });
+  await expect(page.getByRole("button", { name: "Cotizar mi proyecto", exact: true })).toBeVisible({ timeout: 10_000 });
   await page.getByRole("button", { name: "Cerrar asistente", exact: true }).click();
   await expect(launcher).toHaveAttribute("aria-expanded", "false", { timeout: 10_000 });
   await expect(launcher).toHaveAccessibleName("Abrir asistente de WhatsApp");
@@ -52,7 +52,7 @@ test("service pages are indexable and responsive", async ({ page }) => {
 test("essential content remains available with reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Una obra. Un equipo. Todo el metal resuelto." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Un oficio/ })).toBeAttached();
-  await expect(page.getByRole("heading", { name: /La próxima pieza/ })).toBeAttached();
+  await expect(page.getByRole("heading", { name: "Transformá tus espacios. Ganá luz, seguridad y funcionalidad." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Soluciones para transformar/ })).toBeAttached();
+  await expect(page.getByRole("heading", { name: /Contanos qué querés transformar/ })).toBeAttached();
 });
