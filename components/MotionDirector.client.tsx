@@ -35,7 +35,7 @@ export function MotionDirector() {
             },
           });
           heroTimeline
-            .to("[data-hero-image]", { scale: 1.03, yPercent: 5, ease: "none" }, 0)
+            .to("[data-hero-image]", { scale: 1.18, yPercent: -4, ease: "none" }, 0)
             .to("[data-hero-wash]", { opacity: 0.88, ease: "none" }, 0)
             .to("[data-hero-copy]", { yPercent: -12, opacity: 0.2, ease: "none" }, 0.38);
         }
@@ -56,12 +56,7 @@ export function MotionDirector() {
           });
         });
 
-        if (document.querySelector("[data-visual-reveal]")) {
-          gsap.fromTo("[data-visual-reveal]", { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
-            clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
-            scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
-          });
-        }
+        const visualReveal = document.querySelector<HTMLElement>("[data-visual-reveal]");
         const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
         if (structureNotes.length) {
           const noteParts = structureNotes.map((note) => ({
@@ -83,8 +78,9 @@ export function MotionDirector() {
             const phase = Math.min(effective * count, count - 0.0001);
             const activeIndex = Math.floor(phase);
             const localProgress = phase - activeIndex;
-            const lineStrength = Math.min(smooth(localProgress / 0.18), smooth((1 - localProgress) / 0.14));
-            const copyStrength = Math.min(smooth((localProgress - 0.08) / 0.2), smooth((0.88 - localProgress) / 0.16));
+            // One arrow at a time with a long mid hold before swapping.
+            const lineStrength = Math.min(smooth(localProgress / 0.15), smooth((1 - localProgress) / 0.22));
+            const copyStrength = Math.min(smooth((localProgress - 0.08) / 0.14), smooth((0.78 - localProgress) / 0.18));
 
             noteParts.forEach(({ line, copy, offset }, index) => {
               const isActive = index === activeIndex;
@@ -120,20 +116,36 @@ export function MotionDirector() {
             return Math.max(0, layoutLeft);
           };
 
+          const applyVisualReveal = (progress: number, start: number, end: number) => {
+            if (!visualReveal) return;
+            const t = smooth(clamp01((progress - start) / Math.max(0.0001, end - start)));
+            const radius = 24 + t * 48;
+            const rotate = 3 * (1 - t);
+            gsap.set(visualReveal, {
+              clipPath: `circle(${radius}% at 50% 50%)`,
+              rotate,
+            });
+          };
+
           const renderDesktopScene = (progress: number) => {
             const shift = applySplitLayout();
             const positioning = document.querySelector<HTMLElement>(".positioning");
-            const integralEnd = 0.22;
-            const notesStart = 0.26;
-            const notesPeak = 0.52;
-            const notesEnd = 0.58;
-            const splitEnd = 0.68;
+            // Image expands first, then arrows one-by-one with hold, then children.
+            const integralEnd = 0.18;
+            const revealStart = 0.06;
+            const revealEnd = 0.32;
+            const notesStart = 0.36;
+            const notesPeak = 0.72;
+            const notesEnd = 0.8;
+            const splitEnd = 0.88;
 
             const integral = smooth(clamp01(progress / integralEnd));
             if (positioning) {
               positioning.style.setProperty("--integral-opacity", String(integral));
               positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
             }
+
+            applyVisualReveal(progress, revealStart, revealEnd);
 
             // Reach note #3 peak by notesPeak, then hold until notesEnd before children split.
             const notesT = clamp01((progress - notesStart) / (notesPeak - notesStart));
@@ -166,6 +178,12 @@ export function MotionDirector() {
               onUpdate: (self) => renderDesktopScene(self.progress),
             });
           } else {
+            if (visualReveal) {
+              gsap.fromTo(visualReveal, { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
+                clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
+                scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
+              });
+            }
             const positioning = document.querySelector<HTMLElement>(".positioning");
             const renderMobileNotes = (progress: number) => {
               const integral = smooth(clamp01(progress / 0.18));
@@ -173,9 +191,11 @@ export function MotionDirector() {
                 positioning.style.setProperty("--integral-opacity", String(integral));
                 positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
               }
-              // Cycle notes in the first stretch, then hold #3 until principles approach.
-              const cycleEnd = 0.78;
-              const notesProgress = progress <= cycleEnd ? progress / cycleEnd : 1;
+              // Wait for image expand, then cycle notes one-by-one and hold #3.
+              const notesStart = 0.28;
+              const cycleEnd = 0.82;
+              const notesProgress =
+                progress <= notesStart ? 0 : progress <= cycleEnd ? (progress - notesStart) / (cycleEnd - notesStart) : 1;
               renderStructureNotes(notesProgress);
             };
 
@@ -226,6 +246,11 @@ export function MotionDirector() {
               );
             });
           }
+        } else if (visualReveal) {
+          gsap.fromTo(visualReveal, { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
+            clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
+            scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
+          });
         }
 
         const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");

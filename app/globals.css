@@ -505,7 +505,7 @@ img { display: block; }
 .hero__wash { position: absolute; inset: 0; z-index: -3; background: linear-gradient(90deg, rgba(5,17,21,.96) 0%, rgba(12,35,40,.75) 45%, rgba(12,35,40,.18) 100%), linear-gradient(0deg, rgba(5,17,21,.72) 0%, transparent 58%); }
 .hero__grid { display: none; }
 .site-header { position: fixed; z-index: 100; top: 0; right: var(--site-inset); left: var(--site-inset); display: flex; align-items: center; justify-content: space-between; width: auto; min-height: 112px; margin-inline: 0; padding-block: 18px; padding-inline: 0; padding-top: max(18px, env(safe-area-inset-top, 0px)); border: 1px solid transparent; color: white; will-change: transform,background-color; transition: top 280ms ease; }
-.site-header.is-floating { top: max(12px, env(safe-area-inset-top, 0px)); padding-top: 18px; }
+.site-header.is-floating { top: env(safe-area-inset-top, 0px); padding-top: 18px; }
 .site-header__progress { --nav-progress: 0deg; position: absolute; z-index: 3; inset: -1px; padding: 2px; border-radius: inherit; opacity: 0; background: conic-gradient(from -90deg, var(--acid) 0deg, var(--acid) var(--nav-progress), transparent var(--nav-progress), transparent 360deg); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; pointer-events: none; }
 .brand { position: relative; display: block; flex: 0 0 auto; width: 150px; height: 66px; overflow: visible; }
 .brand img { position: absolute; top: 50%; left: 0; width: auto; height: auto; max-height: 100%; object-fit: contain; transform: translateY(-50%); transform-origin: left center; will-change: transform,opacity; }
@@ -664,7 +664,7 @@ nav a:hover { opacity: .64; }
   .button-link { width: 100%; }
   .hero-track { height: 112svh; }
   .site-header { top: 0; min-height: 88px; padding-block: 12px; padding-top: max(12px, env(safe-area-inset-top, 0px)); }
-  .site-header.is-floating { top: max(8px, env(safe-area-inset-top, 0px)); padding-top: 12px; }
+  .site-header.is-floating { top: env(safe-area-inset-top, 0px); padding-top: 12px; }
   .brand { width: 112px; height: 49px; }
   .brand .brand__full { display: block; width: 112px; height: auto; }
   .brand .brand__mark { display: block; width: 23px; height: auto; object-fit: contain; }
