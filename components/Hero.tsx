@@ -6,16 +6,18 @@ export function Hero() {
   return (
     <section className="hero-track" id="inicio" aria-labelledby="hero-title">
       <div className="hero">
-        <Image
-          className="hero__image"
-          data-hero-image
-          src="/stock/glass-doors.webp"
-          alt="Carpintería de aluminio plegable abierta hacia una galería contemporánea"
-          fill
-          priority
-          quality={78}
-          sizes="100vw"
-        />
+        <div className="hero__media">
+          <Image
+            className="hero__image"
+            data-hero-image
+            src="/stock/glass-doors.webp"
+            alt="Carpintería de aluminio plegable abierta hacia una galería contemporánea"
+            fill
+            priority
+            quality={78}
+            sizes="100vw"
+          />
+        </div>
         <div className="hero__wash" data-hero-wash />
 
         <div className="hero__content" data-hero-copy>
@@ -26,7 +28,12 @@ export function Hero() {
             </span>
             <span className="hero-line">
               <span data-hero-line>
-                <span className="title-accent">Ganá luz, seguridad</span>
+                <span className="title-accent">Ganá luz,</span>
+              </span>
+            </span>
+            <span className="hero-line">
+              <span data-hero-line>
+                <span className="title-accent">seguridad</span>
               </span>
             </span>
             <span className="hero-line">

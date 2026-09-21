@@ -70,8 +70,8 @@ export function MotionDirector() {
             const clamped = clamp01(value);
             return clamped * clamped * (3 - 2 * clamped);
           };
-          const renderStructureNotes = (progress: number) => {
-            // Cap at the peak of the last note so #3 stays visible instead of fading out.
+          const renderStructureNotes = (progress: number, exitStrength = 1) => {
+            // Cap at the peak of the last note so #3 can hold, then exitStrength fades it out.
             const count = noteParts.length;
             const holdProgress = (count - 0.5) / count;
             const effective = Math.min(clamp01(progress), holdProgress);
@@ -79,8 +79,9 @@ export function MotionDirector() {
             const activeIndex = Math.floor(phase);
             const localProgress = phase - activeIndex;
             // One arrow at a time with a long mid hold before swapping.
-            const lineStrength = Math.min(smooth(localProgress / 0.15), smooth((1 - localProgress) / 0.22));
-            const copyStrength = Math.min(smooth((localProgress - 0.08) / 0.14), smooth((0.78 - localProgress) / 0.18));
+            const exit = clamp01(exitStrength);
+            const lineStrength = Math.min(smooth(localProgress / 0.28), smooth((1 - localProgress) / 0.32)) * exit;
+            const copyStrength = Math.min(smooth((localProgress - 0.12) / 0.26), smooth((0.82 - localProgress) / 0.28)) * exit;
 
             noteParts.forEach(({ line, copy, offset }, index) => {
               const isActive = index === activeIndex;
@@ -134,10 +135,10 @@ export function MotionDirector() {
             const integralEnd = 0.18;
             const revealStart = 0.06;
             const revealEnd = 0.32;
-            const notesStart = 0.36;
-            const notesPeak = 0.72;
-            const notesEnd = 0.8;
-            const splitEnd = 0.88;
+            const notesStart = 0.28;
+            const notesPeak = 0.62;
+            const notesEnd = 0.68;
+            const splitEnd = 0.80;
 
             const integral = smooth(clamp01(progress / integralEnd));
             if (positioning) {
@@ -147,9 +148,11 @@ export function MotionDirector() {
 
             applyVisualReveal(progress, revealStart, revealEnd);
 
-            // Reach note #3 peak by notesPeak, then hold until notesEnd before children split.
+            // Reach note #3 peak by notesPeak, then fade out before children split.
             const notesT = clamp01((progress - notesStart) / (notesPeak - notesStart));
-            renderStructureNotes(progress >= notesPeak ? 1 : notesT);
+            const notesExit =
+              progress <= notesPeak ? 1 : 1 - smooth(clamp01((progress - notesPeak) / Math.max(0.0001, notesEnd - notesPeak)));
+            renderStructureNotes(progress >= notesPeak ? 1 : notesT, notesExit);
 
             const split = smooth(clamp01((progress - notesEnd) / (splitEnd - notesEnd)));
             if (visual) gsap.set(visual, { x: -shift * split });
@@ -191,12 +194,15 @@ export function MotionDirector() {
                 positioning.style.setProperty("--integral-opacity", String(integral));
                 positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
               }
-              // Wait for image expand, then cycle notes one-by-one and hold #3.
+              // Wait for image expand, then cycle notes one-by-one and fade #3 before principles.
               const notesStart = 0.28;
               const cycleEnd = 0.82;
+              const fadeEnd = 0.95;
               const notesProgress =
                 progress <= notesStart ? 0 : progress <= cycleEnd ? (progress - notesStart) / (cycleEnd - notesStart) : 1;
-              renderStructureNotes(notesProgress);
+              const notesExit =
+                progress <= cycleEnd ? 1 : 1 - smooth(clamp01((progress - cycleEnd) / Math.max(0.0001, fadeEnd - cycleEnd)));
+              renderStructureNotes(notesProgress, notesExit);
             };
 
             // Notes finish (and hold #3) before the principles section enters view.
@@ -222,9 +228,9 @@ export function MotionDirector() {
                     ease: "none",
                     scrollTrigger: {
                       trigger: card,
-                      start: "top 72%",
-                      end: "top 38%",
-                      scrub: 0.55,
+                      start: "top 85%",
+                      end: "top 20%",
+                      scrub: 1.1,
                     },
                   },
                 );
@@ -238,9 +244,9 @@ export function MotionDirector() {
                   ease: "none",
                   scrollTrigger: {
                     trigger: card,
-                    start: "top 78%",
-                    end: "top 32%",
-                    scrub: 0.55,
+                    start: "top 85%",
+                    end: "top 20%",
+                    scrub: 1.1,
                   },
                 },
               );
@@ -393,6 +399,38 @@ export function MotionDirector() {
           const mediaImage = panel.querySelector("img");
           if (mediaImage) gsap.fromTo(mediaImage, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: panel, start: "top bottom", end: "bottom top", scrub: true } });
         });
+
+        if (window.matchMedia("(min-width: 981px)").matches) {
+          gsap.utils.toArray<HTMLElement>(".catalog-index").forEach((section) => {
+            const column = section.querySelector<HTMLElement>(".catalog-index__sticky");
+            const layout = section.querySelector<HTMLElement>(".catalog-index__layout");
+            const list = section.querySelector<HTMLElement>(".catalog-index__list");
+            if (!column || !layout) return;
+
+            const travel = () => {
+              const listBased = Math.max(0, (list?.offsetHeight ?? 0) - column.offsetHeight);
+              if (listBased > 8) return listBased;
+              // Short catalogs (e.g. cream with 4 rows): still ride down through the section.
+              return Math.max(56, Math.round(Math.min(column.offsetHeight * 0.18, layout.offsetHeight * 0.35)));
+            };
+
+            gsap.fromTo(
+              column,
+              { y: 0 },
+              {
+                y: travel,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 70%",
+                  end: "bottom 30%",
+                  scrub: true,
+                  invalidateOnRefresh: true,
+                },
+              },
+            );
+          });
+        }
 
         if (window.matchMedia("(min-width: 761px)").matches) {
           gsap.fromTo(

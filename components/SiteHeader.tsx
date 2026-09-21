@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HomeLogoLink } from "./HomeLogoLink.client";
 
 type SiteHeaderProps = {
   light?: boolean;
@@ -8,10 +9,10 @@ type SiteHeaderProps = {
 export function SiteHeader({ light = false }: SiteHeaderProps) {
   return (
     <header className={`site-header${light ? " site-header--light" : ""}`} data-site-header data-header-light={light ? "true" : "false"}>
-      <Link className="brand" href="/#inicio" aria-label="Aluminica, inicio">
+      <HomeLogoLink className="brand" href="/#inicio" aria-label="Aluminica, inicio">
         <Image className="brand__full" src="/brand/aluminica-logo.png" alt="Aluminica" width={184} height={80} priority />
         <Image className="brand__mark" src="/brand/aluminica-mark.png" alt="" width={30} height={64} priority aria-hidden="true" />
-      </Link>
+      </HomeLogoLink>
       <nav aria-label="Navegación principal">
         <Link href="/#trabajos">Proyectos</Link>
         <Link href="/#soluciones">Servicios</Link>
