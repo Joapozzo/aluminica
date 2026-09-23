@@ -203,7 +203,7 @@ export function WhatsAppAssistant() {
           <span ref={targetRef} className="whatsapp-assistant__alu-seat" aria-hidden="true" />
           <div className="whatsapp-assistant__message-copy">
             <strong>ALU</strong>
-            <p>Hola. ¿Qué espacio querés transformar?</p>
+            <p>Hola. ¿Qué necesitás hacer?</p>
           </div>
         </div>
         <div ref={optionsRef} className="whatsapp-assistant__options">

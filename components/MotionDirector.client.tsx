@@ -35,12 +35,12 @@ export function MotionDirector() {
             },
           });
           heroTimeline
-            .to("[data-hero-image]", { scale: 1.18, yPercent: -4, ease: "none" }, 0)
+            .to("[data-hero-image]", { scale: 1.03, yPercent: 5, ease: "none" }, 0)
             .to("[data-hero-wash]", { opacity: 0.88, ease: "none" }, 0)
             .to("[data-hero-copy]", { yPercent: -12, opacity: 0.2, ease: "none" }, 0.38);
         }
 
-        const isDesktop = window.matchMedia("(min-width: 761px)").matches;
+        const isDesktop = window.matchMedia("(min-width: 981px)").matches;
 
         gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
           // Principles use dedicated clip-path scrub (desktop + mobile).
@@ -56,7 +56,12 @@ export function MotionDirector() {
           });
         });
 
-        const visualReveal = document.querySelector<HTMLElement>("[data-visual-reveal]");
+        if (document.querySelector("[data-visual-reveal]")) {
+          gsap.fromTo("[data-visual-reveal]", { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
+            clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
+            scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
+          });
+        }
         const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
         if (structureNotes.length) {
           const noteParts = structureNotes.map((note) => ({
@@ -70,18 +75,12 @@ export function MotionDirector() {
             const clamped = clamp01(value);
             return clamped * clamped * (3 - 2 * clamped);
           };
-          const renderStructureNotes = (progress: number, exitStrength = 1) => {
-            // Cap at the peak of the last note so #3 can hold, then exitStrength fades it out.
-            const count = noteParts.length;
-            const holdProgress = (count - 0.5) / count;
-            const effective = Math.min(clamp01(progress), holdProgress);
-            const phase = Math.min(effective * count, count - 0.0001);
+          const renderStructureNotes = (progress: number) => {
+            const phase = Math.min(progress * noteParts.length, noteParts.length - 0.0001);
             const activeIndex = Math.floor(phase);
             const localProgress = phase - activeIndex;
-            // One arrow at a time with a long mid hold before swapping.
-            const exit = clamp01(exitStrength);
-            const lineStrength = Math.min(smooth(localProgress / 0.28), smooth((1 - localProgress) / 0.32)) * exit;
-            const copyStrength = Math.min(smooth((localProgress - 0.12) / 0.26), smooth((0.82 - localProgress) / 0.28)) * exit;
+            const lineStrength = Math.min(smooth(localProgress / 0.18), smooth((1 - localProgress) / 0.14));
+            const copyStrength = Math.min(smooth((localProgress - 0.08) / 0.2), smooth((0.88 - localProgress) / 0.16));
 
             noteParts.forEach(({ line, copy, offset }, index) => {
               const isActive = index === activeIndex;
@@ -117,28 +116,14 @@ export function MotionDirector() {
             return Math.max(0, layoutLeft);
           };
 
-          const applyVisualReveal = (progress: number, start: number, end: number) => {
-            if (!visualReveal) return;
-            const t = smooth(clamp01((progress - start) / Math.max(0.0001, end - start)));
-            const radius = 24 + t * 48;
-            const rotate = 3 * (1 - t);
-            gsap.set(visualReveal, {
-              clipPath: `circle(${radius}% at 50% 50%)`,
-              rotate,
-            });
-          };
-
           const renderDesktopScene = (progress: number) => {
             const shift = applySplitLayout();
             const positioning = document.querySelector<HTMLElement>(".positioning");
-            // Image expands first, then arrows one-by-one with hold, then children.
-            const integralEnd = 0.18;
-            const revealStart = 0.06;
-            const revealEnd = 0.32;
-            const notesStart = 0.28;
-            const notesPeak = 0.62;
-            const notesEnd = 0.68;
-            const splitEnd = 0.80;
+            const integralEnd = 0.22;
+            const notesStart = 0.2;
+            const notesEnd = 0.58;
+            const splitStart = 0.66;
+            const splitEnd = 0.76;
 
             const integral = smooth(clamp01(progress / integralEnd));
             if (positioning) {
@@ -146,26 +131,24 @@ export function MotionDirector() {
               positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
             }
 
-            applyVisualReveal(progress, revealStart, revealEnd);
+            renderStructureNotes(clamp01((progress - notesStart) / (notesEnd - notesStart)));
 
-            // Reach note #3 peak by notesPeak, then fade out before children split.
-            const notesT = clamp01((progress - notesStart) / (notesPeak - notesStart));
-            const notesExit =
-              progress <= notesPeak ? 1 : 1 - smooth(clamp01((progress - notesPeak) / Math.max(0.0001, notesEnd - notesPeak)));
-            renderStructureNotes(progress >= notesPeak ? 1 : notesT, notesExit);
-
-            const split = smooth(clamp01((progress - notesEnd) / (splitEnd - notesEnd)));
+            const split = smooth(clamp01((progress - splitStart) / (splitEnd - splitStart)));
             if (visual) gsap.set(visual, { x: -shift * split });
 
             principleCards.forEach((card, index) => {
               if (index === 0) {
                 gsap.set(card, { clipPath: `inset(0 ${(1 - split) * 100}% 0 0)` });
+                const copyReveal = smooth(clamp01((split - 0.72) / 0.22));
+                gsap.set(card.children, { opacity: copyReveal, x: 22 * (1 - copyReveal) });
                 return;
               }
               const span = (1 - splitEnd) / Math.max(1, principleCards.length - 1);
               const cardStart = splitEnd + (index - 1) * span;
               const wipe = smooth(clamp01((progress - cardStart) / span));
               gsap.set(card, { clipPath: `inset(${(1 - wipe) * 100}% 0 0 0)` });
+              const copyReveal = smooth(clamp01((wipe - 0.72) / 0.22));
+              gsap.set(card.children, { opacity: copyReveal, y: 18 * (1 - copyReveal) });
             });
           };
 
@@ -181,42 +164,30 @@ export function MotionDirector() {
               onUpdate: (self) => renderDesktopScene(self.progress),
             });
           } else {
-            if (visualReveal) {
-              gsap.fromTo(visualReveal, { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
-                clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
-                scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
-              });
-            }
             const positioning = document.querySelector<HTMLElement>(".positioning");
-            const renderMobileNotes = (progress: number) => {
-              const integral = smooth(clamp01(progress / 0.18));
-              if (positioning) {
-                positioning.style.setProperty("--integral-opacity", String(integral));
-                positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
-              }
-              // Wait for image expand, then cycle notes one-by-one and fade #3 before principles.
-              const notesStart = 0.28;
-              const cycleEnd = 0.82;
-              const fadeEnd = 0.95;
-              const notesProgress =
-                progress <= notesStart ? 0 : progress <= cycleEnd ? (progress - notesStart) / (cycleEnd - notesStart) : 1;
-              const notesExit =
-                progress <= cycleEnd ? 1 : 1 - smooth(clamp01((progress - cycleEnd) / Math.max(0.0001, fadeEnd - cycleEnd)));
-              renderStructureNotes(notesProgress, notesExit);
-            };
-
-            // Notes finish (and hold #3) before the principles section enters view.
             ScrollTrigger.create({
-              trigger: visualTrack,
-              start: "top 72%",
-              endTrigger: principlesWrap || visualTrack,
-              end: principlesWrap ? "top 92%" : "bottom 45%",
-              invalidateOnRefresh: true,
-              onRefresh: (self) => renderMobileNotes(self.progress),
-              onUpdate: (self) => renderMobileNotes(self.progress),
+              trigger: ".positioning__visual-track",
+              start: "top 68%",
+              end: "bottom 32%",
+              onRefresh: (self) => {
+                const integral = smooth(clamp01(self.progress / 0.22));
+                if (positioning) {
+                  positioning.style.setProperty("--integral-opacity", String(integral));
+                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
+                }
+                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
+              },
+              onUpdate: (self) => {
+                const integral = smooth(clamp01(self.progress / 0.22));
+                if (positioning) {
+                  positioning.style.setProperty("--integral-opacity", String(integral));
+                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
+                }
+                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
+              },
             });
 
-            // Mobile: reveal each principle only after note #3 has been held.
+            // Mobile: reveal each principle box via scroll, one after another.
             principleCards.forEach((card, index) => {
               if (index === 0) {
                 gsap.fromTo(
@@ -228,9 +199,9 @@ export function MotionDirector() {
                     ease: "none",
                     scrollTrigger: {
                       trigger: card,
-                      start: "top 85%",
-                      end: "top 20%",
-                      scrub: 1.1,
+                      start: "top 88%",
+                      end: "top 48%",
+                      scrub: 0.55,
                     },
                   },
                 );
@@ -245,18 +216,13 @@ export function MotionDirector() {
                   scrollTrigger: {
                     trigger: card,
                     start: "top 85%",
-                    end: "top 20%",
-                    scrub: 1.1,
+                    end: "top 32%",
+                    scrub: 0.55,
                   },
                 },
               );
             });
           }
-        } else if (visualReveal) {
-          gsap.fromTo(visualReveal, { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
-            clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
-            scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
-          });
         }
 
         const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");
@@ -277,7 +243,7 @@ export function MotionDirector() {
                 const expandedWidth = window.innerWidth <= 760 ? 112 : 150;
                 gsap.to(fullLogo, { autoAlpha: isFloating ? 0 : 1, x: isFloating ? -10 : 0, scale: isFloating ? 0.82 : 1, duration: 0.38, ease: "power3.out", overwrite: true });
                 gsap.to(compactLogo, { autoAlpha: isFloating ? 1 : 0, x: isFloating ? 0 : -8, scale: isFloating ? 1 : 0.72, duration: 0.38, ease: "power3.out", overwrite: true });
-                gsap.to(brand, { width: isFloating ? 28 : expandedWidth, duration: 0.42, ease: "power3.inOut", overwrite: true });
+                gsap.to(brand, { width: isFloating ? 40 : expandedWidth, duration: 0.42, ease: "power3.inOut", overwrite: true });
                 gsap.to(siteHeader, { minHeight: isFloating ? (window.innerWidth <= 760 ? 76 : 88) : window.innerWidth <= 760 ? 88 : 112, duration: 0.42, ease: "power3.inOut", overwrite: "auto" });
               }
               const compactPad = window.innerWidth <= 760 ? 12 : 16;
@@ -360,6 +326,7 @@ export function MotionDirector() {
         const galleryTrack = document.querySelector<HTMLElement>("[data-gallery-track]");
         const galleryScroll = document.querySelector<HTMLElement>("[data-gallery-scroll]");
         if (galleryTrack && galleryScroll) {
+          const progress = document.querySelector<HTMLElement>("[data-gallery-progress]");
           const horizontalDistance = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth);
           const setScrollLength = () => {
             galleryScroll.style.height = `${window.innerHeight + horizontalDistance()}px`;
@@ -374,6 +341,9 @@ export function MotionDirector() {
               scrub: 0.65,
               invalidateOnRefresh: true,
               onRefreshInit: setScrollLength,
+              onUpdate: (self) => {
+                if (progress) gsap.set(progress, { scaleX: self.progress });
+              },
             },
           });
           galleryTimeline
@@ -399,38 +369,6 @@ export function MotionDirector() {
           const mediaImage = panel.querySelector("img");
           if (mediaImage) gsap.fromTo(mediaImage, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: panel, start: "top bottom", end: "bottom top", scrub: true } });
         });
-
-        if (window.matchMedia("(min-width: 981px)").matches) {
-          gsap.utils.toArray<HTMLElement>(".catalog-index").forEach((section) => {
-            const column = section.querySelector<HTMLElement>(".catalog-index__sticky");
-            const layout = section.querySelector<HTMLElement>(".catalog-index__layout");
-            const list = section.querySelector<HTMLElement>(".catalog-index__list");
-            if (!column || !layout) return;
-
-            const travel = () => {
-              const listBased = Math.max(0, (list?.offsetHeight ?? 0) - column.offsetHeight);
-              if (listBased > 8) return listBased;
-              // Short catalogs (e.g. cream with 4 rows): still ride down through the section.
-              return Math.max(56, Math.round(Math.min(column.offsetHeight * 0.18, layout.offsetHeight * 0.35)));
-            };
-
-            gsap.fromTo(
-              column,
-              { y: 0 },
-              {
-                y: travel,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 70%",
-                  end: "bottom 30%",
-                  scrub: true,
-                  invalidateOnRefresh: true,
-                },
-              },
-            );
-          });
-        }
 
         if (window.matchMedia("(min-width: 761px)").matches) {
           gsap.fromTo(

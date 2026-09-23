@@ -10,16 +10,16 @@ import { buildMetadata } from "../../../lib/seo";
 import { absoluteUrl, whatsappUrl } from "../../../lib/site";
 
 const imagery: Record<string, string> = {
-  "carpinteria-de-aluminio": "/stock/glass-doors.webp",
-  "revestimientos-wpc": "/stock/facade-detail.webp",
-  rejas: "/stock/welding.webp",
-  "puertas-de-chapa": "/stock/welding.webp",
-  "frentes-de-asador": "/stock/glass-house.webp",
-  portones: "/stock/glass-house.webp",
-  pergolas: "/stock/pergola.webp",
-  barandas: "/stock/staircase.webp",
-  escaleras: "/stock/staircase.webp",
-  "estructuras-metalicas": "/stock/pergola-black.webp",
+  "carpinteria-de-aluminio": "/media/projects/aberturas-de-aluminio/aberturas-de-aluminio-02.webp",
+  "revestimientos-wpc": "/media/projects/revestimientos-wpc/revestimientos-wpc-02.webp",
+  rejas: "/media/projects/rejas-y-portones/rejas-y-portones-02.webp",
+  "puertas-de-chapa": "/media/projects/puertas-de-chapa/puertas-de-chapa-01.webp",
+  "frentes-de-asador": "/media/projects/frentes-de-asador/frentes-de-asador-01.webp",
+  portones: "/media/projects/rejas-y-portones/rejas-y-portones-01.webp",
+  pergolas: "/media/projects/pergolas-y-galerias/pergolas-y-galerias-02.webp",
+  barandas: "/media/projects/barandas-y-escaleras/barandas-y-escaleras-01.webp",
+  escaleras: "/media/projects/barandas-y-escaleras/barandas-y-escaleras-02.webp",
+  "estructuras-metalicas": "/media/projects/modulos-habitacionales/modulos-habitacionales-01.webp",
 };
 
 export function generateStaticParams() {
@@ -64,16 +64,16 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               data-analytics-event="whatsapp_click"
               data-analytics-label={`service_${service.slug}`}
             >
-              Consultar este trabajo <span aria-hidden="true">↗</span>
+              Cotizar este proyecto <span aria-hidden="true">↗</span>
             </a>
           </div>
           <div className="detail-hero__image">
-            <Image src={imagery[service.slug]} alt={`Referencia visual de ${service.name.toLowerCase()}`} fill priority sizes="(max-width: 760px) 100vw, 50vw" />
+            <Image src={imagery[service.slug]} alt={`Trabajo de ${service.name.toLowerCase()} realizado por Aluminica`} fill priority sizes="(max-width: 760px) 100vw, 50vw" />
           </div>
         </section>
         <section className="detail-info container" data-reveal>
           <div>
-            <p className="eyebrow">Aplicaciones</p>
+            <p className="eyebrow">Qué podemos hacer</p>
             <ul>
               {service.applications.map((item) => (
                 <li key={item}>{item}</li>

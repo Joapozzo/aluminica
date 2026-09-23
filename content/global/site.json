@@ -8,7 +8,7 @@
   "descriptor": "Herrería y carpintería de aluminio",
   "locale": "es-AR",
   "primaryAction": {
-    "label": "Consultar por WhatsApp",
+    "label": "Cotizar mi proyecto",
     "href": "#contacto"
   },
   "navigation": [

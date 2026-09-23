@@ -3,27 +3,27 @@ import Image from "next/image";
 const chapters = [
   {
     number: "00",
-    kicker: "Vista general",
-    title: "Explorá una transformación completa.",
-    body: "Descubrí cómo el aluminio, el vidrio y la herrería pueden sumar luz, apertura, protección y nuevos usos.",
+    kicker: "Nuestro proceso",
+    title: "Cada proyecto empieza por una necesidad.",
+    body: "Escuchamos qué necesitás, vemos el espacio y definimos una solución posible, funcional y hecha a medida.",
   },
   {
     number: "01",
-    kicker: "Fachada",
-    title: "Más luz. Mejor aprovechada.",
-    body: "Perfiles y paños de vidrio distribuidos para iluminar, proteger y ordenar visualmente el frente.",
+    kicker: "Relevamiento",
+    title: "Entendemos el proyecto.",
+    body: "Revisamos usos, medidas, condiciones de obra y terminaciones antes de comenzar a fabricar.",
   },
   {
     number: "02",
-    kicker: "Apertura",
-    title: "Abrir cambia todo.",
-    body: "Grandes aberturas conectan interior y exterior, amplían el paso y mejoran la forma de usar cada ambiente.",
+    kicker: "Taller",
+    title: "Fabricamos cada pieza.",
+    body: "Trabajamos aluminio y hierro con experiencia de oficio, precisión y atención en los detalles que hacen que todo funcione.",
   },
   {
     number: "03",
-    kicker: "Estructura",
-    title: "Más sombra. Más espacio útil.",
-    body: "Pérgolas y estructuras a medida permiten aprovechar patios, galerías y áreas de trabajo durante más tiempo.",
+    kicker: "Instalación",
+    title: "Lo llevamos a obra.",
+    body: "Coordinamos el montaje y dejamos la solución instalada, lista para usar y pensada para durar.",
   },
 ];
 
@@ -33,28 +33,28 @@ export function ImmersiveWork() {
       <div className="immersive__track" data-immersive-track>
         <div className="immersive__viewport">
           <div className="immersive__topline" aria-hidden="true">
-            <span>Recorrido interactivo / Referencia conceptual</span>
+            <span>Por qué elegirnos / Diseño, fabricación e instalación</span>
             <span><b data-immersive-counter>01</b> / 04</span>
           </div>
 
           <div className="immersive__scene" data-immersive-scene aria-hidden="true">
             <div className="immersive__base" data-immersive-base>
-              <Image src="/stock/glass-house.webp" alt="" fill sizes="100vw" />
+              <Image src="/media/projects/pergolas-y-galerias/pergolas-y-galerias-03.webp" alt="" fill sizes="100vw" />
             </div>
             <div className="immersive__wash" />
             <div className="immersive__grid" />
 
             <div className="immersive__plane immersive__plane--facade" data-immersive-plane="facade">
-              <Image src="/stock/facade-detail.webp" alt="" fill sizes="52vw" />
-              <span>01 / Modulación</span>
+              <Image src="/media/projects/revestimientos-wpc/revestimientos-wpc-01.webp" alt="" fill sizes="52vw" />
+              <span>01 / Revestimiento WPC</span>
             </div>
             <div className="immersive__plane immersive__plane--opening" data-immersive-plane="opening">
-              <Image src="/stock/glass-doors.webp" alt="" fill sizes="56vw" />
-              <span>02 / Apertura total</span>
+              <Image src="/media/projects/aberturas-de-aluminio/aberturas-de-aluminio-03.webp" alt="" fill sizes="56vw" />
+              <span>02 / Aberturas</span>
             </div>
             <div className="immersive__plane immersive__plane--structure" data-immersive-plane="structure">
-              <Image src="/stock/pergola-black.webp" alt="" fill sizes="64vw" />
-              <span>03 / Estructura</span>
+              <Image src="/media/projects/pergolas-y-galerias/pergolas-y-galerias-01.webp" alt="" fill sizes="64vw" />
+              <span>03 / Pérgola</span>
             </div>
           </div>
 

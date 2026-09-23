@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 test("home is usable, accessible and maps vertical scroll to the project reel", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Transformá tus espacios. Ganá luz, seguridad y funcionalidad." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Proyectos a medida en aluminio y herrería." })).toBeVisible();
   await expect(page.getByRole("button", { name: "Abrir asistente de WhatsApp" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0);
 
@@ -45,14 +45,14 @@ test("service pages are indexable and responsive", async ({ page }) => {
   await page.goto("/servicios/pergolas");
   await expect(page.getByRole("heading", { name: "Pérgolas" })).toBeVisible();
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /\/servicios\/pergolas$/);
-  await expect(page.getByRole("link", { name: /Hablemos/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Cotizar proyecto/ })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0);
 });
 
 test("essential content remains available with reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Transformá tus espacios. Ganá luz, seguridad y funcionalidad." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Soluciones para transformar/ })).toBeAttached();
-  await expect(page.getByRole("heading", { name: /Contanos qué querés transformar/ })).toBeAttached();
+  await expect(page.getByRole("heading", { name: "Proyectos a medida en aluminio y herrería." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /De la idea a la instalación/ })).toBeAttached();
+  await expect(page.getByRole("heading", { name: /¿Tenés un proyecto en mente/ })).toBeAttached();
 });

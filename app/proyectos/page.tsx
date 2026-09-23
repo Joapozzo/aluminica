@@ -1,43 +1,42 @@
 import Image from "next/image";
 import { InnerPageShell } from "../../components/InnerPageShell";
+import { projectCategories } from "../../lib/projectGallery";
 import { buildMetadata } from "../../lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Referencias de aluminio y herrería",
-  description: "Referencias visuales de aberturas, pérgolas, escaleras y fachadas para imaginar soluciones a medida en Córdoba.",
+  title: "Trabajos de aluminio y herrería",
+  description: "Trabajos reales de aberturas, revestimientos WPC, pérgolas, portones, escaleras y estructuras realizados por Aluminica en Córdoba.",
   path: "/proyectos",
 });
-
-const studies = [
-  { title: "Exteriores para disfrutar todo el año", type: "Pérgolas y estructuras", image: "/stock/pergola.webp" },
-  { title: "Aberturas que conectan los espacios", type: "Carpintería de aluminio", image: "/stock/glass-doors.webp" },
-  { title: "Circulaciones seguras y a medida", type: "Escaleras y barandas", image: "/stock/staircase.webp" },
-  { title: "Fachadas que protegen y renuevan", type: "Fachadas y revestimientos", image: "/stock/facade-detail.webp" },
-];
 
 export default function ProjectsPage() {
   return (
     <InnerPageShell>
       <section className="editorial-hero container" data-reveal>
-        <p className="eyebrow">Referencias de aplicación</p>
+        <p className="eyebrow">Proyectos a medida</p>
         <h1>
-          Ideas para transformar
+          Soluciones para crear
           <br />
-          <span className="title-accent">cada espacio.</span>
+          <span className="title-accent">tu próximo proyecto.</span>
         </h1>
-        <p>Estas imágenes son referencias visuales para explorar posibilidades de luz, apertura, protección y uso. Cada solución de Aluminica se desarrolla a medida del proyecto.</p>
+        <p>Una selección de trabajos reales de Aluminica, ordenados por categoría. Cada solución fue diseñada, fabricada e instalada a medida.</p>
       </section>
-      <section className="project-list container">
-        {studies.map((study, index) => (
-          <article key={study.title} data-reveal>
-            <div className="project-list__image">
-              <Image src={study.image} alt={`Referencia arquitectónica: ${study.title}`} fill sizes="(max-width: 760px) 100vw, 68vw" />
-            </div>
-            <div>
+      <section className="project-categories container">
+        {projectCategories.map((category, index) => (
+          <article className="project-category" key={category.slug} data-reveal>
+            <header>
               <span>
-                0{index + 1} / {study.type}
+                0{index + 1} / Trabajo real
               </span>
-              <h2>{study.title}</h2>
+              <h2>{category.name}</h2>
+              <p>{category.description}</p>
+            </header>
+            <div className={`project-category__grid project-category__grid--${category.images.length}`}>
+              {category.images.map((image) => (
+                <div className="project-category__image" key={image.src}>
+                  <Image src={image.src} alt={image.alt} fill sizes="(max-width: 760px) 100vw, 50vw" />
+                </div>
+              ))}
             </div>
           </article>
         ))}

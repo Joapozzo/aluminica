@@ -15,11 +15,11 @@ export default function ServicesPage() {
       <section className="editorial-hero container" data-reveal>
         <p className="eyebrow">Aluminio + herrería</p>
         <h1>
-          Todo lo que podemos
+          Soluciones que podemos
           <br />
-          <span className="title-accent">resolver.</span>
+          <span className="title-accent">hacer a medida.</span>
         </h1>
-        <p>Aberturas, cerramientos, portones, rejas, pérgolas, escaleras, revestimientos y estructuras fabricadas a medida para cada espacio.</p>
+        <p>Aberturas y cerramientos de aluminio, portones, rejas, pérgolas, escaleras, revestimientos y estructuras metálicas fabricadas a medida en Córdoba.</p>
       </section>
       <section className="content-grid container" aria-label="Servicios">
         {services.map((service, index) => (
