@@ -10,8 +10,8 @@
   --white: #ffffff;
   --line: rgba(11, 22, 25, 0.18);
   --line-light: rgba(255, 255, 255, 0.28);
-  --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-  --font-body: Inter, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-archivo), "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-inter), Inter, "Helvetica Neue", Arial, sans-serif;
   --site-max: 1480px;
   --site-gutter: clamp(20px, 3.2vw, 64px);
   --site-inset: max(var(--site-gutter), calc((100vw - var(--site-max)) / 2));
@@ -733,7 +733,6 @@ nav a:hover { opacity: .64; }
   --acid: #dfff67;
   --warm: #ff7048;
   --cream: #f3efe6;
-  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .section-label { letter-spacing: .24em; font-weight: 750; }
