@@ -8,6 +8,7 @@ import { JsonLd } from "../../../components/JsonLd";
 import { getService, services } from "../../../lib/content";
 import { buildMetadata } from "../../../lib/seo";
 import { absoluteUrl, whatsappUrl } from "../../../lib/site";
+import { IconArrowUpRight } from "../../../components/Icons";
 
 const imagery: Record<string, string> = {
   "carpinteria-de-aluminio": "/media/projects/aberturas-de-aluminio/aberturas-de-aluminio-02.webp",
@@ -64,7 +65,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               data-analytics-event="whatsapp_click"
               data-analytics-label={`service_${service.slug}`}
             >
-              Cotizar este proyecto <span aria-hidden="true">↗</span>
+              Cotizar este proyecto <IconArrowUpRight size={16} />
             </a>
           </div>
           <div className="detail-hero__image">

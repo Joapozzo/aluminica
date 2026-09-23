@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { IconArrowUpRight } from "./Icons";
 
 type ButtonLinkProps = {
   href: string;
@@ -23,8 +24,7 @@ export function ButtonLink({
       rel={external ? "noreferrer" : undefined}
     >
       <span>{children}</span>
-      <span aria-hidden="true">↗</span>
+      <IconArrowUpRight className="button-link__icon" />
     </a>
   );
 }
-

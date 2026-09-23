@@ -24,8 +24,7 @@ export const projectCategories: ProjectCategory[] = [
     name: "Frentes de asador",
     description: "Frentes metálicos funcionales, resistentes y adaptados a cada quincho o galería.",
     images: [
-      { src: "/media/projects/frentes-de-asador/frentes-de-asador-01.webp", alt: "Frente de asador metálico realizado por Aluminica" },
-      { src: "/media/projects/frentes-de-asador/frentes-de-asador-02.webp", alt: "Detalle de frente de asador a medida realizado por Aluminica" },
+      { src: "/media/projects/frentes-de-asador/frentes-de-asador-01.webp", alt: "Frente de asador metálico integral realizado por Aluminica" },
     ],
   },
   {
@@ -33,8 +32,7 @@ export const projectCategories: ProjectCategory[] = [
     name: "Puertas de chapa",
     description: "Puertas de diseño propio para accesos seguros, con medidas y terminaciones personalizadas.",
     images: [
-      { src: "/media/projects/puertas-de-chapa/puertas-de-chapa-01.webp", alt: "Puerta de chapa fabricada a medida por Aluminica" },
-      { src: "/media/projects/puertas-de-chapa/puertas-de-chapa-02.webp", alt: "Puerta metálica de chapa instalada por Aluminica" },
+      { src: "/media/projects/puertas-de-chapa/puertas-de-chapa-01.webp", alt: "Puerta de chapa de acceso fabricada a medida por Aluminica" },
     ],
   },
   {

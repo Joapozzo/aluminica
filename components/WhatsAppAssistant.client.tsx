@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { siteConfig } from "../lib/site";
 import { trackEvent } from "../lib/analytics";
+import { IconArrowUpRight } from "./Icons";
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -207,7 +208,7 @@ export function WhatsAppAssistant() {
           </div>
         </div>
         <div ref={optionsRef} className="whatsapp-assistant__options">
-          {prompts.map((prompt) => <button type="button" key={prompt.label} onClick={() => sendMessage(prompt.message)} data-analytics-event="whatsapp_click" data-analytics-label={prompt.label}><span>{prompt.label}</span><span aria-hidden="true">↗</span></button>)}
+          {prompts.map((prompt) => <button type="button" key={prompt.label} onClick={() => sendMessage(prompt.message)} data-analytics-event="whatsapp_click" data-analytics-label={prompt.label}><span>{prompt.label}</span><IconArrowUpRight size={14} /></button>)}
         </div>
       </div>
 

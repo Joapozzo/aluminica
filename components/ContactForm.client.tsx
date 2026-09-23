@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { FormEvent, KeyboardEvent } from "react";
 import { siteConfig } from "../lib/site";
 import { trackEvent } from "../lib/analytics";
+import { IconArrowUpRight, IconChevronDown } from "./Icons";
 
 const projectOptions = [
   "Cerrar una galería o un quincho",
@@ -110,7 +111,7 @@ export function ContactForm() {
             onKeyDown={handleProjectKeyDown}
           >
             <span id={`${projectListId}-value`} className={project ? "" : "is-placeholder"}>{project || "Elegí una opción"}</span>
-            <span className="contact-select__chevron" aria-hidden="true" />
+            <IconChevronDown className="contact-select__chevron" size={16} />
           </button>
           <div className="contact-select__list" id={projectListId} role="listbox" aria-labelledby={`${projectListId}-label`}>
             {projectOptions.map((option, index) => (
@@ -132,7 +133,7 @@ export function ContactForm() {
         {projectError ? <span className="contact-form__error" role="alert">Elegí el tipo de proyecto.</span> : null}
       </div>
       <label><span>Contanos un poco más</span><textarea name="details" rows={2} placeholder="Medidas aproximadas, ubicación y cualquier dato útil" /></label>
-      <button type="submit" data-analytics-event="whatsapp_click" data-analytics-label="contact_form"><span>Cotizar mi proyecto</span><span aria-hidden="true">↗</span></button>
+      <button type="submit" data-analytics-event="whatsapp_click" data-analytics-label="contact_form"><span>Cotizar mi proyecto</span><IconArrowUpRight size={16} /></button>
       <p className="contact-form__note">Al continuar se abrirá WhatsApp. Allí también vas a poder enviarnos fotos y medidas del proyecto.</p>
     </form>
   );

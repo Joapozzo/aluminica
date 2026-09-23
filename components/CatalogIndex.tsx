@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { IconArrowUpRight } from "./Icons";
 
 export type CatalogIndexItem = {
   href: string;
@@ -41,7 +42,7 @@ export function CatalogIndex({
           {body ? <p className="catalog-index__body">{body}</p> : null}
           <Link className="catalog-index__cta" href={cta.href}>
             {cta.label}
-            <span aria-hidden="true">↗</span>
+            <IconArrowUpRight size={15} />
           </Link>
         </header>
 
@@ -53,7 +54,7 @@ export function CatalogIndex({
                 <span className="catalog-index__name">{item.name}</span>
                 {item.meta ? <span className="catalog-index__meta">{item.meta}</span> : null}
                 <span className="catalog-index__arrow" aria-hidden="true">
-                  ↗
+                  <IconArrowUpRight size={18} />
                 </span>
               </Link>
             </li>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { IconArrowDown } from "./Icons";
 
 const chapters = [
   {
@@ -69,7 +70,7 @@ export function ImmersiveWork() {
           </div>
 
           <div className="immersive__progress" aria-hidden="true"><i data-immersive-progress /></div>
-          <p className="immersive__hint" aria-hidden="true">Deslizá para recorrer <span>↓</span></p>
+          <p className="immersive__hint" aria-hidden="true">Deslizá para recorrer <IconArrowDown size={14} /></p>
         </div>
       </div>
     </section>

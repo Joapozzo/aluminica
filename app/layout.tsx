@@ -1,21 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo_Narrow, Inter } from "next/font/google";
+import { Archivo_Narrow, Manrope } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "../components/Analytics.client";
 import { AppShell } from "../components/AppShell.client";
 import { absoluteUrl, siteConfig } from "../lib/site";
 import { defaultDescription } from "../lib/seo";
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
+  variable: "--font-body-face",
   display: "swap",
 });
 
 const archivoNarrow = Archivo_Narrow({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-archivo",
+  variable: "--font-display-face",
   display: "swap",
 });
 
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={siteConfig.language} className={`${inter.variable} ${archivoNarrow.variable}`}>
+    <html lang={siteConfig.language} className={`${manrope.variable} ${archivoNarrow.variable}`}>
       <body>
         <AppShell>{children}</AppShell>
         <Analytics />

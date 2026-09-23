@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { InnerPageShell } from "../../components/InnerPageShell";
+import { IconArrowUpRight } from "../../components/Icons";
 import { services } from "../../lib/content";
 import { buildMetadata } from "../../lib/seo";
 
@@ -27,7 +28,7 @@ export default function ServicesPage() {
             <span>{String(index + 1).padStart(2, "0")}</span>
             <h2>{service.name}</h2>
             <p>{service.summary}</p>
-            <strong>Ver solución ↗</strong>
+            <strong>Ver solución <IconArrowUpRight size={15} /></strong>
           </Link>
         ))}
       </section>
