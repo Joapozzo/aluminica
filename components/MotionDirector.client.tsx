@@ -30,7 +30,7 @@ export function MotionDirector() {
               trigger: ".hero-track",
               start: "top top",
               end: "bottom bottom",
-              scrub: true,
+              scrub: 0.85,
               invalidateOnRefresh: true,
             },
           });
@@ -59,7 +59,7 @@ export function MotionDirector() {
         if (document.querySelector("[data-visual-reveal]")) {
           gsap.fromTo("[data-visual-reveal]", { clipPath: "circle(24% at 50% 50%)", rotate: 3 }, {
             clipPath: "circle(72% at 50% 50%)", rotate: 0, ease: "none",
-            scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 54%", scrub: true },
+            scrollTrigger: { trigger: ".positioning__visual", start: "top 88%", end: "bottom 40%", scrub: 0.8 },
           });
         }
         const structureNotes = gsap.utils.toArray<HTMLElement>("[data-structure-note]");
@@ -165,62 +165,48 @@ export function MotionDirector() {
             });
           } else {
             const positioning = document.querySelector<HTMLElement>(".positioning");
+            // Mobile: finish all structure notes while the visual is still sticky,
+            // then reveal principles — never overlap the two phases.
+            const notesStart = 0.08;
+            const notesEnd = 0.46;
+            const principlesStart = 0.54;
+
+            const renderMobileScene = (progress: number) => {
+              const integral = smooth(clamp01(progress / 0.18));
+              if (positioning) {
+                positioning.style.setProperty("--integral-opacity", String(integral));
+                positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
+              }
+
+              // Cap below 1 so the last arrow stays visible through the hold
+              // instead of fading out at the end of its local window.
+              const notesProgress = clamp01((progress - notesStart) / (notesEnd - notesStart));
+              renderStructureNotes(Math.min(0.82, notesProgress));
+
+              const principlesProgress = clamp01((progress - principlesStart) / (1 - principlesStart));
+              principleCards.forEach((card, index) => {
+                const span = 1 / Math.max(1, principleCards.length);
+                const cardStart = index * span;
+                const wipe = smooth(clamp01((principlesProgress - cardStart) / (span * 0.92)));
+                if (index === 0) {
+                  gsap.set(card, {
+                    clipPath: `inset(${(1 - wipe) * 12}% 0 0 0)`,
+                    y: 28 * (1 - wipe),
+                  });
+                  return;
+                }
+                gsap.set(card, { clipPath: `inset(${(1 - wipe) * 100}% 0 0 0)`, y: 0 });
+              });
+            };
+
+            renderMobileScene(0);
             ScrollTrigger.create({
               trigger: ".positioning__visual-track",
-              start: "top 68%",
-              end: "bottom 32%",
-              onRefresh: (self) => {
-                const integral = smooth(clamp01(self.progress / 0.22));
-                if (positioning) {
-                  positioning.style.setProperty("--integral-opacity", String(integral));
-                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
-                }
-                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
-              },
-              onUpdate: (self) => {
-                const integral = smooth(clamp01(self.progress / 0.22));
-                if (positioning) {
-                  positioning.style.setProperty("--integral-opacity", String(integral));
-                  positioning.style.setProperty("--integral-y", `${(1 - integral) * 36}px`);
-                }
-                renderStructureNotes(clamp01((self.progress - 0.26) / 0.5));
-              },
-            });
-
-            // Mobile: reveal each principle box via scroll, one after another.
-            principleCards.forEach((card, index) => {
-              if (index === 0) {
-                gsap.fromTo(
-                  card,
-                  { clipPath: "inset(12% 0 0 0)", y: 28 },
-                  {
-                    clipPath: "inset(0% 0% 0% 0%)",
-                    y: 0,
-                    ease: "none",
-                    scrollTrigger: {
-                      trigger: card,
-                      start: "top 88%",
-                      end: "top 48%",
-                      scrub: 0.55,
-                    },
-                  },
-                );
-                return;
-              }
-              gsap.fromTo(
-                card,
-                { clipPath: "inset(100% 0 0 0)" },
-                {
-                  clipPath: "inset(0% 0% 0% 0%)",
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: card,
-                    start: "top 85%",
-                    end: "top 32%",
-                    scrub: 0.55,
-                  },
-                },
-              );
+              start: "top 72%",
+              end: "bottom bottom",
+              invalidateOnRefresh: true,
+              onRefresh: (self) => renderMobileScene(self.progress),
+              onUpdate: (self) => renderMobileScene(self.progress),
             });
           }
         }
@@ -300,7 +286,7 @@ export function MotionDirector() {
               trigger: immersiveTrack,
               start: "top top",
               end: "bottom bottom",
-              scrub: 0.9,
+              scrub: 1.15,
               invalidateOnRefresh: true,
               onUpdate: (self) => updateImmersiveUI(self.progress),
               onRefresh: (self) => updateImmersiveUI(self.progress),
@@ -329,7 +315,8 @@ export function MotionDirector() {
           const progress = document.querySelector<HTMLElement>("[data-gallery-progress]");
           const horizontalDistance = () => Math.max(0, galleryTrack.scrollWidth - window.innerWidth);
           const setScrollLength = () => {
-            galleryScroll.style.height = `${window.innerHeight + horizontalDistance()}px`;
+            // Extra scroll runway so the horizontal reel reads slower.
+            galleryScroll.style.height = `${window.innerHeight + horizontalDistance() * 1.45}px`;
           };
           setScrollLength();
           const galleryTimeline = gsap.timeline({
@@ -338,7 +325,7 @@ export function MotionDirector() {
               trigger: galleryScroll,
               start: "top top",
               end: "bottom bottom",
-              scrub: 0.65,
+              scrub: 0.95,
               invalidateOnRefresh: true,
               onRefreshInit: setScrollLength,
               onUpdate: (self) => {
@@ -363,11 +350,11 @@ export function MotionDirector() {
               y: 0,
               scale: 1,
               ease: "none",
-              scrollTrigger: { trigger: panel, start: "top bottom", end: "top 34%", scrub: true },
+              scrollTrigger: { trigger: panel, start: "top bottom", end: "top 28%", scrub: 0.85 },
             },
           );
           const mediaImage = panel.querySelector("img");
-          if (mediaImage) gsap.fromTo(mediaImage, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: panel, start: "top bottom", end: "bottom top", scrub: true } });
+          if (mediaImage) gsap.fromTo(mediaImage, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: panel, start: "top bottom", end: "bottom top", scrub: 0.85 } });
         });
 
         if (window.matchMedia("(min-width: 761px)").matches) {
@@ -377,11 +364,11 @@ export function MotionDirector() {
             {
               xPercent: 8,
               ease: "none",
-              scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true },
+              scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: 0.9 },
             },
           );
         }
-        gsap.fromTo("[data-legacy-image]", { scale: 1.22, yPercent: -5 }, { scale: 1.02, yPercent: 5, ease: "none", scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: true } });
+        gsap.fromTo("[data-legacy-image]", { scale: 1.22, yPercent: -5 }, { scale: 1.02, yPercent: 5, ease: "none", scrollTrigger: { trigger: ".legacy", start: "top bottom", end: "bottom top", scrub: 0.9 } });
 
         if (document.querySelector("[data-contact-panel]")) {
           if (isDesktop) {
@@ -391,7 +378,7 @@ export function MotionDirector() {
               {
                 clipPath: "inset(0% 0% 0% 0% round 0px)",
                 ease: "none",
-                scrollTrigger: { trigger: ".contact", start: "top bottom", end: "top 18%", scrub: true },
+                scrollTrigger: { trigger: ".contact", start: "top bottom", end: "top 12%", scrub: 0.9 },
               },
             );
           } else {
@@ -405,8 +392,8 @@ export function MotionDirector() {
                 scrollTrigger: {
                   trigger: ".contact",
                   start: "top 92%",
-                  end: "top 28%",
-                  scrub: 0.6,
+                  end: "top 22%",
+                  scrub: 0.85,
                 },
               },
             );

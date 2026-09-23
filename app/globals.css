@@ -483,7 +483,7 @@ img { display: block; }
 .button-link:focus-visible, nav a:focus-visible, .contact-form input:focus-visible, .contact-form select:focus-visible, .contact-form textarea:focus-visible, .contact-form button:focus-visible { outline: 3px solid var(--brand-blue-soft); outline-offset: 4px; }
 
 /* Hero */
-.hero-track { position: relative; height: 182svh; background: var(--brand-deep); }
+.hero-track { position: relative; height: 240svh; background: var(--brand-deep); }
 .hero { position: sticky; top: 0; min-height: 100svh; overflow: hidden; isolation: isolate; background: var(--brand-deep); color: white; }
 .hero__image { position: absolute; inset: 0; z-index: -4; width: 100%; height: 100%; object-fit: cover; object-position: center 44%; scale: 1.24; filter: saturate(.72) contrast(1.04); will-change: transform; }
 .hero__poster { z-index: -5; object-fit: cover; object-position: center 56%; }
@@ -551,7 +551,7 @@ nav a:hover { opacity: .64; }
 .services__sticky .section-label { margin-bottom: 32px; }
 .services__sticky .section-heading h2 { font-size: clamp(3rem,5vw,6rem); }
 .service-stack { padding-bottom: 12vh; }
-.service-panel { position: sticky; top: calc(var(--header-offset) + 12px); min-height: 560px; margin-bottom: 9vh; padding: clamp(24px,3vw,48px); border: 1px solid rgba(255,255,255,.2); border-radius: 3px; background: var(--brand-deep); color: white; box-shadow: 0 -16px 50px rgba(11,22,25,.12); will-change: transform; }
+.service-panel { position: sticky; top: calc(var(--header-offset) + 12px); min-height: 560px; margin-bottom: 14vh; padding: clamp(24px,3vw,48px); border: 1px solid rgba(255,255,255,.2); border-radius: 3px; background: var(--brand-deep); color: white; box-shadow: 0 -16px 50px rgba(11,22,25,.12); will-change: transform; }
 .service-panel:nth-child(2) { top: calc(var(--header-offset) + 30px); background: #21444c; }
 .service-panel:nth-child(3) { top: calc(var(--header-offset) + 48px); background: #19353c; }
 .service-panel:nth-child(4) { top: calc(var(--header-offset) + 66px); background: var(--brand-blue); }
@@ -653,7 +653,7 @@ nav a:hover { opacity: .64; }
   .section-heading h2 { font-size: clamp(3rem,13vw,4.8rem); }
   .section-heading__body { margin-top: 26px; }
   .button-link { width: 100%; }
-  .hero-track { height: 112svh; }
+  .hero-track { height: 148svh; }
   .site-header { top: 12px; min-height: 88px; padding-block: 12px; }
   .brand { width: 112px; height: 49px; }
   .brand .brand__full { display: block; width: 112px; }
@@ -684,7 +684,7 @@ nav a:hover { opacity: .64; }
   .project-stage__caption h3 { margin-block: 24px 36px; font-size: 4.3rem; }
   .project-stage__primary { top: 330px; width: 100%; height: 480px; }
   .project-stage__secondary { bottom: 0; width: 56%; height: 300px; border-width: 7px; }
-  .service-panel { top: calc(var(--header-offset) + 8px); min-height: 530px; margin-bottom: 7vh; padding: 24px; }
+  .service-panel { top: calc(var(--header-offset) + 8px); min-height: 530px; margin-bottom: 11vh; padding: 24px; }
   .service-panel:nth-child(2) { top: calc(var(--header-offset) + 20px); }
   .service-panel:nth-child(3) { top: calc(var(--header-offset) + 32px); }
   .service-panel:nth-child(4) { top: calc(var(--header-offset) + 44px); }
@@ -754,7 +754,7 @@ nav a:hover { opacity: .64; }
 /* Positioning with an image plane */
 .positioning { overflow: clip; background: var(--cream); --integral-opacity: 0; --integral-y: 36px; }
 .positioning::before { position: absolute; top: 24%; left: -3vw; content: "INTEGRAL"; color: transparent; font-size: 18vw; font-weight: 850; letter-spacing: .08em; line-height: .75; -webkit-text-stroke: 1px rgba(41,83,92,.16); opacity: var(--integral-opacity); transform: translateY(var(--integral-y)); pointer-events: none; will-change: opacity,transform; }
-.positioning__visual-track { position: relative; display: grid; grid-template-rows: 310svh auto; height: auto; margin-block: clamp(90px,12vw,190px) clamp(90px,10vw,150px); }
+.positioning__visual-track { position: relative; display: grid; grid-template-rows: 400svh auto; height: auto; margin-block: clamp(90px,12vw,190px) clamp(90px,10vw,150px); }
 .positioning__stage { display: contents; }
 .positioning__visual { position: sticky; top: var(--header-offset); align-self: start; justify-self: center; width: 100%; max-width: none; height: calc(100svh - var(--header-offset) - 16px); aspect-ratio: 16 / 10; margin-inline: auto; overflow: visible; background: var(--brand-blue); will-change: clip-path,transform; }
 .positioning__media { position: absolute; inset: 0; overflow: hidden; background: var(--brand-blue); clip-path: circle(24% at 50% 50%); will-change: clip-path,transform; }
@@ -789,7 +789,7 @@ nav a:hover { opacity: .64; }
   }
   .positioning__visual-track {
     display: block;
-    height: 600svh;
+    height: 780svh;
     margin-bottom: 0;
   }
   .positioning__stage {
@@ -919,7 +919,7 @@ nav a:hover { opacity: .64; }
 
 /* Immersive 2.5D work tour */
 .immersive { position: relative; z-index: 2; background: var(--ink); color: white; }
-.immersive__track { position: relative; height: 440svh; }
+.immersive__track { position: relative; height: 580svh; }
 .immersive__viewport { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: #071113; perspective: 1400px; }
 .immersive__scene { position: absolute; inset: 0; z-index: -2; overflow: hidden; transform-style: preserve-3d; }
 .immersive__base { position: absolute; inset: -7%; will-change: transform,opacity; }
@@ -1349,7 +1349,7 @@ html body .container,
   .contact__panel { padding-inline: 0; }
   .contact__main, .site-footer__panel { width: calc(100% - (var(--site-gutter) * 2)); }
   .service-panel h3 { font-size: clamp(2.7rem, 12vw, 3.45rem); }
-  .positioning__visual-track { display: grid; grid-template-rows: 320svh auto; height: auto; margin: 76px 0 90px; }
+  .positioning__visual-track { display: grid; grid-template-rows: 420svh auto; height: auto; margin: 76px 0 90px; }
   .positioning__stage { display: contents; }
   .positioning__visual { position: sticky; top: var(--header-offset); align-self: start; justify-self: center; width: 100%; max-width: none; height: calc(100svh - var(--header-offset) - 16px); aspect-ratio: auto; margin: 0 auto; }
   .positioning__media > img { object-fit: cover; object-position: center 48%; }
@@ -1360,7 +1360,7 @@ html body .container,
   .structure-note--glass { top: 72%; left: 48%; }
   .structure-note--beam { top: 54%; right: 48%; }
   .immersive { padding: 0; }
-  .immersive__track { height: 420svh; }
+  .immersive__track { height: 560svh; }
   .immersive__viewport { position: sticky; top: 0; height: 100svh; overflow: hidden; padding: 0; }
   .immersive__topline { top: 24px; right: var(--site-inset); left: var(--site-inset); }
   .immersive__scene { position: absolute; inset: 0; z-index: -2; height: auto; min-height: 0; margin: 0; border-radius: 0; }
