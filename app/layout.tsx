@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     description: "Diseño, fabricación e instalación de aberturas, cerramientos, portones, pérgolas y estructuras metálicas a medida en Córdoba.",
     type: "website",
     locale: "es_AR",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Aluminica — Herrería y carpintería de aluminio" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Aluminica — Herrería y carpintería de aluminio" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Proyectos a medida en aluminio y herrería en Córdoba",
     description: "Diseño, fabricación e instalación de aberturas, cerramientos, portones, pérgolas y estructuras metálicas a medida en Córdoba.",
-    images: ["/og.png"],
+    images: ["/og.jpg"],
   },
 };
 

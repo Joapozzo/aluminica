@@ -24,9 +24,9 @@ export function buildMetadata({
       siteName: siteConfig.name,
       locale: siteConfig.locale,
       type: "website",
-      images: [{ url: absoluteUrl("/og.png"), width: 1200, height: 630, alt: `${siteConfig.name} — ${siteConfig.descriptor}` }],
+      images: [{ url: absoluteUrl("/og.jpg"), width: 1200, height: 630, alt: `${siteConfig.name} — ${siteConfig.descriptor}` }],
     },
-    twitter: { card: "summary_large_image", title, description, images: [absoluteUrl("/og.png")] },
+    twitter: { card: "summary_large_image", title, description, images: [absoluteUrl("/og.jpg")] },
   };
 }
 
@@ -38,7 +38,7 @@ export function localBusinessSchema() {
     name: siteConfig.name,
     legalName: siteConfig.legalName,
     url: siteConfig.siteUrl,
-    image: absoluteUrl("/og.png"),
+    image: absoluteUrl("/og.jpg"),
     description: defaultDescription,
     areaServed: siteConfig.serviceArea.map((name) => ({ "@type": "AdministrativeArea", name })),
     sameAs: [siteConfig.instagram],
