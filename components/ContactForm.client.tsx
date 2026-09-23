@@ -131,7 +131,7 @@ export function ContactForm() {
         </div>
         {projectError ? <span className="contact-form__error" role="alert">Elegí el tipo de proyecto.</span> : null}
       </div>
-      <label><span>Contanos un poco más</span><textarea name="details" rows={3} placeholder="Medidas aproximadas, ubicación y cualquier dato útil" /></label>
+      <label><span>Contanos un poco más</span><textarea name="details" rows={2} placeholder="Medidas aproximadas, ubicación y cualquier dato útil" /></label>
       <button type="submit" data-analytics-event="whatsapp_click" data-analytics-label="contact_form"><span>Cotizar mi proyecto</span><span aria-hidden="true">↗</span></button>
       <p className="contact-form__note">Al continuar se abrirá WhatsApp. Allí también vas a poder enviarnos fotos y medidas del proyecto.</p>
     </form>
